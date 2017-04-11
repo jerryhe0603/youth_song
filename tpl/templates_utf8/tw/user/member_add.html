@@ -3,16 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>會員管理</title>
-	<LINK href="./js/calendar.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
+	<link href="./js/calendar.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="./js/calendar.js"></script>
 	<script type="text/javascript" src="./js/function.js"></script>
 	<!--js-->
     <script type="text/javascript" src="./js/user/jquery-1.11.3.min.js"></script>
+
 	<script type="text/javascript">
 		function doSendVerifyCode(){
 
+            var area = document.getElementsByName("area")[0].value;
+            // alert(area);return;
 			var	phone = document.getElementById("phone").value;
-			var url = "sendVerifyCode.php?phone="+phone;
+			var url = "sendVerifyCode.php?phone="+phone+"&area="+area;
 
 			$.ajax({
 				url: url,
@@ -21,6 +28,8 @@
 					if(response==1){
 						alert("手機驗證碼於1分鐘內寄送至您的手機，如超過\n時間能未收到簡訊，請選擇重新發送認證簡訊");
 						document.getElementsByName('send_button')[0].disabled=true;
+                        $("#send_button").addClass("is_send");
+                        $("#resend_button").addClass("re_send");
 						setTimeout(function(){
 							document.getElementsByName('resend_button')[0].disabled=false;
 						},10000);
@@ -61,107 +70,570 @@
 		}
 	</script>
 </head>
+<{if $lang==1}>
 <body>
-
-	<form  ENCTYPE="multipart/form-data" id=form1 name=form1 method="post" action="./<{$web_index}>func=member&action=add">
-		<input type="hidden" name="token" id="token" value="<{$token}>" />
-		<input type="hidden" id="member_account" name="member_account"  value="<{$member_account}>">
-		<input type="hidden" id="member_password" name="member_password" value="<{$member_password}>">
-		<input type="hidden" id="from_fb" name="from_fb"  value="<{$from_fb}>">
-		<table>
-
-			<tr>
-				<td>姓名</td>
-				<td>
-					<input id="name" name="name" type="text" placeholder="請填寫本名">
-				</td>
-			</tr>
-			<tr>
-				<td>所屬地區</td>
-				<td>
-					<input type="radio" name="area" value="1" checked > 台灣地區 &nbsp;&nbsp;
-					<input type="radio" name="area" value="2"> 大陸地區
-				</td>
-			</tr>
-			<tr>
-				<td>性別</td>
-				<td>
-					<input type="radio" name="sex" value="1" checked > 男 &nbsp;&nbsp;
-					<input type="radio" name="sex" value="0"> 女
-				</td>
-			</tr>
-			<tr>
-				<td>身份證字號</td>
-				<td>
-					<input id="uid" name="uid" maxlength="18" type="text">
-				</td>
-			</tr>
-			<tr>
-				<td>出生日期：年月日</td>
-				<td>
-					<input class="inp-text" type="text" name="birthday" id="birthday" placeholder="1911-01-01" onClick="return showCalendar('birthday', 'y-mm-dd');">
-				</td>
-			</tr>
-			<tr>
-				<td>行動電話</td>
-				<td>
-					<input id="phone" name="phone" type="text" placeholder="09xxxxxxxx">
-				</td>
-			</tr>
-			<tr>
-				<td >驗證碼
-					<input type=button name=send_button style="border:2px solid #ccc;" onclick="javascript:doSendVerifyCode();" value="發送手機驗證碼">
-						
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<input type=text name="verify_code" id="verify_code" value="" size=10 maxlength=6 placeholder=輸入驗證碼 />
-					<input type=button onclick="javascript:doVerify();" style="border:2px solid #ccc;" value="確認驗證碼">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type=button name=resend_button disabled=true onclick="javascript:doSendVerifyCode();" style="border:2px solid #ccc;" value="重新發送手機驗證碼">
-				</td>
-			</tr>
-
-			<tr>
-				<td>通訊地址</td>
-				<td>
-					<input id="address" name="address" size=50 type="text">
-				</td>
-			</tr>
-
-			<tr>
-				<td>Facebook 名稱</td>
-				<td>
-					<input id="fb_name" name="fb_name" size=50 type="text">
-				</td>
-			</tr>
-
-			<tr>
-				<td>
-					<a href="javascript:reloadAntiSpam();" class="loginvertify">
-						<image id=antispam name=antispam src="antispam.php" border="0">
-							<span>重新取得圖片</span>
-					</a>
-				</td>
-				<td>
-					<input type="text" name="auth_code">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="agree"><input type="checkbox" id="agree" name="agree">同意以上活動辦法及相關規定</label>
-				</td>
-			</tr>
-			
-		</table>
-		<!-- <button class="btn-trans btn-sign" type="submit">註冊</button> -->
-		<input type="button" class="btn-trans btn-sign" value="註冊" onclick="doMemberAdd()">
-	</form>	
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+        <div id="setsteptwo" class="signup-login setstep-2 active">
+            <div class="login-wrp">
+                <h5 class="login-title">填寫基本資料</h5>
+    			<form  ENCTYPE="multipart/form-data" id=form1 name=form1 method="post" action="./<{$web_index}>func=member&action=add">
+    				<input type="hidden" name="token" id="token" value="<{$token}>" />
+    				<input type="hidden" id="member_account" name="member_account"  value="<{$member_account}>">
+    				<input type="hidden" id="member_password" name="member_password" value="<{$member_password}>">
+    				<input type="hidden" id="from_fb" name="from_fb"  value="<{$from_fb}>">
+    				<div class="login-form">
+    					<table>
+                            <tbody>
+                                <tr class="table-head">
+                                    <td>項目</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>備註</td>
+                                </tr>
+                                <tr>
+                                    <{if $lang==1}>
+                                    <td rowspan="11" class="tl-title">填寫<br>基本資料</td>
+                                    <{else}>
+                                    <td rowspan="10" class="tl-title">填寫<br>基本資料</td>
+                                    <{/if}> 
+                                    <td class="tl-unit">姓名</td>
+                                    <td class="tl-input"><input id="name" name="name" type="text" placeholder="請填寫本名"></td>
+                                    <td></td> 
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">註冊地區</td>
+                                    <td class="tl-input">
+                                        <div class="custom-select">
+                                            <label for="select-choice1" class="label select-1">
+                                                <span class="selection-choice">請選擇</span> 
+                                            </label>
+                                            <select name="area" id="select-choice1" class="select">
+                                                <option value="">請選擇</option>
+                                                <option value="1">台灣地區</option>
+                                                <option value="2">大陸地區</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">性別</td>
+                                    <td class="tl-input">
+                                        <div class="custom-select">
+                                            <label for="select-choice2 " class="label select-2">
+                                                <span class="selection-choice">請選擇</span> 
+                                            </label>
+                                            <select name="sex"  id="select-choice2" class="select">
+                                                <option value="">請選擇</option>
+                                                <option value="1">男</option>
+                                                <option value="0">女</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <{if $lang==1}>
+                                    <td class="tl-unit">身份證字號</td>
+                                    <td class="tl-input"><input id="uid" name="uid" maxlength="18" type="text"></td>
+                                    <td></td>
+                                    <{else}>
+                                    <td class="tl-unit">身份證號</td>
+                                    <td class="tl-input"><input id="uid" name="uid" maxlength="18" type="text"></td>
+                                    <td></td>
+                                    <{/if}> 
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">出生日期</td>
+                                    <td class="tl-input tl-select3">
+                                        <div class="custom-select">
+                                            <label for="select-choice3 " class="label select-3">
+                                                <span class="selection-choice">年</span> 
+                                            </label>
+                                            <select name="year" id="select-choice3" class="select">
+                                                <option value="">請選擇</option>
+                                                <option value="2001">2001</option>
+                                                <option value="2000">2000</option>
+                                                <option value="1999">1999</option>
+                                                <option value="1998">1998</option>
+                                                <option value="1997">1997</option>
+                                                <option value="1996">1996</option>
+                                                <option value="1995">1995</option>
+                                                <option value="1994">1994</option>
+                                                <option value="1993">1993</option>
+                                                <option value="1992">1992</option>
+                                                <option value="1991">1991</option>
+                                                <option value="1990">1990</option>
+                                                <option value="1989">1989</option>
+                                                <option value="1988">1988</option>
+                                                <option value="1987">1987</option>
+                                                <option value="1986">1986</option>
+                                                <option value="1985">1985</option>
+                                                <option value="1984">1984</option>
+                                                <option value="1983">1983</option>
+                                                <option value="1982">1982</option>
+                                            </select>
+                                        </div>
+                                        <div class="custom-select">
+                                            <label for="select-choice4 " class="label select-4">
+                                                <span class="selection-choice">月</span> 
+                                            </label>
+                                            <select name="month" id="select-choice4" class="select">
+                                                <option value="">請選擇</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="custom-select">
+                                            <label for="select-choice5 " class="label select-5">
+                                                <span class="selection-choice">日</span> 
+                                            </label>
+                                            <select name="day" id="select-choice5" class="select">
+                                                <option value="">請選擇</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                                <option value="31">31</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">行動電話</td>
+                                    <td class="tl-input"><input id="phone" name="phone" type="text" placeholder="09xxxxxxxx"></td>
+                                    <td class="tl-note">號碼數字之間請勿空格</td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">行動電話驗證</td>
+                                    <td class="tl-input sent_code">
+                                        <input type=button id=send_button name=send_button  onclick="javascript:doSendVerifyCode();" value="發送手機驗證碼" class="send_button">
+                                        <input type=button id=resend_button name=resend_button disabled=true onclick="javascript:doSendVerifyCode();" value="重新發送手機驗證碼" class="resend_button">
+                                    </td>
+                                    <td class="tl-note">發送上限為三次，請慎點</td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">輸入手機驗證碼</td>
+                                    <td class="tl-input verify_code">
+                                        <input type=text name="verify_code" id="verify_code" value="" size=10 maxlength=6 placeholder=輸入驗證碼 />
+    								    <input type=button onclick="javascript:doVerify();" id="doVerify_code" value="確認驗證碼" class="verify_code">
+    								</td>
+                                    <td class="tl-note"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">通訊地址</td>
+                                    <td class="tl-input"><input id="address" name="address" size=50 type="text"></td>
+                                    <td></td>
+                                </tr>
+                                <{if $lang==1}>
+                                <tr>
+                                    <td class="tl-unit">Facebook名稱</td>
+                                    <td class="tl-input"><input id="fb_name" name="fb_name" size=50 type="text"></td>
+                                    <td></td>
+                                </tr>
+                                <{/if}> 
+                                <tr>
+                                    <td class="tl-unit">輸入圖形驗證碼</td>
+                                    <td class="tl-input encode">
+                                        <input type="text" name="auth_code" placeholder=輸入驗證碼>
+                                        <a href="javascript:reloadAntiSpam();" class="loginvertify">
+    									    <image id=antispam name=antispam src="antispam.php" border="0">
+    										<span>重新取得圖片</span>
+    								    </a>
+    								</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+    								<td colspan=4 class="tl-mention">
+    									<label for="agree">註：以上陳述如有虛假不實，填表人願無條件接受主辦單位依活動辦理規定取消資格並負相關法律責任。</label>
+    								</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    					<{if $lang==1}>
+    					<textarea name="web-terms" id="form-terms" cols="30" rows="5" class="form-terms">
+    					&nbsp;
+    						                  【網站會員權益與服務條款】
+    			  為確保會員的權益，註冊會員需同意以下條款，才能登錄參與本網站相關活動與服務。
+    &nbsp;
+    一、認知與接受條款
+    當註冊會員瀏覽本網站時，即表示已閱讀、瞭解並同意接受本約定書之所有內容。主辦單位有權於任何時間修改或變更本約定書之內容，並於公告後生效，不另行通知。建議會員隨時注意本網站發佈之訊息及公告。
+    若註冊會員未滿十八歲，除應符合上述規定外，並應於會員家長（或監護人）閱讀、瞭解並同意本約定書之所有內容及其後修改變更後，方得使用或繼續使用本網站的服務。使用或繼續使用本網站的服務時，即表示會員的家長（或監護人）已閱讀、瞭解並同意接受本約定書之所有內容及其後修改變更。
+    &nbsp;
+    二、網站服務內容條款
+    本網站提供青春頌—兩岸青年原創金曲大選（以下簡稱本活動）活動內容及賽事相關資訊，註冊會員得於本網站建立個人帳號與基本資料，使用本網站以下服務：
+    	1.報名投稿：符合參賽對象資格者，得於線上報名開放期間主動報名本徵選活動，上傳其創作音樂作品，爭取獲選機會。
+    	2.參與票選：於作品票選開放期間，就個人意願主動對入圍參賽作品進行投票，表達對其之支持與肯定。
+    &nbsp;
+    三、會員帳號、密碼使用安全
+    	1.於本網站每人僅限註冊一個帳號，若有重複註冊之事實，本網站之系統將自動予以刪除。
+    	2.經由本網站提供會員帳號與身分證識別的認證程序，會員不得任意修改個人的資料與設定，如有修改需求應主動聯繫主辦單位。
+    	3.會員密碼或帳號遭到盜用或有其他任何安全問題發生時，需立即通知本網站主辦單位。
+    	4.每次連線完畢，請務必登出帳號結束使用，以防止他人讀取個人資料。
+    	5.會員的帳號、密碼及權益均僅供個人使用及享有，不得轉借、轉讓他人或與他人合用。
+    	6.本網站若知悉會員之帳號密碼確係遭他人冒用時，將立即暫停該帳號之使用。
+    	7.帳號及密碼遭盜用、不當使用或其他本網站系統無法辯識是否為本人親自使用之情況時，對此所致之損害，除證明係因可歸責於本網站之事由所致，主辦單位將不負任何責任。
+    &nbsp;
+    四、隱私權保護條款
+    	1.隱私權保護政策適用範圍
+    	    (1)隱私權保護政策內容，包括本網站如何處理在用戶使用網站服務時收集到的身份識別資料。
+    	    (2)隱私權保護政策適用於會員參與本網站活動或使用本網站所提供的服務時所涉及的個人資料獲取、運用及保護，但不適用於經由本網站連結所至的第三人經營網站。
+    	    &nbsp;
+    	2.資訊收集與使用方式
+    	    (1)在會員註冊本網站帳號、使用本網站服務、瀏覽本網站網頁、參加徵選活動或票選活動時，本網站會收集您的個人識別資料。
+    	    (2)本網站自動接收並紀錄會員瀏覽器上的伺服器數值，包括互聯網協定位址 (IP Address) 、本網站cookie中的資料及會員要求取用的網頁紀錄。
+    	    &nbsp;
+    	3.資訊分享及公開政策
+    	    (1)依據『電腦處理個人資料保護法』本網站不會向任何人出售會員的個人識別資料。
+    	    (2)在以下的情況下，本網站會向其他人單位提供會員的個人識別資料：
+    		    ．與其他單位共用資料前取得會員的同意。
+    		    ．因應並遵守法令或政府機關的要求；或本網站發覺會員在網站上的行為違反本網站服務條款。
+    		    ．為了保護使用者個人隱私，主辦單位無法為會員查詢其他使用者的帳號資料。
+    	    (3)會員參賽投稿，報名投稿資料因應活動特定目的之利用，報名者同意將依循參賽活動辦法之規定。
+    &nbsp;
+    五、網站服務之停止、中斷條款
+    	主辦單位將依一般合理之技術及方式，維持本網站系統及服務之正常運作。但於以下各項情況時，主辦單位有權可以停止、中斷提供本服務，並於網站公告後立即生效：
+    		(1)對本網站相關軟硬體設備進行更換、升級、保養或施工時。
+    		(2)發生突發性之電子通信設備故障時。
+    		(3)本網站申請之電子通信服務被停止，無法提供服務時。
+    		(4)天災或其他不可抗力之因素致使網站無法提供服務時。
+    		&nbsp;&nbsp;
+    						                  【青春頌─兩岸青年原創金曲大選活動辦法】
+    &nbsp;
+    一、活動說明
+    校園歌曲記錄著一個時代的歷史變遷、
+    一段難捨的校園情懷、一代學子的追夢歷程，
+    表現了年輕人的蓬勃朝氣和青春活力。
+    《青春頌——兩岸青年原創金曲大選》
+    邀請熱愛歌唱、有音樂才華的兩岸學子，
+    徵集優秀原創音樂，傳播正能量的校園歌曲，
+    年度十強作品，將由專業的音樂製作團隊免費打造歌曲EP，
+    遍傳兩岸音樂平臺，讓眾所聆聽你的聲音！
+    	‧主辦單位：銀河互動網路股份有限公司、中央人民廣播電台
+    	‧協辦單位：中華全國台灣同胞聯誼會文化宣傳部、iCD銀河愛音樂、銀河網路電台
+    &nbsp;
+    二、報名須知
+    	‧參賽對象：18-35歲青年個人或團體(含大專院校在校生)
+    	‧報名方式：1.線上報名
+    	            2.提交作品(每位參賽者限提交2件作品，作品規格詳見說明)
+    &nbsp;
+    三、作品規格
+    	1、作品要求主題積極向上，貼近校園生活。
+    	2、作品均屬原創，不得有侵害他人著作財產權或違反法律情事。
+    	3、創作語種限國語、閩南語、客家語，曲風不限，無創作年限之限制。
+    	4、可接受已公開發表之作品投稿，但該作品不得有得獎、出版、涉及商業性授權相關行為(如已發行實體唱片、於付費平台數位發行等)。
+    	5、每人、每團隊最多提交兩首原創作品。
+    	6、參賽者需提交完整的mp3或wav格式的歌曲，不接受單獨的歌詞或曲譜。
+    	※團體參賽(聯合創作)以其中一位創作者之資料登錄即可，該位即為此參賽作品之連絡人(建議以著作權擁有比例較高者擔任)，並於報名頁面註明協同創作者與其所創作之部分。
+    	※投稿作品未符合上述規定者，主辦單位得保留接受作品之權利，參賽者不得異議。
+    &nbsp;
+    四、活動期程(日期以官網公告為主)
+    	-徵選時間：2017年4月——2017年5月
+    	-進入50強公佈暨音樂製作：2017年6——2017年7月
+    	-作品網路票選：2017年7月
+    	-入圍決賽20強公佈：2017年8月
+    	-年度10強公佈：2017年9月——2017年11月
+    	-2017年11-12月年度十強作品誕生，頒獎並錄製單曲
+    &nbsp;
+    五、評審機制：
+    	‧活動分為初賽、複賽與決賽三階段評審。
+    	‧由主辦單位聘請兩岸知名音樂人士擔任評審，作為全程賽事之評審團。
+    	‧專家評審團評分項目：
+    		1、歌曲主題：要求參賽曲目積極健康，弘揚正能量，無不健康內容。
+    		2、歌曲創意：原創歌曲的創意，包括曲風、旋律、音樂編配、配器等。
+    		3、歌詞創意：結構、字句、聲韻、思想、詞意的表達技巧
+    	‧複賽評分佔比：
+    		-專家評審70%
+    		-網路票選30%
+    &nbsp;
+    六、注意事項：
+    	1、活動嚴格遵守兩岸相關法律法規，參賽者必須完全同意並遵守本次活動章程中的相關規定，參賽者報名參加本次活動的行為視為其已經完全同意並遵守該章程。
+    	2、參賽者保證於本次活動網站所留存之資料為正確且真實之個人資料，倘參賽者所留存資料有任何不實，主辦單位有權取消其參賽資格，參賽者不得異議。
+    	3、參賽者應當向活動主辦方保證其在比賽中使用的曲目不侵犯任何第三人智慧財產權。活動主辦方、承辦方和活動組委會對於參賽者發佈的作品的原創性及內容所引發的版權、署名權的異議、糾紛不承擔任何責任。
+    	4、參賽作品應為非改作之作品（例如翻譯、改編作品）。但橋段、伴奏或合音引用現成歌曲音句，未達四小節者，不在此限。
+    	5、活動期間將採隨機面談方式核實報名資料，參賽者如違反本章程相關規定之一，主辦單位得保留接受作品之權利。
+    	6、參賽作品不論得獎與否一律不發回或退件，參賽者應就參賽作品自行保留底稿，不得以任何理由向主辦單位要求提供參賽作品內容。
+    &nbsp;
+    七、授權及配合推廣義務：
+    	1、為落實本次活動宣傳目標，參賽者必須無條件許可活動主辦單位享有如下權利，並放棄獲得相應報酬的權利：
+    		(1)通過廣播、電視、手機、網路等各種方式向公眾傳播參賽作品與參賽者表演。
+    		(2)以活動宣傳為目的，對參賽作品與參賽者表演進行錄音、錄影。
+    		(3)複製、發行參賽作品與參賽者表演的音像製品。
+    		(4)以宣傳活動為目的合理使用參賽者的肖像和姓名。
+    	2、入選50強之參賽者同意將所報名創作之詞／曲：（下稱：音樂著作），由活動主辦方進行修改、調整、編曲、混音、配唱等，並完成錄音，完成成果為本協議之錄音著作（下稱：錄音著作）。
+    	3、在錄音著作相關之一切使用需求範圍內，入選50強參賽者同意授權音樂著作之一切著作財產權利予活動主辦方使用，使用之方式包括但不限於重製、修改、公開播送、公開演出、公開傳輸、發行唱片、製作為節目、影片等，並同意活動主辦方得轉授權上述權利予活動合作與宣傳所需之第三方。
+    	4、在本協議議定範圍外，參賽者所有之音樂著作財產權不受任何影響，可向任何人行使與主張其著作所有權。
+    	5、因為錄音著作為活動主辦方所投入成本而產生，與此錄音著作相關的智慧財產權均屬活動主辦方所有，參賽者若想使用須事先取得活動主辦方書面同意。
+    	6、若前款規定無法履行者，活動主辦方得取消其得獎資格，其遺缺由評審團評選遞補。
+    &nbsp;
+    八、本章程如有疑義或其他未盡事宜，活動主辦方保留隨時修改本活動辦法及解釋之權利。
+    &nbsp;&nbsp;
+    						                  【參賽同意書】
+    			  立書人報名參加「青春頌─兩岸青年原創金曲大選」之作品符合下列規定：
+    &nbsp;			  
+    一、活動嚴格遵守兩岸相關法律法規，參賽者必須完全同意並遵守本次活動章程中的相關規定，參賽者報名參加本次活動的行為視為其已經完全同意並遵守該章程。
+    &nbsp;
+    二、參賽者應當向活動主辦方保證其在比賽中使用的曲目不侵犯任何第三人智慧財產權。活動主辦方、承辦方和活動組委會對於參賽者發佈的作品的原創性及內容所引發的版權、署名權的異議、糾紛不承擔任何責任。
+    &nbsp;
+    三、為落實本次活動宣傳目標，參賽者必須無條件許可活動主辦單位享有如下權利，並放棄獲得相應報酬的權利：
+    	1、通過廣播、電視、手機、網路等各種方式向公眾傳播參賽作品與參賽者表演。
+    	2、以活動宣傳為目的，對參賽作品與參賽者表演進行錄音、錄影。
+    	3、複製、發行參賽作品與參賽者表演的音像製品。
+    	4、以宣傳活動為目的合理使用參賽者的肖像和姓名。
+    &nbsp;
+    四、入選50強之參賽者同意將所報名創作之詞／曲：（下稱：音樂著作），由活動主辦方進行修改、調整、編曲、混音、配唱等，並完成錄音，完成成果為本協議之錄音著作（下稱：錄音著作）。
+    &nbsp;
+    五、在錄音著作相關之一切使用需求範圍內，入選50強參賽者同意授權音樂著作之一切著作財產權利予活動主辦方使用，使用之方式包括但不限於重製、修改、公開播送、公開演出、公開傳輸、發行唱片、製作為節目、影片等，並同意活動主辦方得轉授權上述權利予活動合作與宣傳所需之第三方。
+    &nbsp;
+    六、在本協議議定範圍外，參賽者所有之音樂著作財產權不受任何影響，可向任何人行使與主張其著作所有權。
+    &nbsp;
+    七、因為錄音著作為活動主辦方所投入成本而產生，與此錄音著作相關的智慧財產權均屬活動主辦方所有，參賽者若想使用須事先取得活動主辦方書面同意。
+    &nbsp;
+    八、若前款規定無法履行者，活動主辦方得取消其得獎資格，其遺缺由評審團評選遞補。
+    &nbsp;
+    註：以上陳述如有虛假不實，立書人願無條件接受主辦單位依活動辦理規定取消得獎資格並負相關法律責任。
+    &nbsp;&nbsp;
+    						                  【參賽切結書】
+    			  立書人報名參加「青春頌─兩岸青年原創金曲大選」之作品符合下列規定：
+    &nbsp;	
+    一.確為本人創作，且未曾於「青春頌─兩岸青年原創金曲大選」徵選截止日前獲得過任何獎項。
+    &nbsp;
+    二.未有於「青春頌─兩岸青年原創金曲大選」報名截止日前為行銷目的涉及商業相關行為之公開發行（包括但不限實體出版、付費數位下載）。
+    &nbsp;
+    三.非改作之作品（例如翻譯、改編作品）。但橋段、伴奏或合音引用現成歌曲音句，未達四小節者，不在此限。
+    &nbsp;
+    四.未有於「青春頌─兩岸青年原創金曲大選」前將參選作品之著作財產權授權或讓與第三人之情事。
+    &nbsp;
+    五.無經法院判決確定侵害他人著作權情事。
+    &nbsp;
+    註：以上陳述如有虛假不實，立書人願無條件接受主辦單位依活動辦理規定取消得獎資格並負相關法律責任。
+    					</textarea>
+    					<{else}>
+    					<textarea name="web-terms" id="form-terms" cols="30" rows="5" class="form-terms">
+    					&nbsp;
+    						                  【網站會員權益與服務條款】
+    			  為確保會員的權益，註冊會員需同意以下條款，才能登錄參與本網站相關活動與服務。
+    &nbsp;
+    一、認知與接受條款
+    當註冊會員流覽本網站時，即表示已閱讀、瞭解並同意接受本約定書之所有內容。主辦單位有權於任何時間修改或變更本約定書之內容，並於公告後生效，不另行通知。建議會員隨時注意本網站發佈之訊息及公告。
+    若註冊會員未滿十八歲，除應符合上述規定外，並應於會員家長（或監護人）閱讀、瞭解並同意本約定書之所有內容及其後修改變更後，方得使用或繼續使用本網站的服務。使用或繼續使用本網站的服務時，即表示會員的家長（或監護人）已閱讀、瞭解並同意接受本約定書之所有內容及其後修改變更。
+    &nbsp;
+    二、網站服務內容條款
+    本網站提供青春頌—兩岸青年原創金曲大選（以下簡稱本活動）活動內容及賽事相關資訊，註冊會員得於本網站建立個人帳號與基本資料，使用本網站以下服務：
+    	1.報名投稿：符合參賽對象資格者，得於線上報名開放期間主動報名本征選活動，上傳其創作音樂作品，爭取獲選機會。
+    	2.參與票選：於作品票選開放期間，就個人意願主動對入圍參賽作品進行投票，表達對其之支持與肯定。
+    &nbsp;
+    三、會員帳號、密碼使用安全
+    	1.於本網站每人僅限註冊一個帳號，若有重複註冊之事實，本網站之系統將自動予以刪除。
+    	2.經由本網站提供會員帳號與身分證識別的認證程式，會員不得任意修改個人的資料與設定，如有修改需求應主動聯繫主辦單位。
+    	3.會員密碼或帳號遭到盜用或有其他任何安全問題發生時，需立即通知本網站主辦單位。
+    	4.每次連線完畢，請務必登出帳號結束使用，以防止他人讀取個人資料。
+    	5.會員的帳號、密碼及權益均僅供個人使用及享有，不得轉借、轉讓他人或與他人合用。
+    	6.本網站若知悉會員之帳號密碼確系遭他人冒用時，將立即暫停該帳號之使用。
+    	7.帳號及密碼遭盜用、不當使用或其他本網站系統無法辯識是否為本人親自使用之情況時，對此所致之損害，除證明系因可歸責於本網站之事由所致，主辦單位將不負任何責任。
+    &nbsp;
+    四、隱私權保護條款
+    	1.隱私權保護政策適用範圍
+    	    (1)隱私權保護政策內容，包括本網站如何處理在用戶使用網站服務時收集到的身份識別資料。
+    	    (2)隱私權保護政策適用於會員參與本網站活動或使用本網站所提供的服務時所涉及的個人資料獲取、運用及保護，但不適用於經由本網站連結所至的第三人經營網站。
+    	2.資訊收集與使用方式
+    	    (1)在會員註冊本網站帳號、使用本網站服務、流覽本網站網頁、參加征選活動或票選活動時，本網站會收集您的個人識別資料。
+    	    (2)本網站自動接收並紀錄會員流覽器上的伺服器數值，包括互聯網協定位址 (IP Address) 、本網站cookie中的資料及會員要求取用的網頁紀錄。
+    	3.資訊分享及公開政策
+    	    (1)依據『電腦處理個人資料保護法』本網站不會向任何人出售會員的個人識別資料。
+    	    (2)在以下的情況下，本網站會向其他人單位提供會員的個人識別資料：
+    		    ．與其他單位共用資料前取得會員的同意。
+    		    ．因應並遵守法令或政府機關的要求；或本網站發覺會員在網站上的行為違反本網站服務條款。
+    		    ．為了保護使用者個人隱私，主辦單位無法為會員查詢其他使用者的帳號資料。
+    	    (3)會員參賽投稿，報名投稿資料因應活動特定目的之利用，報名者同意將依循參賽活動辦法之規定。
+    &nbsp;
+    五、網站服務之停止、中斷條款
+    主辦單位將依一般合理之技術及方式，維持本網站系統及服務之正常運作。但於以下各項情況時，主辦單位有權可以停止、中斷提供本服務，並於網站公告後立即生效：
+    	(1)對本網站相關軟硬體設備進行更換、升級、保養或施工時。
+    	(2)發生突發性之電子通信設備故障時。
+    	(3)本網站申請之電子通信服務被停止，無法提供服務時。
+    	(4)天災或其他不可抗力之因素致使網站無法提供服務時。
+    		&nbsp;&nbsp;
+    						                  【青春頌─兩岸青年原創金曲大選活動辦法】
+    &nbsp;
+    一、活動說明
+    校園歌曲記錄著一個時代的歷史變遷、
+    一段難舍的校園情懷、一代學子的追夢歷程，
+    表現了年輕人的蓬勃朝氣和青春活力。
+    《青春頌——兩岸青年原創金曲大選》
+    邀請熱愛歌唱、有音樂才華的兩岸學子，
+    徵集優秀原創音樂，傳播正能量的校園歌曲，
+    年度十強作品，將由專業的音樂製作團隊免費打造歌曲EP，
+    遍傳兩岸音樂平臺，讓眾所聆聽你的聲音！
+    	‧主辦單位：中央人民廣播電臺、北京市青年聯合會、銀河互動網路股份有限公司
+    	‧協辦單位：中華全國台灣同胞聯誼會文化宣傳部、iCD銀河愛音樂、銀河網路電臺
+    &nbsp;
+    二、報名須知
+    	‧參賽對象：16-35歲青年個人或團體(含大專院校在校生)
+    	‧報名方式：1.線上報名
+    	            2.提交作品(每位參賽者限提交2件作品，作品規格詳見說明)
+    &nbsp;
+    三、作品規格
+    	1、作品要求主題積極向上，貼近校園生活。
+    	2、作品均屬原創，不得有侵害他人著作財產權或違反法律情事。
+    	3、創作語種限普通話、閩南語、客家語，曲風不限，無創作年限之限制。
+    	4、可接受已公開發表之作品投稿，但該作品不得有得獎、出版、涉及商業性授權相關行為(如已發行實體唱片、於付費平臺數位發行等)。
+    	5、每人、每團隊最多提交兩首原創作品。
+    	6、參賽者需提交完整的mp3或wav格式的歌曲，不接受單獨的歌詞或曲譜。
+    	※團體參賽(聯合創作)以其中一位創作者之資料登錄即可，該位即為此參賽作品之連絡人(建議以著作權擁有比例較高者擔任)，並於報名頁面注明協同創作者與其所創作之部分。
+    	※投稿作品未符合上述規定者，主辦單位得保留接受作品之權利，參賽者不得異議。
+    &nbsp;
+    四、活動期程(日期以官網公告為主)
+    	-征選時間：2017年4月——2017年5月
+    	-進入50強公佈暨音樂製作：2017年6——2017年7月
+    	-作品網路票選：2017年7月
+    	-入圍決賽20強公佈：2017年8月
+    	-年度10強公佈：2017年9月——2017年11月
+    	-2017年11-12月年度十強作品誕生，頒獎並錄製單曲
+    &nbsp;
+    五、評審機制：
+    	‧活動分為初賽、復賽與決賽三階段評審。
+    	‧由主辦單位聘請兩岸知名音樂人士擔任評審，作為全程賽事之評審團。
+    	‧專家評審團評分專案：
+    		1、歌曲主題：要求參賽曲目積極健康，弘揚正能量，無不健康內容。
+    		2、歌曲創意：原創歌曲的創意，包括曲風、旋律、音樂編配、配器等。
+    		3、歌詞創意：結構、字句、聲韻、思想、詞意的表達技巧
+    	‧復賽評分占比：
+    		-專家評審70%
+    		-網路票選30%
+    &nbsp;
+    六、注意事項：
+    	1、活動嚴格遵守兩岸相關法律法規，參賽者必須完全同意並遵守本次活動章程中的相關規定，參賽者報名參加本次活動的行為視為其已經完全同意並遵守該章程。
+    	2、參賽者保證於本次活動網站所留存之資料為正確且真實之個人資料，倘參賽者所留存資料有任何不實，主辦單位有權取消其參賽資格，參賽者不得異議。
+    	3、參賽者應當向活動主辦方保證其在比賽中使用的曲目不侵犯任何第三人智慧財產權。活動主辦方、承辦方和活動組委會對於參賽者發佈的作品的原創性及內容所引發的版權、署名權的異議、糾紛不承擔任何責任。
+    	4、參賽作品應為非改作之作品（例如翻譯、改編作品）。但橋段、伴奏或合音引用現成歌曲音句，未達四小節者，不在此限。
+    	5、活動期間將采隨機面談方式核實報名資料，參賽者如違反本章程相關規定之一，主辦單位得保留接受作品之權利。
+    	6、參賽作品不論得獎與否一律不發回或退件，參賽者應就參賽作品自行保留底稿，不得以任何理由向主辦單位要求提供參賽作品內容。
+    &nbsp;
+    七、授權及配合推廣義務：
+    	1、為落實本次活動宣傳目標，參賽者必須無條件許可活動主辦單位享有如下權利，並放棄獲得相應報酬的權利：
+    		(1)通過廣播、電視、手機、網路等各種方式向公眾傳播參賽作品與參賽者表演。
+    		(2)以活動宣傳為目的，對參賽作品與參賽者表演進行錄音、錄影。
+    		(3)複製、發行參賽作品與參賽者表演的音像製品。
+    		(4)以宣傳活動為目的合理使用參賽者的肖像和姓名。
+    	2、入選50強之參賽者同意將所報名創作之詞／曲：（下稱：音樂著作），由活動主辦方進行修改、調整、編曲、混音、配唱等，並完成錄音，完成成果為本協議之錄音著作（下稱：錄音著作）。
+    	3、在錄音著作相關之一切使用需求範圍內，入選50強參賽者同意授權音樂著作之一切著作財產權利予活動主辦方使用，使用之方式包括但不限於重制、修改、公開播送、公開演出、公開傳輸、發行唱片、製作為節目、影片等，並同意活動主辦方得轉授權上述權利予活動合作與宣傳所需之第三方。
+    	4、在本協議議定範圍外，參賽者所有之音樂著作財產權不受任何影響，可向任何人行使與主張其著作所有權。
+    	5、因為錄音著作為活動主辦方所投入成本而產生，與此錄音著作相關的智慧財產權均屬活動主辦方所有，參賽者若想使用須事先取得活動主辦方書面同意。
+    	6、若前款規定無法履行者，活動主辦方得取消其得獎資格，其遺缺由評審團評選遞補。
+    &nbsp;
+    八、本章程如有疑義或其他未盡事宜，活動主辦方保留隨時修改本活動辦法及解釋之權利。
+    &nbsp;&nbsp;
+    						                  【參賽同意書】
+    			  立書人報名參加「青春頌─兩岸青年原創金曲大選」之作品符合下列規定：
+    &nbsp;			  
+    一、活動嚴格遵守兩岸相關法律法規，參賽者必須完全同意並遵守本次活動章程中的相關規定，參賽者報名參加本次活動的行為視為其已經完全同意並遵守該章程。
+    &nbsp;
+    二、參賽者應當向活動主辦方保證其在比賽中使用的曲目不侵犯任何第三人智慧財產權。活動主辦方、承辦方和活動組委會對於參賽者發佈的作品的原創性及內容所引發的版權、署名權的異議、糾紛不承擔任何責任。
+    &nbsp;
+    三、為落實本次活動宣傳目標，參賽者必須無條件許可活動主辦單位享有如下權利，並放棄獲得相應報酬的權利：
+    	1、通過廣播、電視、手機、網路等各種方式向公眾傳播參賽作品與參賽者表演。
+    	2、以活動宣傳為目的，對參賽作品與參賽者表演進行錄音、錄影。
+    	3、複製、發行參賽作品與參賽者表演的音像製品。
+    	4、以宣傳活動為目的合理使用參賽者的肖像和姓名。
+    &nbsp;
+    四、入選50強之參賽者同意將所報名創作之詞／曲：（下稱：音樂著作），由活動主辦方進行修改、調整、編曲、混音、配唱等，並完成錄音，完成成果為本協議之錄音著作（下稱：錄音著作）。
+    &nbsp;
+    五、在錄音著作相關之一切使用需求範圍內，入選50強參賽者同意授權音樂著作之一切著作財產權利予活動主辦方使用，使用之方式包括但不限於重制、修改、公開播送、公開演出、公開傳輸、發行唱片、製作為節目、影片等，並同意活動主辦方得轉授權上述權利予活動合作與宣傳所需之第三方。
+    &nbsp;
+    六、在本協議議定範圍外，參賽者所有之音樂著作財產權不受任何影響，可向任何人行使與主張其著作所有權。
+    &nbsp;
+    七、因為錄音著作為活動主辦方所投入成本而產生，與此錄音著作相關的智慧財產權均屬活動主辦方所有，參賽者若想使用須事先取得活動主辦方書面同意。
+    &nbsp;
+    八、若前款規定無法履行者，活動主辦方得取消其得獎資格，其遺缺由評審團評選遞補。
+    &nbsp;
+    註：以上陳述如有虛假不實，立書人願無條件接受主辦單位依活動辦理規定取消得獎資格並負相關法律責任。
+    &nbsp;&nbsp;
+    						                  【參賽切結書】
+    			  立書人報名參加「青春頌─兩岸青年原創金曲大選」之作品符合下列規定：
+    &nbsp;	
+    一.確為本人創作，且未曾於「青春頌─兩岸青年原創金曲大選」征選截止日前獲得過任何獎項。
+    &nbsp;
+    二.未有於「青春頌─兩岸青年原創金曲大選」報名截止日前為行銷目的涉及商業相關行為之公開發行（包括但不限實體出版、付費數位下載）。
+    &nbsp;
+    三.非改作之作品（例如翻譯、改編作品）。但橋段、伴奏或合音引用現成歌曲音句，未達四小節者，不在此限。
+    &nbsp;
+    四.未有於「青春頌─兩岸青年原創金曲大選」前將參選作品之著作財產權授權或讓與第三人之情事。
+    &nbsp;
+    五.無經法院判決確定侵害他人著作權情事。
+    &nbsp;
+    註：以上陳述如有虛假不實，立書人願無條件接受主辦單位依活動辦理規定取消得獎資格並負相關法律責任。
+    					</textarea>
+    					<{/if}> 
+    					<div class="form-confirm">
+    						<input type="checkbox" id="agree" name="agree" value="1">
+    					    <label for="agree">
+    						  <span></span>
+    						</label>
+    						我已閱讀並同意以上條文
+    					</div>					
+    					<div class="form-btn">
+                            <input type="submit" name="btn-stepone" value="註冊" id="btn-stepone" class="btn-light" >
+                        </div>
+    				</div>
+    				<!-- <button class="btn-trans btn-sign" type="submit">註冊</button> 
+    				<input type="button" class="btn-trans btn-sign" value="註冊" onclick="doMemberAdd()">-->
+    			</form>	
+    		</div>
+    	</div>
+    </div>
+	<div id="signup-bg" class="signup-bg active"></div>
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
+    <script sync src="./js/signup.js"></script>
 </body>
+
 </html>
 

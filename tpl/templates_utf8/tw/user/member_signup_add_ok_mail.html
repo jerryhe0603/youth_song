@@ -1,23 +1,38 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>會員管理</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+</head>
 <body>
+
+<div id="success" class="signup-login success active">
+	    <div class="login-wrp">
+            <h5 class="login-title">註冊成功</h5>
+            <div>
+                <div class="login-form">
+                    <br>
+					<p>親愛的 <{$aRow.name|escape}> 您好，</p>
+					<br>
+					<p>感謝您參與青春頌─兩岸青年原創金曲大選，</p>
+					<br>
+					<p>您的註冊資訊如下：</p>
+					<p>帳號: <{$aRow.account|escape}></p>
+					<ul>
+						<li>1.請點選連結啟用您的帳號 <a href="<{$WebIndexSrc}>index.php?func=member&action=open_account&account=<{$aRow.account}>&verify_code=<{$aRow.verify_code}>">點此開通帳號</a></li>
+						<li>2.提醒您投稿所需上傳文件：作品歌曲 作品歌詞 歌曲/報名者圖片。</li>
+						<li>3.投票活動期間請使用本帳號登入投票。</li>
+					</ul>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="signup-bg" class="signup-bg active"></div>
 <br>
-<br>
-親愛的 <{$aRow.name|escape}> 您好，
-<br>
-<br>
-感謝您參與青春頌─兩岸青年原創金曲大選，，
-<br>
-您的註冊資訊如下：
-<br>
-帳號: <{$aRow.account|escape}>
-<br>
-<br>
-1.請點選連結啟用您的帳號 <a href="<{$WebIndexSrc}>index.php?func=member&action=open_account&account=<{$aRow.account}>&verify_code=<{$aRow.verify_code}>">點此開通帳號</a>
-<br>
-2.提醒您投稿所需上傳文件：作品歌曲 作品歌詞 歌曲/報名者圖片。
-<br>
-3.投票活動期間請使用本帳號登入投票。
-<br>
+
 </body>
 <!-- footer在youth_index設定 -->
 <{$mail_footer}>

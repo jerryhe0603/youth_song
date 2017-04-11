@@ -1,0 +1,45 @@
+<HTML>
+  <HEAD>
+	<TITLE>會員影音列表</TITLE>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	<link rel="stylesheet" href="/tpl/admin/tw/admin.css" type="text/css">
+  </HEAD>
+
+<div class="block-data">
+  <table class="data" width="100%" border="1" cellspacing="2" cellpadding="2">
+    <tr>
+		<td>序號</td>
+		<td>姓名</td>
+		<td>性別</td>
+		<td>地區</td>
+		<td>出生年月日</td>
+		<td>電話</td>
+		<td>身分證字號</td>
+		<!-- <td>作品1創作理念</td> -->
+		<td>上傳作品1</td>
+		<!-- <td>作品2創作理念</td> -->
+		<td>上傳作品2</td>
+	</tr>
+	<{foreach from=$talentData item="entry" name="foo"}>  
+	  <tr bgcolor="<{if $smarty.foreach.foo.index % 2 == 0}> #75B6FF <{else}> #EDF2F7 <{/if}>" > 
+		<td align="center"><{$smarty.foreach.foo.index+1}></td>
+		<td align="center"><{$entry.name|escape}></td>
+		<td><{if $entry.sex}>男<{else}>女<{/if}></td>
+		<td>
+			<{if $entry.area==1}>
+				台灣
+			<{elseif $entry.area==2}>
+				中國
+			<{/if}>
+		</td>
+		<td><{$entry.birthday}></td>
+		<td><{$entry.phone}></td>
+		<td><{$entry.uid}></td>
+		<!-- <td><{$entry.creative_concept1}></td> -->
+		<td><{$entry.upload_url1}></td>
+		<!-- <td><{$entry.creative_concept2}></td> -->
+		<td><{$entry.upload_url2}></td>
+ 	  </tr>
+	<{/foreach}>
+  </table>
+</div>

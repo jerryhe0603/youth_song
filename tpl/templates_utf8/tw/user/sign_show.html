@@ -3,135 +3,169 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品投稿</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
 </head>
+<{if $lang==1}>
 <body>
-	<form ENCTYPE="multipart/form-data" method="post" action="">
-		<table>
-			<tr>
-				<td>團隊名稱(個人報名免填)</td>
-				<td>
-					<span>
-						<{$aSignData.team_name}>
-					</span>
-				</td>
-			</tr>
-			<!-- <tr>
-				<td>報名組別</td>
-				<td>
-					<span>
-						<{if $aSignData.sign_type == 1}> 學生組 <{elseif $aSignData.sign_type == 2}> 青年組 <{/if}>
-					</span>	
-				</td>
-			</tr> -->
-			
-			<tr>
-				<td>學校</td>
-				<td>
-					<span>
-						<{$aSignData.school}>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>系所</td>
-				<td>
-					<span>
-						<{$aSignData.department}>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>有無經紀約</td>
-				<td>
-					<span>
-						<{if $aSignData.management == 1}> 有 <{else}> 無 <{/if}>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝專長</td>
-				<td>
-					<span>
-						<{$aSignData.specialty}>
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>擅長樂器</td>
-				<td>
-					<{foreach from=$aSignData.music_tool item="tool" name="tool"}>
-						<div>
-							<{$tool.tool_name}> - <{$tool.level_name}>
-						</div>
-					<{/foreach}>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝/參賽經歷</td>
-				<td>
-					<span>
-						<{$aSignData.experience|nl2br}>
-					</span>
-				</td>
-			</tr>
-			<{foreach from=$aSignData.works item="works" name="works"}>
-			<tr>
-				<td>歌曲名稱<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<{$works.song_name}> 
-				</td>
-			</tr>
-			<tr>
-				<td>詞作者<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<{$works.lyricist}> 
-				</td>
-			</tr>
-			<tr>
-				<td>曲作者<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<{$works.composer}> 
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌詞<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌曲<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
-				</td>
-			</tr>
-			<tr>
-				<td>創作理念<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<{$works.creative_concept|nl2br}>
-				</td>
-			</tr>
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+        <div id="applyshow" class="signup-sign applyshow active">
+            <div class="login-wrp">
+                <h3 class="login-title">投稿內容</h3>
+				<form ENCTYPE="multipart/form-data" method="post" action="">
+				    <div class="login-form">
+				        <div class="login-others">
+		                   <a href="./<{$web_index}>func=sign&action=edit">修改投稿資料</a>
+							<a href="./<{$web_index}>func=member">返回</a>
+		                </div>
+						<table>
+						    <tbody>
+						        <tr class="table-head">
+                                    <td colspan=2>項目</td>
+                                    <td>內容</td>
+                                </tr>
+								<tr>
+								    <td rowspan="7" class="tl-title">音<br>樂<br>履<br>歷</td>
+									<td class="tl-unit">團隊名稱(個人報名免填)</td>
+									<td class="tl-input">
+										<span>
+											<{$aSignData.team_name}>
+										</span>
+									</td>
+								</tr>
+								
+								<tr>
+									<td class="tl-unit">學校</td>
+									<td class="tl-input">
+										<span>
+											<{$aSignData.school}>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">系所</td>
+									<td class="tl-input">
+										<span>
+											<{$aSignData.department}>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">有無經紀約</td>
+									<td class="tl-input">
+										<span>
+											<{if $aSignData.management == 1}> 有 <{else}> 無 <{/if}>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">演藝專長</td>
+									<td class="tl-input">
+										<span>
+											<{$aSignData.specialty}>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">擅長樂器</td>
+									<td class="tl-input">
+										<!-- <{foreach from=$aSignData.music_tool item="tool" name="tool"}>
+											<div>
+												<{$tool.tool_name}> - <{$tool.level_name}>
+											</div>
+										<{/foreach}> -->
+										<span>
+											<{$aSignData.music_tool}>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">演藝/參賽經歷</td>
+									<td class="tl-input">
+										<span>
+											<{$aSignData.experience|nl2br}>
+										</span>
+									</td>
+								</tr>
+								<{foreach from=$aSignData.works item="works" name="works"}>
+								<tr>
+								    <td rowspan="7" class="tl-title">作<br>品<br>1</td>
+									<td class="tl-unit">歌曲名稱<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<{$works.song_name}> 
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">作詞者<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<{$works.lyricist}> 
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">作曲者<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<{$works.composer}> 
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">參賽作品歌詞<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">參賽作品歌曲<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">創作理念<{$smarty.foreach.works.iteration}></td>
+									<td class="tl-input">
+										<{$works.creative_concept|nl2br}>
+									</td>
+								</tr>
 
-			<tr>
-				<td>個人圖片</td>
-				<td>
-					<{if $works.img_file_file_1 !=''}>
-						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" height="100" width="150">
-					<{/if}>
-					<{if $aSignData.img_file_file_2 !=''}>
-						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$aSignData.img_file_file_2}>" height="100" width="150">
-					<{/if}>
-					<{if $aSignData.img_file_file_3 !=''}>
-						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$aSignData.img_file_file_3}>" height="100" width="150">
-					<{/if}>
-				</td>
-			</tr>
-
-			<{/foreach}>
-		</table>
-		<a href="./<{$web_index}>func=sign&action=edit">修改投稿資料</a>
-		<a href="./<{$web_index}>func=member">返回</a>
-	</form>
+								<tr>
+									<td class="tl-unit">個人圖片</td>
+									<td class="tl-input">
+										<{if $works.img_file_file_1 !=''}>
+											<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" height="100" width="150">
+										<{/if}>
+										<{if $works.img_file_file_2 !=''}>
+											<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_2}>" height="100" width="150">
+										<{/if}>
+										<{if $works.img_file_file_3 !=''}>
+											<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_3}>" height="100" width="150">
+										<{/if}>
+									</td>
+								</tr>
+								<{/foreach}>
+							</tbody>
+						</table>
+						
+					</div>
+					
+				</form>
+			</div>
+    	</div>
+    </div>
+    <div id="signup-bg" class="signup-bg active"></div>
+    <!--javascript-->   
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
 </body>
 </html>
 

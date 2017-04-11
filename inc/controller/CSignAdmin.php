@@ -179,7 +179,13 @@ Class CSignAdmin extends CGalaxyController {
 			// if(count($aSign)===0)
 				// CJavaScript::vAlertRedirect("",$_SERVER['PHP_SELF']."?func=".$_GET['func']."&action=admin&items=".$PageItem);
 		}
+
+		if(empty($_POST['s_key']))$_POST['s_key']='';
+		if(empty($_POST['s_terms']))$_POST['s_terms']='';
+
         $Smarty->assign("aSign",$aSign);
+        $Smarty->assign("SearchKey",$_POST['s_key']);
+        $Smarty->assign("SearchTerms",$_POST['s_terms']);
 
 		//assign frame attribute
 		$Smarty->assign("NowOrder",$sOrder);
@@ -222,27 +228,27 @@ Class CSignAdmin extends CGalaxyController {
 		$aSign['member_name'] = CSign::sGetMemberName($aSign['member_no']);
 
 		//演藝專長序號轉中文
-		$aSpecialty = explode(',',$aSign['specialty']);
-		$str = '';
+		// $aSpecialty = explode(',',$aSign['specialty']);
+		// $str = '';
 
-		foreach ($aSpecialty as $key => $value) {
-			$aSpecialty[$key] = CSign::$aSpecialty[$value];
-		}
-		//去掉最後逗號
-		$aSign['specialty'] = $aSpecialty;
+		// foreach ($aSpecialty as $key => $value) {
+		// 	$aSpecialty[$key] = CSign::$aSpecialty[$value];
+		// }
+		// //去掉最後逗號
+		// $aSign['specialty'] = $aSpecialty;
 
 		//抓出擅長樂器的序號 並將對照中文名稱加上去
-		$aMusic = CSign::aGetSignDetail($sign_no,'music_tool');
-		if($aMusic){
+		// $aMusic = CSign::aGetSignDetail($sign_no,'music_tool');
+		// if($aMusic){
 
-			foreach ($aMusic as $key => $value) {
-				//抓取中文及序號對照表
-				$aMusic[$key]['tool_name'] = CSign::$aMusicTool[$value['tool_no']];
-				$aMusic[$key]['level_name'] = CSign::$aLevel[$value['level']];
-			}
-		}
+		// 	foreach ($aMusic as $key => $value) {
+		// 		//抓取中文及序號對照表
+		// 		$aMusic[$key]['tool_name'] = CSign::$aMusicTool[$value['tool_no']];
+		// 		$aMusic[$key]['level_name'] = CSign::$aLevel[$value['level']];
+		// 	}
+		// }
 
-		$aSign['music_tool'] = $aMusic;
+		// $aSign['music_tool'] = $aMusic;
 
 		$aWorks = CSign::aGetSignDetail($sign_no,'works');
 

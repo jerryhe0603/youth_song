@@ -3,6 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品投稿</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
 	<script
 	  src="https://code.jquery.com/jquery-3.1.1.js"
 	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
@@ -13,120 +17,298 @@
 		$("#add_more").click(function(){
 		    $("#moreWorks").toggle();
 	  	});
+
+        $("#lyric_file_1").change(function () {
+            var x = document.getElementById("lyric_file_1").value;
+            document.getElementById("span_lyric").innerHTML = x;
+        });
+
+        $("#song_file_1").change(function () {
+            var x = document.getElementById("song_file_1").value;
+            document.getElementById("span_song").innerHTML = x;
+        });
+
+        $("#lyric_file_2").change(function () {
+            var x = document.getElementById("lyric_file_2").value;
+            document.getElementById("span_lyric_2").innerHTML = x;
+        });
+
+        $("#song_file_2").change(function () {
+            var x = document.getElementById("song_file_2").value;
+            document.getElementById("span_song_2").innerHTML = x;
+        });
+
 	});
+
+    window.readURL = function(input,targetId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var ObjectId = document.getElementById(targetId);
+                ObjectId.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    window.del_image = function(img, imgId){
+        var ObjectId = document.getElementById(img);
+        ObjectId.src = '../../image/signup/upload-input.jpg';
+
+        document.getElementById(imgId).outerHTML=document.getElementById(imgId).outerHTML.replace(/value=\w/g,'');
+        // document.getElementsByName("img_1_1").value='';
+
+
+    }
 	// function addMore(){
 	// 	$("#moreWorks").toggle();
 	// }
 
+
 	</script>
 </head>
 <body>
-	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=add_step2">
-		<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
-		<table>
-			
-			<tr>
-				<td>歌曲名稱1</td>
-				<td>
-					<input type="text" name="song_name_1">
-				</td>
-			</tr>
-			<tr>
-				<td>詞作者1</td>
-				<td>
-					<input type="text" name="lyricist_1">
-				</td>
-			</tr>
-			<tr>
-				<td>曲作者1</td>
-				<td>
-					<input type="text" name="composer_1">
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌詞1</td>
-				<td>
-					<input type="file" name="lyric_file_1" accept=".txt, .doc, .docx">
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌曲1</td>
-				<td>
-					<input type="file" name="song_file_1" accept=".mp3 , .mp4 , .wav ">
-				</td>
-			</tr>
-			<tr>
-				<td>創作理念1</td>
-				<td>
-					<textarea name="creative_concept_1" cols=50 rows=10></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>歌曲/報名者圖片1</td>
-				<td>
-					<input name="img_1_1" type="file" accept=".gif , .jpg , .png">
-					<input name="img_1_2" type="file" accept=".gif , .jpg , .png">
-					<input name="img_1_3" type="file" accept=".gif , .jpg , .png">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" id="add_more" name="add_more" value="+投稿更多作品"/>  
-				</td>
-			</tr>
-			
-			
-		</table>
-		<div id="moreWorks" style="display:none;">
-		<table>
-			<tr>
-				<td>歌曲名稱2</td>
-				<td>
-					<input type="text" name="song_name_2">
-				</td>
-			</tr>
-			<tr>
-				<td>詞作者2</td>
-				<td>
-					<input type="text" name="lyricist_2">
-				</td>
-			</tr>
-			<tr>
-				<td>曲作者2</td>
-				<td>
-					<input type="text" name="composer_2">
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌詞2</td>
-				<td>
-					<input type="file" name="lyric_file_2" accept=".txt, .doc, .docx">
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌曲2</td>
-				<td>
-					<input type="file" name="song_file_2" accept=".mp3 , .mp4 , .wav">
-				</td>
-			</tr>
-			<tr>
-				<td>創作理念2</td>
-				<td>
-					<textarea name="creative_concept_2" cols=50 rows=10></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>歌曲/報名者圖片2</td>
-				<td>
-					<input name="img_2_1" type="file" accept=".gif , .jpg , .png">
-					<input name="img_2_2" type="file" accept=".gif , .jpg , .png">
-					<input name="img_2_3" type="file" accept=".gif , .jpg , .png">
-				</td>
-			</tr>
-		</table>
-		</div>
-		<button class="btn-trans btn-sign" type="submit">報名投稿</button>
-	</form>
+    <{$header}>
+    <div class="signup-wrp">
+        <div id="applyworks" class="signup-sign applyworks active">
+            <div class="login-wrp">
+                <h5 class="login-title">歌曲資料</h5>
+    			<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=add_step2">
+    			    <div class="login-form">
+    					<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
+    					<table>
+    						<tbody>
+    						    <tr class="table-head">
+                                    <td colspan=2>項目（<i class="fa fa-circle" aria-hidden="true"></i> 為必填）</td>
+                                    <td>填寫/上傳 欄位</td>
+                                    <td>格式</td>
+                                    <td>備註</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="7" class="tl-title">作<br>品<br>1</td>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>歌曲名稱</td>
+                                    <td class="tl-input"><input type="text" name="song_name_1" placeholder=請填寫正確歌曲名稱></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>作詞者</td>
+                                    <td class="tl-input"><input type="text" name="lyricist_1"></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>作曲者</td>
+                                    <td class="tl-input"><input type="text" name="composer_1"></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>參賽作品歌詞</td>
+                                    <td class="tl-input upload">
+                                        <div class="upload-wrp">
+    	                                    <label for="lyric_file_1" class="song_file_label">
+    	                                        <img src="./image/signup/upload-lyrics.png" alt="">
+    	                                    </label>
+    	                                    <p>請上傳 word檔或txt檔，檔案大小勿超過3M<br><span class="cl-pink">當前檔名:</span><span id="span_lyric" name="span_lyric" ></span></p>
+    	                                    <input  id="lyric_file_1" type="file" name="lyric_file_1"  class="lyrics_file" accept=".doc, .txt, .docx">
+                                        </div>
+                                    </td>
+                                    <td class="tl-circle">.txt<br>.doc<br>.docx</td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>參賽作品歌曲</td>
+                                    <td class="tl-input upload">
+                                        <div class="upload-wrp">
+    	                                    <label for="song_file_1" class="song_file_label">
+    	                                        <img src="./image/signup/upload-songs.png" alt="">
+    	                                    </label>
+    	                                    <p>必須包含伴奏與演唱，時間長度60秒以上、請上傳mp3檔或wav檔，檔案大小勿超過10MB<br><span class="cl-pink">當前檔名:</span><span id="span_song" name="span_song" ></span></p>
+    	                                    <input id="song_file_1" type="file" name="song_file_1" class="song_file" accept="audio/mp3, audio/mp4, audio/wav">
+                                        </div>
+                                    </td>
+                                    <td class="tl-circle">
+                                    	.mp3<br>.wav
+                                    </td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>創作理念</td>
+                                    <td class="tl-input"><textarea name="creative_concept_1" cols=50 rows=10 placeholder=100-300字></textarea></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>個人圖片</td>
+                                    <td class="tl-input upload">
+                                    	<!-- <input name="img_1_1" type="file" accept="image/gif, image/jpg, image/png"> -->
+    									<!-- <input name="img_1_2" type="file" accept="image/gif, image/jpg, image/png"> -->
+    									<!-- <input name="img_1_3" type="file" accept="image/gif, image/jpg, image/png"> -->
+                                        <div class="panel photo-panel clearfix">
+                                            <div class="photo-wrp">
+                                                <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img1" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img1','img_1_1');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_1_1" name="img_1_1" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img1');" />
+                                                </div>
+
+                                                 <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img2" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img2','img_1_2');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_1_2" name="img_1_2" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img2');" />
+                                                </div>
+
+                                                <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img3" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img3','img_1_3');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_1_3" name="img_1_3" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img3');" />
+                                                </div>
+                                            </div>
+                                            <div class="upload-wrp">
+                                                <p>圖檔格式gif或jpg，上傳照片每張尺寸需400*300以上，最少1張、至多3張，總檔案大小勿超過3MB</p>
+                                            </div>
+                                        </div>
+    								</td>
+                                    <td class="tl-circle">.gif<br>.jpg</td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=5 class="tl-mention">
+                                        <label for="agree">註：以上陳述如有虛假不實，填表人願無條件接受主辦單位依活動辦理規定取消資格並負相關法律責任。</label>
+                                    </td>
+                                </tr>
+    							<!--<tr>
+    								<td colspan="5">
+    									<input type="button" id="add_more" name="add_more" value="投稿更多作品"/>
+    								</td>
+    							</tr>-->
+    						</tbody>
+    					</table>
+    				</div>
+    				<div id="moreWorks" class="login-form signup-sign applyworks active" >
+    				    <table>
+    						<tbody>
+    						    <tr class="table-head">
+                                    <td colspan=3>項目（<i class="fa fa-circle" aria-hidden="true"></i> 為必填）</td>
+                                    <td>格式</td>
+                                    <td>備註</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="7" class="tl-title">作<br>品<br>2</td>
+                                    <td class="tl-unit">曲名</td>
+                                    <td class="tl-input"><input type="text" name="song_name_2"></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">作詞者</td>
+                                    <td class="tl-input"><input type="text" name="lyricist_2"></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">作曲者</td>
+                                    <td class="tl-input"><input type="text" name="composer_2"></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">參賽作品歌詞</td>
+                                    <td class="tl-input upload">
+                                        <div class="upload-wrp">
+                                            <label for="lyric_file_2" class="song_file_label">
+                                                <img src="./image/signup/upload-lyrics.png" alt="">
+                                            </label>
+                                            <p>請上傳 word檔或txt檔，檔案大小勿超過3M<br><span class="cl-pink">當前檔名:</span><span id="span_lyric_2" name="span_lyric_2" ></span></p>
+                                            <input  id="lyric_file_2" type="file" name="lyric_file_2"  class="lyrics_file" accept=".doc, .txt, .docx">
+                                        </div>
+                                    </td>
+                                    <td class="tl-circle">.txt<br>.doc<br>.docx</td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">參賽作品歌曲</td>
+                                     <td class="tl-input upload">
+                                        <div class="upload-wrp">
+                                            <label for="song_file_2" class="song_file_label">
+                                                <img src="./image/signup/upload-songs.png" alt="">
+                                            </label>
+                                            <p>必須包含伴奏與演唱，時間長度60秒以上、請上傳mp3檔或wav檔，檔案大小勿超過10MB<br><span class="cl-pink">當前檔名:</span><span id="span_song_2" name="span_song_2" ></span></p>
+                                            <input id="song_file_2" type="file" name="song_file_2" class="song_file" accept="audio/mp3, audio/mp4, audio/wav">
+                                        </div>
+                                    </td>
+                                    <td class="tl-circle">.mp3<br>.wav</td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">創作理念</td>
+                                    <td class="tl-input upload"><textarea name="creative_concept_2" cols=50 rows=10 placeholder=100-300字></textarea></td>
+                                    <td class="tl-circle"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="tl-unit">歌曲/報名者圖片</td>
+                                    <td class="tl-input upload">
+                                    	<input name="img_2_1" type="file" accept=".gif , .jpg , .png">
+    									<input name="img_2_2" type="file" accept=".gif , .jpg , .png">
+    									<input name="img_2_3" type="file" accept=".gif , .jpg , .png">
+
+                                        <div class="panel photo-panel clearfix">
+                                            <div class="photo-wrp">
+                                                <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img4" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img4','img_2_1');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_2_1" name="img_2_1" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img4');" />
+                                                </div>
+
+                                                 <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img5" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img5','img_2_2');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_2_2" name="img_2_2" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img5');" />
+                                                </div>
+
+                                                <div class="upload">
+                                                    <img src="../../image/signup/upload-input.jpg" width="100" id="img6" />
+                                                    <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('img6','img_2_3');"><i class="fa icon-trash"></i></a>
+                                                    <input id="img_2_3" name="img_2_3" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'img6');" />
+                                                </div>
+                                            </div>
+                                            <div class="upload-wrp">
+                                                <p>圖檔格式gif或jpg，上傳照片每張尺寸需400*300以上，最少1張、至多3張，總檔案大小勿超過3MB</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="tl-circle">.gif<br>.jpg</td>
+                                    <td class="tl-note"><span class="cl-pink">新上傳檔案將覆蓋舊檔</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=5 class="tl-mention">
+                                        <label for="agree">註：以上陳述如有虛假不實，填表人願無條件接受主辦單位依活動辦理規定取消資格並負相關法律責任。</label>
+                                    </td>
+                                </tr>
+    							
+    						</tbody>
+    					</table>
+    				</div>
+
+    				<div class="form-btn">
+                        <input type="submit" name="btn-stepone" value="報名投稿" id="btn-stepone" class="btn-light" >
+                    </div>
+    			</form>
+    		</div>
+    	</div>
+    </div>
+	<div id="signup-bg" class="signup-bg active"></div>
+    <!--javascript-->
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
 </body>
 </html>
 

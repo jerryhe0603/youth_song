@@ -103,30 +103,30 @@ class CSignUser extends CGalaxyController{
 		if(!$aWorksData) $CJavaScript->vRedirect('./'._WEB_INDEX.'func=sign&action=add_step2&sign_no='.$aSignData['sign_no']);
 
 		//撈出來有演藝專長才將相對應專長序號轉為中文名稱
-		if($aSignData['specialty']){
-			$specialty = explode(',',$aSignData['specialty']);
+		// if($aSignData['specialty']){
+		// 	$specialty = explode(',',$aSignData['specialty']);
 
-			$str = '';
-			foreach ($specialty as $value){
-				$str .= CSign::$aSpecialty[$value].'、';
-			}
+		// 	$str = '';
+		// 	foreach ($specialty as $value){
+		// 		$str .= CSign::$aSpecialty[$value].'、';
+		// 	}
 
-			//全形頓號切除
-			$aSignData['specialty'] = substr($str,0,-3);
-		}
+		// 	//全形頓號切除
+		// 	$aSignData['specialty'] = substr($str,0,-3);
+		// }
 
 		//抓出擅長樂器的序號 並將對照中文名稱加上去
-		$aMusic = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
-		if($aMusic){
+		// $aMusic = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
+		// if($aMusic){
 
-			foreach ($aMusic as $key => $value) {
-				//抓取中文及序號對照表
-				$aMusic[$key]['tool_name'] = CSign::$aMusicTool[$value['tool_no']];
-				$aMusic[$key]['level_name'] = CSign::$aLevel[$value['level']];
-			}
-		}
+		// 	foreach ($aMusic as $key => $value) {
+		// 		//抓取中文及序號對照表
+		// 		$aMusic[$key]['tool_name'] = CSign::$aMusicTool[$value['tool_no']];
+		// 		$aMusic[$key]['level_name'] = CSign::$aLevel[$value['level']];
+		// 	}
+		// }
 		
-		$aSignData['music_tool'] = $aMusic;
+		// $aSignData['music_tool'] = $aMusic;
 
 		$aWorks = CSign::aGetSignDetail($aSignData['sign_no'],'works');
 
@@ -176,7 +176,8 @@ class CSignUser extends CGalaxyController{
 
 			$aSignData = array();
 			$aSignData = CSign::aGetData($member_no);
-
+			
+			echo $aMemberData['name'];
 			$aWorksData = array();
 			$aWorksData = CSign::aGetWorksData($aSignData['sign_no']);
 			// echo "<pre>";print_r($aWorksData);exit;
@@ -195,21 +196,23 @@ class CSignUser extends CGalaxyController{
 			$aFile=&$_FILES;
 
 			CSign::sVaildData($aRow,$aFile);
+
+			$aMemberData = CMember::aGetData($member_no);
 			// echo "<pre>";print_r($_FILES);
 			// echo "<pre>";print_r($aRow);exit;
 			$sDate = date("Y-m-d H:i:s");
 
 			$specialty = '';
 
-			//如果有選擇演藝專長才將陣列重組成字串
-			if(isset($aRow['specialty'])){
-				$specialty = implode (',', $aRow['specialty']);
-			}
+			//如果有選擇演藝專長才將陣列重組成字串 改為直接輸入
+			// if(isset($aRow['specialty'])){
+			// 	$specialty = implode (',', $aRow['specialty']);
+			// }
 
 			$iSignNo =$CDbShell->guid();
 
-			$aFields=array("sign_no","member_no","type","team_name",'school','department','management',"specialty",'experience','flag',"created","modified");
-			$aValues=array($iSignNo,$member_no,$iType,$aRow['team_name'],$aRow['school'],$aRow['department'],$aRow['management'],$specialty,$aRow['experience'],1,$sDate,$sDate);
+			$aFields=array("sign_no","member_no","member_name","type","team_name",'school','department','management',"specialty","music_tool",'experience','flag',"created","modified");
+			$aValues=array($iSignNo,$member_no,$aMemberData["name"],$iType,$aRow['team_name'],$aRow['school'],$aRow['department'],$aRow['management'],$aRow['specialty'],$aRow['music_tool_data'],$aRow['experience'],1,$sDate,$sDate);
 
 			$sSql = $CDbShell->sInsert("sign",$aFields,$aValues);
 
@@ -217,6 +220,7 @@ class CSignUser extends CGalaxyController{
 
 				// $iSignNo = $CDbShell->iGetInsertId();
 				// echo 'iSignNo:'.$iSignNo;exit;
+				/*
 				// 擅長樂器 先清空在新增
 				$sSql = "DELETE FROM music_tool WHERE sign_no = '$iSignNo'";
 				$res = $CDbShell->iQuery($sSql);
@@ -229,8 +233,8 @@ class CSignUser extends CGalaxyController{
 						$sSql = $CDbShell->sInsert("music_tool",$aFields,$aValues);
 					}
 				}
-
 				unset($_SESSION['gMusicTool']);
+				*/
 
 				// if(!$this->bSignOkMail($member_no)) CJavaScript::vAlertRedirect(_LANG_SENT_MAIL_ERROR,"./"._WEB_INDEX."func=member");
 
@@ -300,6 +304,14 @@ class CSignUser extends CGalaxyController{
 
 			$aRow=&$_POST;
 			$aFile=&$_FILES;
+
+			// if($member_no=='F0AF32E6-29AD-F244-F09B-42EF6051F953'){
+			// 	// echo '歌詞檔名：'.$aFile['lyric_file_1']['name'];
+			// 	echo '創作裡念'.$aRow['creative_concept_1'];
+			// 	echo "<pre>"; print_r($aRow);
+			// 	exit;
+			// }
+			
 
 			CSign::sVaildDataStep2($aRow,$aFile);
 			// echo "<pre>";print_r($_FILES);
@@ -397,39 +409,39 @@ class CSignUser extends CGalaxyController{
 			if(!$aWorksData) $CJavaScript->vRedirect('./'._WEB_INDEX.'func=sign&action=add_step2&sign_no='.$aSignData['sign_no']);
 
 			//演藝專長
-			$specialty = explode(',',$aSignData['specialty']);
+			// $specialty = explode(',',$aSignData['specialty']);
 			// echo '<pre>';print_r($specialty);exit;
 			//抓出選單列表
-			$aSpecialty = CSign::$aSpecialty;
+			// $aSpecialty = CSign::$aSpecialty;
 
 			//跑迴圈如果資料庫有對到號碼就把選項勾選
-			$aNewSpecialty = array();
-			foreach ($aSpecialty as $key_1 => $value_1) {
-				$aNewSpecialty[$key_1]['sk_no'] = $key_1;
-				$aNewSpecialty[$key_1]['sk_name'] = $value_1;
-				foreach ($specialty as $key_2 => $value_2) {
-					if($key_1 == $value_2){
-						$aNewSpecialty[$key_1]['check']=1;
-						break;
-					}
-				}
-			}
+			// $aNewSpecialty = array();
+			// foreach ($aSpecialty as $key_1 => $value_1) {
+			// 	$aNewSpecialty[$key_1]['sk_no'] = $key_1;
+			// 	$aNewSpecialty[$key_1]['sk_name'] = $value_1;
+			// 	foreach ($specialty as $key_2 => $value_2) {
+			// 		if($key_1 == $value_2){
+			// 			$aNewSpecialty[$key_1]['check']=1;
+			// 			break;
+			// 		}
+			// 	}
+			// }
 
 			// 擅長樂器
-			$aSignData['music_tool'] = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
+			// $aSignData['music_tool'] = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
 
-			$aMusicTool = array();
+			// $aMusicTool = array();
 
-			for($i=0;$i<count($aSignData['music_tool']);$i++){
-				$aMusicTool[]= array("music_tool"=>$aSignData['music_tool'][$i]['tool_no'],"ability"=>$aSignData['music_tool'][$i]['level']);
-			}
-			$session->set("gMusicTool",$aMusicTool);
+			// for($i=0;$i<count($aSignData['music_tool']);$i++){
+			// 	$aMusicTool[]= array("music_tool"=>$aSignData['music_tool'][$i]['tool_no'],"ability"=>$aSignData['music_tool'][$i]['level']);
+			// }
+			// $session->set("gMusicTool",$aMusicTool);
 
 			// $iDbq = $CDbShell->iQuery("SELECT * FROM talent_upload_singer WHERE ta_id=$gMemberId AND up_type=1 LIMIT 0,1");
 			// $aRow=$CDbShell->aFetchArray($iDbq);
 
 			// echo "<pre>";print_r($aSignData);exit;
-			$Smarty->assign('aSpecialty',$aNewSpecialty);
+			// $Smarty->assign('aSpecialty',$aNewSpecialty);
 			$Smarty->assign('aSignData',$aSignData);
 			$Smarty->assign('sAreaName',$area_name);
 			$Smarty->assign("web_index",_WEB_INDEX);
@@ -441,7 +453,7 @@ class CSignUser extends CGalaxyController{
 			$aFile=&$_FILES;
 
 			// 擅長樂器
-			$aSignData['music_tool'] = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
+			// $aSignData['music_tool'] = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
  			$aWorks = CSign::aGetSignDetail($aSignData['sign_no'],'works');
 
 			if(count($aWorks) == 1) $aWorks[]=array();
@@ -457,32 +469,32 @@ class CSignUser extends CGalaxyController{
 
 			$iSignNo = $aSignData['sign_no'];
 
-			$specialty = '';
+			// $specialty = '';
 
-			//如果有選擇演藝專長才將陣列重組成字串
-			if(isset($aRow['specialty'])){
-				$specialty = implode (',', $aRow['specialty']);
-			}
+			// //如果有選擇演藝專長才將陣列重組成字串
+			// if(isset($aRow['specialty'])){
+			// 	$specialty = implode (',', $aRow['specialty']);
+			// }
 
-			$aFields=array("team_name",'school','department','management',"specialty",'experience','flag',"created","modified","is_sync");
-			$aValues=array($aRow['team_name'],$aRow['school'],$aRow['department'],$aRow['management'],$specialty,$aRow['experience'],1,$sDate,$sDate,"0");
+			$aFields=array("team_name",'school','department','management',"specialty","music_tool",'experience','flag',"created","modified","is_sync");
+			$aValues=array($aRow['team_name'],$aRow['school'],$aRow['department'],$aRow['management'],$aRow['specialty'],$aRow['music_tool_data'],$aRow['experience'],1,$sDate,$sDate,"0");
 
 			$sSql = $CDbShell->sUpdate("sign",$aFields,$aValues,"sign_no = '$iSignNo'");
 
 			if($sSql){
 
 				// 擅長樂器 先清空在新增
-				$sSql = "DELETE FROM music_tool WHERE sign_no = '$iSignNo'";
-				$res = $CDbShell->iQuery($sSql);
+				// $sSql = "DELETE FROM music_tool WHERE sign_no = '$iSignNo'";
+				// $res = $CDbShell->iQuery($sSql);
 
-				$aMusicTool = $session->get("gMusicTool");
-				for($i=0;$i<count($aMusicTool);$i++){
-					if($aRow['music_tool_'.$i]){
-						$aFields=array("sign_no","tool_no","level");
-						$aValues=array($iSignNo,$aRow['music_tool_'.$i],$aRow['music_tool_ability_'.$i]);
-						$sSql = $CDbShell->sInsert("music_tool",$aFields,$aValues);
-					}
-				}
+				// $aMusicTool = $session->get("gMusicTool");
+				// for($i=0;$i<count($aMusicTool);$i++){
+				// 	if($aRow['music_tool_'.$i]){
+				// 		$aFields=array("sign_no","tool_no","level");
+				// 		$aValues=array($iSignNo,$aRow['music_tool_'.$i],$aRow['music_tool_ability_'.$i]);
+				// 		$sSql = $CDbShell->sInsert("music_tool",$aFields,$aValues);
+				// 	}
+				// }
 
 				unset($_SESSION['gMusicTool']);
 
@@ -490,7 +502,7 @@ class CSignUser extends CGalaxyController{
 				$update = '';
 
 				//把修改後的擅長樂器撈出來比對修改前的有無不同
-				$music_tool = CSign::aGetSignDetail($iSignNo,'music_tool');
+				// $music_tool = CSign::aGetSignDetail($iSignNo,'music_tool');
 
 				// echo "<pre>";print_r($aSignData['music_tool']);exit;
 				// echo "<pre>";print_r($music_tool);exit;
@@ -501,8 +513,8 @@ class CSignUser extends CGalaxyController{
 				if($aSignData['school']!=$aRow['school']) $update .= '學校、' ;
 				if($aSignData['department']!=$aRow['department']) $update .= '系所、' ;
 				if($aSignData['management']!=$aRow['management']) $update .= '經紀約、' ;
-				if($aSignData['specialty']!=$specialty) $update .= '演藝專長、' ;
-				if($aSignData['music_tool']!=$music_tool) $update .= '擅長樂器、' ;
+				if($aSignData['specialty']!=$aRow['specialty']) $update .= '演藝專長、' ;
+				if($aSignData['music_tool']!=$aRow['music_tool_data']) $update .= '擅長樂器、' ;
 				if($aSignData['experience']!=$aRow['experience']) $update .= '演藝/參賽經歷、' ;
 
 				if($update!='') $update = substr($update,0,-3);
@@ -573,7 +585,6 @@ class CSignUser extends CGalaxyController{
 
 			// echo "<pre>";print_r($aSignData);exit;
 			$Smarty->assign('iSignNo',$aSignData['sign_no']);
-			$Smarty->assign('aSpecialty',$aNewSpecialty);
 			$Smarty->assign('aSignData',$aSignData);
 			$Smarty->assign('sAreaName',$area_name);
 			$Smarty->assign("web_index",_WEB_INDEX);
@@ -588,7 +599,14 @@ class CSignUser extends CGalaxyController{
 			$aSignData['music_tool'] = CSign::aGetSignDetail($aSignData['sign_no'],'music_tool');
  			$aWorks = CSign::aGetSignDetail($aSignData['sign_no'],'works');
 
-			if(count($aWorks) == 1) $aWorks[]=array();
+			if(count($aWorks) == 1) $aWorks[]=array('works_no'=>'',
+													'sign_no'=>'',
+													'type'=>'',
+													'song_name'=>'',
+													'composer'=>'',
+													'lyricist'=>'',
+													'creative_concept'=>''
+													);
 			$aSignData['works'] = $aWorks;
 
 			// echo "<pre>";print_r($aSignData);exit;
@@ -650,7 +668,7 @@ class CSignUser extends CGalaxyController{
 									CJavaScript::vAlertRedirect(_LANG_SIGN_EDIT_FAILURE,"./"._WEB_INDEX."func=sign&action=index");
 								}else{
 									//上傳成功就刪除舊有檔案
-									@unlink("./data/upload/".$iSignNo.'/'.$old_file_file['file_file']);
+									@unlink("./data/upload/".$area_name."/".$iSignNo.'/'.$old_file_file['file_file']);
 								}
 							}
 
@@ -683,9 +701,14 @@ class CSignUser extends CGalaxyController{
 
 				$works = $aSignData['works'];
 
+				// if($member_no=='714A65D2-E87A-370B-B033-FAD4073251DB'){
+				// 	echo "<pre>";print_r($works);exit;
+				// }
+
 				foreach ($works as $key => $value) {
 
 					$num = $key+1;
+
 					if($value['song_name']!=$aRow['song_name_'.$num]) $update .= "作品$num 歌曲名稱、" ;
 					if($value['lyricist']!=$aRow['lyricist_'.$num]) $update .= "作品$num 詞作者、" ;
 					if($value['composer']!=$aRow['composer_'.$num]) $update .= "作品$num 曲作者、" ;
@@ -694,7 +717,8 @@ class CSignUser extends CGalaxyController{
 					if($value['creative_concept']!=$aRow['creative_concept_'.$num]) $update .= "作品$num 創作理念、" ;
 					if($aFile['img_'.$num.'_1']['name']!='' or $aFile['img_'.$num.'_2']['name']!='' or $aFile['img_'.$num.'_3']['name']!='') $update .= '作品'.$num.'個人圖片、' ;
 				}
-
+				
+				
 				if($update!='') $update = substr($update,0,-3);
 
 				// 顯示報名後資訊
@@ -876,11 +900,11 @@ class CSignUser extends CGalaxyController{
 		global $Smarty,$CJavaScript,$CDbShell,$PHPMailer,$session,$CCharset; //obj var
 
 		if(!$member_no) return false;
-		$WebIndexSrc = $session->get("WebIndexSrc");//在youth_index 設定初始值判斷國別
+		// $WebIndexSrc = $session->get("WebIndexSrc");//在youth_index 設定初始值判斷國別
 		$aRow = CMember::aGetData($member_no);
 
 		$Smarty->assign("aRow",$aRow);
-		$Smarty->assign('WebIndexSrc',$WebIndexSrc);
+		// $Smarty->assign('WebIndexSrc',$WebIndexSrc);
 		$mailBody = $Smarty->fetch("./user/sign_signup_add_ok_mail.html");
 
 		$gCharSet = $session->get("gCharSet");
@@ -892,7 +916,7 @@ class CSignUser extends CGalaxyController{
 		//信件的相關資訊
 		$mail = CMemberUser::bMailInformation($aRow);
 
-		/*
+		
 		$mail = new PHPMailer;
 		$mail->IsSMTP();
 		$mail->SMTPOptions = array(
@@ -932,10 +956,10 @@ class CSignUser extends CGalaxyController{
 		$mail->addBcc("jerry.he@iwant-in.net","Jerry");
 
 		//Send HTML or Plain Text email
-		$mail->isHTML(true); */
+		$mail->isHTML(true); 
 
 		// 信件標題
-		$mail->Subject  = "您已完成報名青春頌-兩岸青年流行音樂創作大賽";
+		$mail->Subject  = "您已完成報名青春頌─兩岸青年原創金曲大選";
 
 		//信件內容(html版，就是可以有html標籤的如粗體、斜體之類)
 		$mail->Body = $mailBody;

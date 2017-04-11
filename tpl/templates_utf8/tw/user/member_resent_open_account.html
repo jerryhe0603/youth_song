@@ -3,25 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>會員管理</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+	<link rel="stylesheet" href="./css/font-awesome-new.min.css">
 </head>
+<{if $lang==1}>
 <body>
-	<form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=resent">
-		<table>
-		<tr>
-			<td>帳號：</td>
-			<td>
-				<input id="account" name="account" type="text" placeholder="example@gmail.com">
-			</td>
-		</tr>
-		<tr>
-			<td>密碼：</td>
-			<td>
-				<input id="password" name="password" type="password" maxlength="12">
-			</td>
-		</tr>
-		</table>
-		<button class="btn-trans btn-remail" type="submit">送出</button>
-	</form>
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+	    <div id="resent" class="signup-login resent active">
+		    <div class="login-wrp">
+	            <h5 class="login-title">重新寄送確認信</h5>
+	            <form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=resent">
+	                <div class="login-form">
+	                    <input type="text" name="account" id="account" class="account form-account" placeholder="帳號:example@123.456">
+	                    <!-- <input type="password" name="password" id="password" class="form-password password" placeholder="密碼"> -->
+	                </div>
+	                <div class="form-btn">
+	                    <input type="submit" name="btn-stepone" value="寄送" id="btn-stepone" class="btn-light" >
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	</div>
+	<div id="signup-bg" class="signup-bg active"></div>
+		
+	<!--javascript-->   
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
 </body>
 </html>
 

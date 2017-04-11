@@ -3,9 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>會員管理</title>
-
+ 	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+	<link rel="stylesheet" href="./css/font-awesome-new.min.css">
 	<script type="text/javascript" src="./js/user/jquery-1.11.3.min.js"></script>
+	<{if $lang==1}>
 	<script type="text/javascript">
+		
 		function checkLoginState() {
     
 		    FB.login(function(response) {
@@ -17,7 +22,7 @@
 		}
 		window.fbAsyncInit = function() {
 			FB.init({
-			appId      : '329358327462376',
+			appId      : '<{$appId}>',
 			cookie     : true,  // enable cookies to allow the server to access 
 			                    // the session
 			xfbml      : true,  // parse social plugins on this page
@@ -45,37 +50,62 @@
 			});
 		}
 	</script>
+	<{/if}>
 </head>
+<{if $lang==1}>
 <body>
-	<form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=login">
-		<input type="hidden" name="fb_account" id="fb_account" value="" />
-		<input type="hidden" name="from_fb" id="from_fb" value="0" />
-		<table>
-		<tr>
-			<td>帳號：</td>
-			<td>
-				<input id="account" name="account" type="text" placeholder="example@gmail.com">
-			</td>
-		</tr>
-		<tr>
-			<td>密碼：</td>
-			<td>
-				<input id="password" name="password" type="password" maxlength="12">
-			</td>
-		</tr>
-		<tr>
-			<td>使用臉書帳號</td>
-			<td>
-				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-			</td>
-		</tr>
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+	    <div id="entrance" class="signup-login entrance active">
+	        <div class="login-wrp">
+	            <h3 class="login-title">請輸入註冊信箱帳號及密碼</h3>
+				<form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=login">
+				    <input type="hidden" name="fb_account" id="fb_account" value="" />
+					<input type="hidden" name="from_fb" id="from_fb" value="0" />
+				    <div class="login-form">
+						
+						<div class="login-others resent">
+	                    	<{if $lang==1}>
+	                    	<div class="fb-login">
+		                		<p>使用臉書帳號登入</p>&nbsp;<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+							</div>
+							<{/if}>
+	                    	<a href="./<{$web_index}>func=member&action=resent">重發啟用信</a>
+	                    </div>
 
-		</table>
-		<button class="btn-trans btn-login" type="submit">登入</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./<{$web_index}>func=member&action=member_signup">註冊</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./<{$web_index}>func=member&action=forget_password">忘記帳號/密碼</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./<{$web_index}>func=member&action=resent">重發啟用信</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	</form>
+						<input id="account" name="account" type="text" class="account form-account" placeholder="example@gmail.com">
+						<input id="password" name="password" type="password" maxlength="12" class="form-password password">
+						<div class="login-others">
+	                        <a href="./<{$web_index}>func=member&action=member_signup">首次登入註冊會員</a>
+	                        <a href="./<{$web_index}>func=member&action=forget_password">忘記帳號/密碼</a>
+	                    </div>
+
+	                    <div class="form-btn">
+	                        <input type="submit" name="btn-applicant" value="報名者 登入" id="btn-applicant" class="btn-dark" >
+	                        <input type="button" name="btn-vote" value="投票者 登入" id="btn-vote" class="btn-light" >
+	                    </div>
+						<!--<button class="btn-trans btn-login" type="submit">登入</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="./<{$web_index}>func=member&action=member_signup">註冊</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="./<{$web_index}>func=member&action=forget_password">忘記帳號/密碼</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="./<{$web_index}>func=member&action=resent">重發啟用信</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="signup-bg" class="signup-bg active"></div>
+	<!--javascript-->	
+	<{if $lang==1}>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<{else}>
+	<script src="./js/jquery-2.1.1.js"></script>
+	<script src="./js/TweenMax.min.js"></script>
+	<{/if}>
+	<script src="./js/nav.js"></script>
 </body>
 </html>
 

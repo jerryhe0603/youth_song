@@ -228,7 +228,8 @@ class CSign extends CGalaxyClass {
 		$aErrorMsg = array();
 
 		
-		if (!trim($postData['school'])) $aErrorMsg[] = _LANG_SIGN_VAILD_SCHOOL;
+		// if (!trim($postData['school'])) $aErrorMsg[] = _LANG_SIGN_VAILD_SCHOOL;
+		if ($postData['management']=='') $aErrorMsg[] = "請選擇是否有經紀約";
 		
 
 		$sErrorMsg = "";

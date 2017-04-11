@@ -168,7 +168,7 @@
 	    }
 	        .intro-topic h3 {
 	        	color: #3E3A39;
-	        	padding: 0.75rem 2rem;
+	        	padding: 1.25rem 0.75rem;
 	        	background: url('../image/index/intro-top.png') left top no-repeat, url('../image/index/intro-btm.png') right bottom no-repeat;
                 max-width: 22em;
                 margin: 0 auto 2.1875rem;
@@ -383,6 +383,9 @@
 	    		margin:  0 auto 6rem;
 	    		font-size: 1.2rem;
 	    	}
+	    	    .intro-topic h3 {
+		        	padding: 0.75rem 2rem;
+		        }
 	    	    .intro-topic p {
 		        	line-height: 2.5;
 		        	font-size: 1em;
@@ -445,10 +448,10 @@
 	        	font-weight: 600;
 	        	font-size: 1.414rem;
 	        }
-	         .intro-copy strong {
-	        	display: inline;
-	        	font-size: 1.25rem;
-	        }
+		        .intro-copy strong {
+		        	display: inline;
+		        	font-size: 1.25rem;
+		        }
 
 	    	
 	    }

@@ -55,7 +55,7 @@ class CJavaScript {
 		echo "</script>";
 	}
 
-	 public function vRedirect($url) {
+	static public function vRedirect($url) {
 		echo "<script>";
 		echo "window.location.href='$url'";
 		echo "</script>";

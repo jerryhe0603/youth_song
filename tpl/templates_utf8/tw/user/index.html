@@ -33,13 +33,16 @@
 	<link rel="stylesheet" href="./css/normalize.css">
 	<link rel="stylesheet" href="./css/layout.css">
 	<link rel="stylesheet" href="./css/index.css">
+    <{if $lang==2}>
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
+    <{/if}>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <{if $lang==1}>
 <body>
 <{else}>
 <body class="cn">
-<{/if}> 
+<{/if}>
 	<!-- 放在header.html -->
 	<{$header}>
 	<main class="main th-main">
@@ -94,8 +97,8 @@
                         <p>為華語樂壇灌注新生代創作力量，邀請熱愛歌唱、有音樂才華的青年</p>
                         <p>攜手打造音樂的青春生命與原創精神</p>
                     </div>
-            <{/if}> 
-                    
+            <{/if}>
+
                     <{if $lang==1}>
                     <div id="intro-ten" class="intro-ten">
                     <{else}>
@@ -219,7 +222,7 @@
                     <div id="intro-copy" class="intro-copy intro-copy--cn">
                         <p>榮獲<strong>青春頌兩岸青年原創金曲大選</strong>作品</p>
                         <p>將由台灣專業團隊制作收入專輯，並透過中央人民廣播電台傳播</p>
-                        <p>想讓全國民眾聽到你的音樂創作</p>
+                        <p>想讓兩岸民眾聽到你的音樂創作</p>
                         <p>原創金曲舞台等你來挑戰!!</p>
                     <{/if}>
                     </div>
@@ -227,7 +230,11 @@
                     <ul id="intro-condition" class="intro-condition">
                         <li id="cond-who" class="cond-unit cond-who">
                             <h4 class="cond-title">參賽對象</h4>
+                            <{if $lang==1}>
                             <p>18-35歲青年(含大專院校在校生)</p>
+                            <{else}>
+                            <p>16-35歲青年(含大專院校在校生)</p>
+                            <{/if}>
                         </li>
                         <!--<li id="cond-age" class="cond-unit cond-age">
                             <h4 class="cond-title">報名組別</h4>
@@ -257,13 +264,21 @@
         	</div>
         </div>-->
 	</main>
+    <div id="scrollUp" class="scrollUp">
+        <i class="fa fa-angle-double-up fa-2x" aria-hidden="true"></i>
+    </div>
+    <{$footer}>
 	<!-- 放在footer.html -->
-	<{$footer}>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-	<script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <script src="./js/d3.min.js"></script>
+    <{/if}>
 	<script src="./js/index.js"></script>
 </body>
-
 </html>

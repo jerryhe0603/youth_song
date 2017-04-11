@@ -282,6 +282,9 @@ class CMember extends CGalaxyClass {
 
 		if (!trim($postData['name'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_NAME;
 
+		if (!trim($postData['area'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_AREA;
+		if ($postData['sex']=='') $aErrorMsg[] = _LANG_MEMBER_VAILD_SEX;
+
 		//註冊頁才須檢查身份證
 		if(!$member_no){
 			//身份證字號驗證
@@ -306,7 +309,8 @@ class CMember extends CGalaxyClass {
 			}
 		}
 
-		if (!trim($postData['birthday'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_BIRTHDAY;
+		if (!trim($postData['year']) || !trim($postData['month']) || !trim($postData['day'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_BIRTHDAY;
+		// if (!trim($postData['birthday'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_BIRTHDAY;
 
 
 		//判斷有無輸入手機，有輸入就進行可行性判斷
@@ -363,6 +367,9 @@ class CMember extends CGalaxyClass {
 			}
 		}
 
+
+		if (!trim($postData['agree'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_AGREE;
+
 		$sErrorMsg = "";
 
 		//form submit vaild data
@@ -384,8 +391,14 @@ class CMember extends CGalaxyClass {
 		$oDB = self::oDB(self::$sDBName);
 		$aErrorMsg = array();
 
+		if($postData['account']!=''){
+			$sType='1';
+		}else{
+			$sType='2';
+		}
+
 		//忘記密碼
-		if($postData['type'] == 1){
+		if($sType == '1'){
 
 			if (!trim($postData['account'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_ACCOUNT;
 			if (!trim($postData['phone'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_PHONE;
@@ -396,7 +409,7 @@ class CMember extends CGalaxyClass {
 			if($mobile and $account){
 				$iDbq = $CDbShell->iQuery("SELECT * FROM member WHERE phone='$mobile' AND account = '$account'");
 				if($oDB->iNumRows($iDbq) == 0){
-					$aErrorMsg[] = _LANG_MEMBER_VAILD_ACCOUNT_PASSWORD_MISTAKE;
+					$aErrorMsg[] = _LANG_MEMBER_VAILD_ACCOUNT_PASSWORD_PHONE_MISTAKE;
 				}else{
 					//如果帳號尚未開通，則提醒使用者先開通
 					// $aRow = $oDB->aFetchAssoc($iDbq);
@@ -404,7 +417,7 @@ class CMember extends CGalaxyClass {
 				}
 			}
 		//忘記帳號
-		}else if($postData['type'] == 2){
+		}else if($sType == '2'){
 			if (!trim($postData['name'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_NAME;
 			if (!trim($postData['uid'])) $aErrorMsg[] = _LANG_MEMBER_VAILD_UID;
 
@@ -446,16 +459,16 @@ class CMember extends CGalaxyClass {
 		$aErrorMsg = array();
 
 		if (!trim($postData['account'])) $aErrorMsg[] = _LANG_SIGN_VAILD_ACCOUNT;
-		if (!trim($postData['password'])) $aErrorMsg[] = _LANG_SIGN_VAILD_PASSWORD;
+		// if (!trim($postData['password'])) $aErrorMsg[] = _LANG_SIGN_VAILD_PASSWORD;
 
 		$account = trim($postData['account']);
-		$password = trim($postData['password']);
+		// $password = trim($postData['password']);
 
-		if($account and $password){
+		if($account){
 
-			$password =md5($password);
+			// $password =md5($password);
 
-			$iDbq = $CDbShell->iQuery("SELECT * FROM member WHERE account='$account' AND password = '$password'");
+			$iDbq = $CDbShell->iQuery("SELECT * FROM member WHERE account='$account' ");
 			if($oDB->iNumRows($iDbq)){
 
 				$aRow = $oDB->aFetchAssoc($iDbq);

@@ -49,6 +49,10 @@ $_POST = CMisc::my_quotes($_POST);
 $func = isset($_GET['func'])?$_GET['func']:'';
 $action = isset($_GET['action'])?$_GET['action']:'';
 
+$Smarty->assign('sIsOpen',"1");//是否開放報名 1為開放報名
+
+// $_SERVER['REMOTE_ADDR']='58.218.199.147';
+// return_country_code($_SERVER['REMOTE_ADDR']
 // 語系
 // 1 是繁體2是簡體
 if(return_country_code($_SERVER['REMOTE_ADDR'])=="CN"){
@@ -73,6 +77,21 @@ if(!$gCharSet){
 }
 
 $Smarty->assign("lang",$gCharSet);
+
+//首頁的header利用session 的member_no判斷登入登出的按鈕顯示 1為登入
+if($session->get("member_no")){
+	$Smarty->assign("is_login",'1');
+}else{
+	$Smarty->assign("is_login",'0');
+}
+
+//文件下載語系判斷
+if($gCharSet=='2'){
+	$Smarty->assign('sSignData',"cn");
+}else{
+	$Smarty->assign('sSignData',"tw");
+}
+
 //use $oCUser->IsPermit() to check if current user is allowed to given func & action
 // try{
 	// $session->get('oCurrentUser')->IsPermit($func,$action);

@@ -8,6 +8,13 @@ include_once('./inc/CDbShell.php');
 //簡繁轉換套件
 include_once("./inc/geoip/geoip.exe.php");
 
+
+$password      = isset($_GET['password'])?$_GET['password']:'';
+// if($password!='hellotw'){
+// 	echo 'http://www.youth-song.com';
+// 	exit;
+// }	
+
 // quotes info from client
 $_GET        = CMisc::my_quotes($_GET);
 $_POST       = CMisc::my_quotes($_POST);
@@ -16,6 +23,7 @@ $account     = isset($_GET['account'])?$_GET['account']:'';
 $verify_code = isset($_GET['verify_code'])?$_GET['verify_code']:'';//信件驗證
 $action      = isset($_GET['action'])?$_GET['action']:'';
 $lang        = isset($_GET['lang'])?$_GET['lang']:'';
+$sessid      = isset($_GET['PHPSESSID'])?$_GET['PHPSESSID']:'';
 $sessid      = isset($_GET['PHPSESSID'])?$_GET['PHPSESSID']:'';
 
 // $session->set("WebIndexSrc",'http:');

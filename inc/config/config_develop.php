@@ -1,10 +1,11 @@
 <?php
 
-error_reporting(E_ALL & ~(E_NOTICE|E_STRICT|E_DEPRECATED));
+error_reporting(E_ALL);
+// error_reporting(E_ALL & ~(E_NOTICE|E_STRICT|E_DEPRECATED));
 ini_set('display_errors', true);
 
 /**
- * SMARTY ³]©w
+ * SMARTY 設定
  */
 define('PATH_SMARTY_TPL', PATH_ROOT.'/tpl');
 
@@ -51,13 +52,13 @@ define('_CN_PASS',	'robot');
 //php self path
 defined('PHP_SELF_PATH')
 || define('PHP_SELF_PATH', dirname($_SERVER['PHP_SELF']));
-//®Ú¥Ø¿ý
+//根目錄
 defined('PATH_ROOT')
 || define('PATH_ROOT', realpath(dirname(__FILE__) . '/..'));
 /**
-* ©w¸q¤À­¶ªº¸ê®Æ§Ç¸¹
-*/
-define("PAGE_INPUT_TYPE_NO", 142); 
+ * 定義分頁的資料序號
+ */
+define("PAGE_INPUT_TYPE_NO", 142);
 defined('_LANG_NEXT_PAGE')||define('_LANG_NEXT_PAGE', '¤U¤@­¶');
 defined('_LANG_LAST_PAGE')||define('_LANG_LAST_PAGE', '³Ì«á¤@­¶');
 
@@ -92,25 +93,27 @@ define('PAGING_NUM', 			10);
 
 
 /**
-* layout »y¨¥
-*/
+ * layout 語言
+ */
 define('_LANG', 'tw');
 
-// ¤½¥q¤l¨t²Îºô§}(«È¤áÃö«Y¨t²Î)
 define('COMPANY_SERVER',	'csscompany.lab.net');
 
-# ¬O§_¬°¥¿¦¡¾÷,¨M©w¤å®×¸ê®Æ®w³]©w­n¨ú¥¿¦¡/´ú¸Õ³]©w
+# 是否為正式機,決定文案資料庫設定要取正式/測試設定
 define('IS_RELEASE',false);
 
 //要導的網站位置TW AND CN
 define ("_WEB_INDEX", "youth_index.php?");//導到正常的網頁
 define ("_WEB_ADDRESS_TW", "http://youth-song.lab.net/youth_index.php?");//TW的網站位置
 define ("_WEB_ADDRESS_CN", "http://youth-song.lab.net/youth_index.php?");//CN的網站位置
-define ("_WEB_INDEX_SCR_TW", "http://youth-song.lab.net/");//發送確認信的mail裡使用者點擊的連結位置判斷國別 
-define ("_WEB_INDEX_SCR_CN", "http://youth-song.lab.net/");//發送確認信的mail裡使用者點擊的連結位置判斷國別 
+define ("_WEB_INDEX_SCR_TW", "http://youth-song.lab.net/");//發送確認信的mail裡使用者點擊的連結位置判斷國別
+define ("_WEB_INDEX_SCR_CN", "http://youth-song.lab.net/");//發送確認信的mail裡使用者點擊的連結位置判斷國別
+
+//臉書id
+define ("_FB_APPID", "329358327462376");
 
 //mail
-define ("_Web_Master_Email", "jerry.he@iwant-in.net");//寄件人信箱
+define ("_Web_Master_Email", "icd@iwant-in.net");//寄件人信箱
 define ("_Web_Master_Email_Name", "青春頌官方信箱");//寄件人名稱
 
 ?>

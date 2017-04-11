@@ -50,9 +50,12 @@ class CMemberUser extends CGalaxyController{
 			case "logout": // 登出
 				return $this->tMemberLogout();
 				break;
+			case "logout_index": // 登出
+				return $this->tMemberLogoutIndex();
+				break;
 			case "member_signup": // 註冊帳號
 				return $this->tMemberSignup();
-				break;		
+				break;
 			case "add": // 註冊新會員
 				return $this->tMemberAdd();
 				break;
@@ -116,6 +119,7 @@ class CMemberUser extends CGalaxyController{
 
 			// $CJavaScript->vRedirect('./index.php?func=member&action=login');
 			// $Smarty->assign("VoteLoginSubmit",$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']."&time=".time());
+			$Smarty->assign('appId',_FB_APPID);
 			$Smarty->assign('web_index',_WEB_INDEX);
 			return $output = $Smarty->fetch('./user/member_login.html');
 
@@ -125,7 +129,8 @@ class CMemberUser extends CGalaxyController{
 
 			CMember::sVaildLoginData($aRow);
 
-			CJavaScript::vAlertRedirect(_LANG_LOGIN_SUCCESS,"./"._WEB_INDEX."func=member");
+			$CJavaScript->vRedirect("./"._WEB_INDEX."func=member");
+			// CJavaScript::vAlertRedirect(_LANG_LOGIN_SUCCESS,"./"._WEB_INDEX."func=member");
 
 		}
 	}
@@ -138,6 +143,16 @@ class CMemberUser extends CGalaxyController{
 		CJavaScript::vAlertRedirect(_LANG_LOGOUT_SUCCESS,"./"._WEB_INDEX."func=member");
 
 	}
+
+	function tMemberLogoutIndex() {
+		global $CJavaScript,$session; //obj var
+
+		unset($_SESSION['member_no']);
+		// session_unset();
+		CJavaScript::vAlertRedirect(_LANG_LOGOUT_SUCCESS,"./"._WEB_INDEX);
+
+	}
+
 	/**
 	 * 會員註冊帳號
 	 */
@@ -158,11 +173,12 @@ class CMemberUser extends CGalaxyController{
 			$session->set("token",$token);
 
 			$Smarty->assign("token",$token);
+			$Smarty->assign('appId',_FB_APPID);
 			$Smarty->assign("web_index",_WEB_INDEX);
 			return $output = $Smarty->fetch('./user/member_signup.html');
 
 		} else {
-			
+
 			$aRow=&$_POST;
 			// echo "<pre>";print_r($aRow);exit;
 			CMember::sVaildMemberSignupData($aRow);
@@ -202,8 +218,10 @@ class CMemberUser extends CGalaxyController{
 			$sMemberAccount = isset($_GET['member_account'])?$_GET['member_account']:"";
 			$sMemberPassword = isset($_GET['member_password'])?$_GET['member_password']:"";
 			$sFromFb = isset($_GET['from_fb'])?$_GET['from_fb']:"0";
+
 			//如果session跟post過來的值不一樣就導回
-			if ($smember_account != $sMemberAccount) {
+			// echo $sMemberAccount.'=='.$smember_account;exit;
+			if (($smember_account != $sMemberAccount) || ($sMemberAccount=='')) {
 				CJavaScript::vAlertRedirect(_LANG_MEMBER_SIGNUP_FAILURE,"./"._WEB_INDEX."func=member");
 			}
 
@@ -222,7 +240,7 @@ class CMemberUser extends CGalaxyController{
 			return $output = $Smarty->fetch('./user/member_add.html');
 
 		} else {
-			
+
 
 			$aRow=&$_POST;
 
@@ -230,6 +248,8 @@ class CMemberUser extends CGalaxyController{
 			$sMemberAccount = $aRow['member_account'];
 			$sMemberPassword = $aRow['member_password'];
 			$sFromFb = $aRow['from_fb'];
+			$aRow['birthday'] = $aRow['year'].'-'.$aRow['month'].'-'.$aRow['day'];
+			// echo $aRow['birthday'];exit;
 			//如果session跟post過來的值不一樣就導回
 			if ($smember_account != $sMemberAccount) {
 				CJavaScript::vAlertRedirect(_LANG_MEMBER_SIGNUP_FAILURE,"./"._WEB_INDEX."func=member");
@@ -313,7 +333,6 @@ class CMemberUser extends CGalaxyController{
 		} else {
 
 			$aRow=&$_POST;
-			// echo "<pre>";print_r($aRow);exit;
 
 			//修改頁檢查第二個傳入參數
 			CMember::sVaildSignupData($aRow,$member_no);
@@ -360,9 +379,16 @@ class CMemberUser extends CGalaxyController{
 			CMember::sVaildForgetData($aRow);
 			$sDate = date("Y-m-d H:i:s");
 			$account = $aRow['account'];
+			$uid = $aRow['uid'];
+
+			if($account!=''){
+				$sSqlMember = "SELECT * FROM member WHERE account = '$account'";
+			}else if($uid!=''){
+				$sSqlMember = "SELECT * FROM member WHERE uid = '$uid'";
+			}
 
 			//撈出使用者資料重置密碼並且寄送密碼信
-			$iDbq = $CDbShell->iQuery("SELECT * FROM member WHERE account = '$account'");
+			$iDbq = $CDbShell->iQuery($sSqlMember);
 			$aMemberData = $CDbShell->aFetchAssoc($iDbq);
 
 			if($aMemberData){
@@ -501,7 +527,7 @@ class CMemberUser extends CGalaxyController{
 
 		$Smarty->assign("aRow",$aRow);
 		$Smarty->assign("sPassword",$sPassword);
-		
+
 		$mailBody = $Smarty->fetch("./user/member_reset_password_mail.html");
 
 		$gCharSet = $session->get("gCharSet");
@@ -509,13 +535,13 @@ class CMemberUser extends CGalaxyController{
 		if($gCharSet=="gb"){
 			$mailBody = $CCharset->chg_utfcode($mailBody,"gb");
 		}
-		
+
 		//信件的相關資訊
 		$mail = $this->bMailInformation($aRow);
-		
+
 
 		// 信件標題
-		$mail->Subject  = "密碼重置信件-兩岸青年原創金曲大選！";
+		$mail->Subject  = "密碼重置信件青春頌─兩岸青年原創金曲大選";
 
 		//信件內容(html版，就是可以有html標籤的如粗體、斜體之類)
 		$mail->Body = $mailBody;
@@ -574,7 +600,7 @@ class CMemberUser extends CGalaxyController{
 		// $mail->addBcc("bill.yeh@iwant-in.net","Bill");
 		// $mail->addBcc("tzuhung.lin@iwant-in.net","Bill");
 		// $mail->addBcc("jiexun.lu@iwant-in.net","Jason");
-		$mail->addBcc("jerry.he@iwant-in.net","Jerry");
+		// $mail->addBcc("jerry.he@iwant-in.net","Jerry");
 
 		//Send HTML or Plain Text email
 		$mail->isHTML(true);

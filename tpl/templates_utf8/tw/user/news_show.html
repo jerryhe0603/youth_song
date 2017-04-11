@@ -131,14 +131,20 @@
     <div class="popbg"></div>
     </div>
 	
-    <script sync src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
     <script src="./js/jquery.cloud9carousel.js"></script>
     <script src="./js/overthrow.min.js"></script>
     <script src="./js/nanoScroller.min.js"></script>
     <script src="./js/news.js"></script>
     <script src="./js/scrollToSpe.js"></script>
+    
 	<script>
 
          $(function() {

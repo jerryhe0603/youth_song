@@ -49,7 +49,7 @@
 <body class="cn">
 <{/if}> 
    <{$header}>
-    <nav></nav>
+    
 	<main class="main th-main">
 		<div class="title th-title">
 			<h2 class="news-headline"><span>線</span><span>上</span><span>報</span><span>名</span></h2>
@@ -61,13 +61,17 @@
         			<ul class="signup-list">
         				<li class="list-item signup-time">
         					<h4>報名時間</h4>
-        					<div class="list-content"><p>2017/4/10(一)中午12點 —5/31(三)中午12點</p></div>
+        					<div class="list-content"><p>2017/4/10(一)中午12點 — 5/31(三)中午12點</p></div>
         				</li>
         				<li class="list-item signup-id">
         					<h4>報名資格</h4>
         					<div class="list-content">
                                 <ul class="list-number">
-                                	<li>18-35歲青年(含大專院校在校生)</li>
+                                    <{if $lang==1}>
+                                    <li>18-35歲青年(含大專院校在校生)</li>
+                                    <{else}>
+                                    <li>16-35歲青年(含大專院校在校生)</li>
+                                    <{/if}> 
                                 	<li>報名可以以「個人」或「團體(不限人數)」方式</li>
                                 </ul>
         					</div>
@@ -145,7 +149,11 @@
     								</div>
     								<div class="account-email">
     									<p class="account-title">信箱</p>
+                                        <{if $lang==1}>
     								    <p>icd@iwant-in.net</p>
+                                        <{else}>
+                                        <p>cnrtw@vip.126.com</p>
+                                        <{/if}>
     								</div>
         						</div>
         					</div>
@@ -157,24 +165,87 @@
                         <div class="list-content">
                             <ul>
                                 <li>本活動統一採線上報名，並以會員帳號信箱發送確認通知，請確實填寫。<br>報名後未收到確認信通知，請聯絡本信箱icd@iwant-in.net。</li>
-                                <li>本活動參賽同意書、切結書等文件，報名階段其線上同意等同簽名紙本的法律效力(文件內容請詳報名文件下載)。<br>進入複賽50強作品，主要創作人應提交活動所需同意書等相關授權書之正本予主辦單位，以作為原創作品確認程序。若未能提出本款文件者，視同放棄晉級資格，評審團將依遞補程序處理。</li>
+                                <li>本活動參賽同意書、切結書等文件，報名階段其線上同意等同簽名紙本的法律效力(文件內容請詳<strong><a href="./data/sign/youth_song_sign_<{$sSignData}>.zip">報名文件下載</a></strong>)。<br>進入複賽50強作品，主要創作人應提交活動所需同意書等相關授權書之正本予主辦單位，以作為原創作品確認程序。若未能提出本款文件者，視同放棄晉級資格，評審團將依遞補程序處理。</li>
                                 <li>本報名資料將以報名期限內最新時間之修改資料為主，凡新修改資料送出後將覆蓋原資料，主辦單位不予保留原資料，請填寫者務必確認後再送出。</li>
                             </ul>
                         </div>
                     </article>
-        			<a class="signup-banner" href="javascript:alert('報名尚未開放');">
+                    <{if $sIsOpen=='1'}>
+        			<a class="signup-banner" href="./<{$web_index}>password=hellotw&func=member">
+                    <{else}>
+                    <a class="signup-banner" href="javascript:alert('報名尚未開放');">
+                     <{/if}>
     					<h4>我&nbsp;要&nbsp;報&nbsp;名</h4>
     				</a>
         		</div>
         	</div>
         </div>
 	</main>
+    <nav class="signup-nav">
+        <ul>
+            <li><a href="./<{$web_index}>func=signup">活動徵選流程</a></li>
+            <li><a href="./data/sign/youth_song_sign_<{$sSignData}>.zip">報名文件下載</a></li>
+            <{if $sIsOpen=='1'}>
+            <li class="popup-trigger"><a href="./<{$web_index}>password=hellotw&func=member">報名投稿</a></li>
+            <{else}>
+            <li class="popup-trigger"><a href="javascript:alert('報名尚未開放');">報名投稿</a></li>
+            <{/if}>
+            
+           
+        </ul>
+    </nav>
 	<{$footer}>
-	<script sync src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script sync src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
-	<script sync src="https://use.fontawesome.com/29492048ee.js"></script>
+    
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+    <script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <script src="./js/d3.min.js"></script>
+    <{/if}>
+    <script sync src="./js/signup.js"></script>
 	<script>
 		jQuery(document).ready(function($) {
+
+            var small = 'up';
+
+            function shirnkJudge () {
+
+                var _scroll = $(window).scrollTop();
+                if ( _scroll < 292) {
+                    return small = 'up';
+                } else {
+                    return small = 'down'; 
+                }
+            }
+
+            function shrink () {
+                if ( small == 'down' ) {
+                    $('.header').addClass('scrolldown');
+                    $('.signup-nav').addClass('scrolldown');
+                    
+                } else if (small == 'up'){
+                    $('.header').removeClass('scrolldown');
+                    $('.signup-nav').removeClass('scrolldown');
+                }
+            }
+
+             shirnkJudge();
+            $(window).scroll(function(){
+                shirnkJudge();
+                shrink();
+            });
+
+            /*$('.popup-trigger').click(function(event) {
+                $('#entrance').addClass('active');
+                $('#signup-bg').addClass('active');
+                $('body').addClass('hid');
+            });*/
+
+            
 
         	function animation(e) {
                 var _thisTop = e.siblings('.top');

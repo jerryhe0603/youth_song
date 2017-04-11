@@ -19,6 +19,7 @@ include_once('./inc/CMisc.php');
 include_once("./inc/CMimeMail.php");
 include_once("./inc/CJavaScript.php");
 include_once("./inc/class.validator.php");
+include_once("./inc/CCharset.php");
 
 //設定時區為台北
 date_default_timezone_set("Asia/Taipei");
@@ -29,8 +30,13 @@ $CMimeMail = new CMimeMail;
 $session = new session($sessid);
 $CDbShell = new CDbShell;
 $CMisc = new CMisc;
+$CCharset    = new CCharset;
 
 $sMobile = $_GET['phone'];
+$sArea = $_GET['area'];
+
+if($sArea=='')$aErrorMsg = "請先選擇註冊地區";
+// $aErrorMsg = $sArea;
 
 $iDbq = $CDbShell->iQuery("SELECT * FROM member WHERE phone='$sMobile'");
 if (!trim($sMobile)) $aErrorMsg = _LANG_SIGN_VAILD_MOBILE;
@@ -59,7 +65,12 @@ if($CDbShell->iNumRows($iDbq)==3){
 
 $sVerifyCode = $CMisc->sRandomNumber("",6);
 
-$sendMsg=urlencode("您好，您報名青春頌，手機認證碼為：$sVerifyCode");
+$sMsg = "您好，您註冊「青春頌──兩岸青年原創金曲大選」活動官網會員，手機認證碼為：$sVerifyCode";
+if($sArea=='2'){
+	$sMsg = $CCharset->chg_utfcode($sMsg,"gb");
+}
+
+$sendMsg=urlencode($sMsg);
 
 // 帳密請勿異動
 $req_sms  = "UID=tsaihungpin";

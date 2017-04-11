@@ -3,71 +3,132 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品投稿</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
 	<script
 	  src="https://code.jquery.com/jquery-3.1.1.js"
 	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 	  crossorigin="anonymous"></script>
 	<script type="text/javascript" src="./js/function.js"></script>
+
+	<script type="text/javascript">
+
+        $(function () {
+            $(':input').bind('change', function () { setConfirmUnload(true); }); // Prevent accidental navigation away
+            $('.next_step').click(function () { setConfirmUnload(false); });
+
+            function setConfirmUnload(on) {
+                window.onbeforeunload = (on) ? unloadMessage : null;
+            }
+
+            function unloadMessage() {
+                return 'You have entered new data on this page.  If you navigate away from this page without first saving your data, the changes will be lost.';
+            }
+
+            window.onerror = UnspecifiedErrorHandler;
+            function UnspecifiedErrorHandler() {
+                return true;
+            }
+        });
+
+    </script>
 </head>
 <body>
-	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=edit">
-		<table>
-			<tr>
-				<td>團隊名稱(個人報名免填)</td>
-				<td>
-					<input name="team_name" type="text" value="<{$aSignData.team_name}>" >
-				</td>
-			</tr>
-			
-			
-			<tr>
-				<td>學校</td>
-				<td>
-					<input name="school" type="text" value="<{$aSignData.school}>" >
-				</td>
-			</tr>
-			<tr>
-				<td>系所</td>
-				<td>
-					<input name="department" type="text" value="<{$aSignData.department}>" >
-				</td>
-			</tr>
-			<tr>
-				<td>有無經紀約</td>
-				<td>
-					<select name='management' >
-						<option value=0 <{if $aSignData.management == 0 }> selected <{/if}>>無</option>
-						<option value=1 <{if $aSignData.management == 1 }> selected <{/if}>>有</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝專長</td>
-				<td>
-			    	<{foreach from=$aSpecialty item="entry" name="foo"}>
-						<input type='checkbox' name='specialty[]' value='<{$entry.sk_no}>' <{if $entry.check}>checked<{/if}> >
-						<{$entry.sk_name}>
-					<{/foreach}>
-				</td>
-			</tr>
-			<tr>
-				<td>擅長樂器</td>
-				<td>
-					<div id="music_tool_data" ></div>
-					<script>selectNewMusicTool();</script>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝/參賽經歷</td>
-				<td>
-					<textarea rows=10 cols=50 name=experience><{$aSignData.experience}></textarea>
-				</td>
-			</tr>
-			
-		</table>
-		<button class="btn-trans btn-sign" type="submit">下一步</button>
-		<a href="./<{$web_index}>func=member">返回</a>
-	</form>
+    <{$header}>
+    <div class="signup-wrp">
+        <div id="applyedit" class="signup-sign applyedit active">
+            <div class="login-wrp">
+                <h3 class="login-title">投稿內容修改</h3>
+				<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=edit">
+				    <div class="login-form">
+					    <div class="login-others">
+					        <input class="btn-trans btn-sign next_step" name="btn-applyedit" type="submit" value="下一步" id="btn-applyedit">
+							<a href="./<{$web_index}>func=member">返回</a>
+		                </div>
+						<table>
+						    <tbody>
+						        <tr class="table-head">
+                                    <td colspan=2>項目</td>
+                                    <td>內容</td>
+                                </tr>
+								<tr>
+								    <td rowspan="7" class="tl-title">音<br>樂<br>履<br>歷</td>
+									<td class="tl-unit">團隊名稱(個人報名免填)</td>
+									<td class="tl-input">
+										<input name="team_name" type="text" value="<{$aSignData.team_name}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">學校</td>
+									<td class="tl-input">
+										<input name="school" type="text" value="<{$aSignData.school}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">系所</td>
+									<td class="tl-input">
+										<input name="department" type="text" value="<{$aSignData.department}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">有無經紀約</td>
+									<td class="tl-input">
+									    <div class="custom-select">
+	                                        <label for="select-choice7 " class="label select-1">
+	                                            <span class="selection-choice"><{if $aSignData.management == 0 }> 無 <{else if $aSignData.management == 1 }>有<{/if}></span> 
+	                                        </label>
+	                                        <select name='management' id="select-choice7" class="select">
+	                                            <option value=0 <{if $aSignData.management == 0 }> selected <{/if}>>無</option>
+												<option value=1 <{if $aSignData.management == 1 }> selected <{/if}>>有</option>
+	                                        </select>
+	                                    </div>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">演藝專長</td>
+									<td class="tl-input">
+								    	<input name="specialty" type="text" value="<{$aSignData.specialty}>" >
+								    	<!-- <{foreach from=$aSpecialty item="entry" name="foo"}>
+											<input type='checkbox' name='specialty[]' value='<{$entry.sk_no}>' <{if $entry.check}>checked<{/if}> >
+											<{$entry.sk_name}>
+										<{/foreach}> -->
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">擅長樂器</td>
+									<td class="tl-input">
+										<input name="music_tool_data" type="text" value="<{$aSignData.music_tool}>" >
+										<!-- <div id="music_tool_data" ></div>
+										<script>selectNewMusicTool();</script> -->
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">演藝/參賽經歷</td>
+									<td class="tl-input">
+										<textarea rows=10 cols=50 name=experience><{$aSignData.experience}></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="signup-bg" class="signup-bg active"></div>
+    <!--javascript-->   
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
+    <script src="./js/signup.js"></script>
 </body>
 </html>
 

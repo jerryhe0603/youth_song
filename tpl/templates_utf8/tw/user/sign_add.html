@@ -3,84 +3,117 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品投稿</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+	<link rel="stylesheet" href="./css/font-awesome-new.min.css">
 	<script
 	  src="https://code.jquery.com/jquery-3.1.1.js"
 	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 	  crossorigin="anonymous"></script>
 	<script type="text/javascript" src="./js/function.js"></script>
+	<script sync src="https://use.fontawesome.com/29492048ee.js"></script>
 </head>
+<{if $lang==1}>
 <body>
-	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=add">
-		<table>
-			<tr>
-				<td>團隊名稱(個人報名免填)</td>
-				<td>
-					<input name="team_name" type="text" >
-				</td>
-			</tr>
-			<!-- <tr>
-				<td>報名組別</td>
-				<td>
-					<select name=sign_type>
-						<option value=1>學生組</option>
-						<option value=2>青年組</option>
-					</select>
-				</td>
-			</tr> -->
-			<!-- <tr>
-				<td>個人圖片</td>
-				<td>
-					<input name="img_1" type="file" accept=".gif , .jpg , .png">
-					<input name="img_2" type="file" accept=".gif , .jpg , .png">
-					<input name="img_3" type="file" accept=".gif , .jpg , .png">
-				</td>
-			</tr> -->
-			<tr>
-				<td>學校</td>
-				<td>
-					<input name="school" type="text" >
-				</td>
-			</tr>
-			<tr>
-				<td>系所</td>
-				<td>
-					<input name="department" type="text" >
-				</td>
-			</tr>
-			<tr>
-				<td>有無經紀約</td>
-				<td>
-					<select name='management' >
-						<option value=0>無</option>
-						<option value=1>有</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝專長</td>
-				<td>
-					<{foreach from=$aSpecialty item="specialty" name="specialty" key=k}>
-					<input type="checkbox" name="specialty[]" value=<{$k}> ><{$specialty}>
-					<{/foreach}>
-				</td>
-			</tr>
-			<tr>
-				<td>擅長樂器</td>
-				<td>
-					<div id="music_tool_data" ></div>
-					<script>selectNewMusicTool();</script>
-				</td>
-			</tr>
-			<tr>
-				<td>演藝/參賽經歷</td>
-				<td>
-					<textarea rows=10 cols=50 name=experience></textarea>
-				</td>
-			</tr>
-			
-		</table>
-		<button class="btn-trans btn-sign" type="submit">下一步</button>
-	</form>
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+	    <div id="applyresume" class="signup-sign applyresume active">
+	        <div class="login-wrp">
+	            <h5 class="login-title">報名者資料</h5>
+				<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=add">
+					<div class="login-form">
+	                    <div class="login-others">
+	                        <a href="./<{$web_index}>func=member">會員基本資料</a>
+	                        <a href="#">報名投稿作品</a>
+	                    </div>
+	                    <table>
+	                        <tbody>
+	                            <tr class="table-head">
+	                                <td colspan=3>項目（<i class="fa fa-circle" aria-hidden="true"></i> 為必填）</td>
+	                            </tr>
+	                            <tr>
+	                                <td rowspan="7" class="tl-title">填<br>寫<br>音<br>樂<br>履<br>歷</td>
+	                                <td class="tl-unit">團隊名（個人報名免填）</td>
+	                                <td class="tl-input"><input name="team_name" type="text" ></td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit">學校</td>
+	                                <td class="tl-input"><input name="school" type="text" ></td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit">系所/年級</td>
+	                                <td class="tl-input"><input name="department" type="text" ></td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit"><i class="fa fa-circle" aria-hidden="true"></i>經紀約 - 有/無</td>
+	                                <td class="tl-input">
+	                                    <div class="custom-select">
+	                                        <label for="select-choice7 " class="label select-1">
+	                                            <span class="selection-choice">請選擇</span> 
+	                                        </label>
+	                                        <select name='management' id="select-choice7" class="select">
+	                                            <option value="">請選擇</option>
+	                                            <option value="1">有</option>
+	                                            <option value="0">無</option>
+	                                        </select>
+	                                    </div>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit">演藝專長</td>
+	                                <td class="tl-input tl-select3">
+	                                    <input name="specialty" type="text" >
+	                                    <!--<{foreach from=$aSpecialty item="specialty" name="specialty" key=k}>
+										<input type="checkbox" name="specialty[]" value=<{$k}> ><{$specialty}>
+										<{/foreach}>-->
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit">擅長樂器</td>
+	                                <td class="tl-input">
+	                                    <input name="music_tool_data" type="text" >
+	                                    <!--<div id="music_tool_data" ></div>
+										<script>selectNewMusicTool();</script>-->
+									</td>
+	                            </tr>
+	                            <tr>
+	                                <td class="tl-unit">演藝/參賽經歷</td>
+	                                <td class="tl-input">
+	                                	<textarea coname=experience rows=6></textarea>
+	                                </td>
+	                            </tr>
+	                            <tr>
+    								<td colspan=5 class="tl-mention">
+    									<label for="agree">註：以上陳述如有虛假不實，填表人願無條件接受主辦單位依活動辦理規定取消資格並負相關法律責任。</label>
+    								</td>
+    							</tr>
+    							
+	                        </tbody>
+	                    </table>
+	                    <div class="form-btn">
+	                        <input type="submit" name="btn-stepone" value="前往投稿作品" id="btn-stepone" class="btn-light">
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	</div>
+    <div id="signup-bg" class="signup-bg active"></div>
+
+	<!--javascript-->	
+	<{if $lang==1}>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<{else}>
+	<script src="./js/jquery-2.1.1.js"></script>
+	<script src="./js/TweenMax.min.js"></script>
+	<{/if}>
+	<script src="./js/nav.js"></script>
+	<script src="./js/signup.js"></script>
 </body>
 </html>
 

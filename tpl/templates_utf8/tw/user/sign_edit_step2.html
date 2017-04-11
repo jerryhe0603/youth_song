@@ -3,74 +3,211 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品投稿</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/font-awesome-new.min.css">
 	<script
 	  src="https://code.jquery.com/jquery-3.1.1.js"
 	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 	  crossorigin="anonymous"></script>
 	<script type="text/javascript" src="./js/function.js"></script>
+
+	<script type="text/javascript">
+	function changeLyric(ly_file,ly_span){
+
+	    var x = document.getElementById(ly_file).value;
+	    document.getElementById(ly_span).innerHTML = x;
+	}
+
+	window.readURL = function(input,targetId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var ObjectId = document.getElementById(targetId);
+                ObjectId.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    window.del_image = function(img, imgId){
+        var ObjectId = document.getElementById(img);
+        ObjectId.src = '../../image/signup/upload-input.jpg';
+        
+        document.getElementById(imgId).outerHTML=document.getElementById(imgId).outerHTML.replace(/value=\w/g,'');
+        // document.getElementsByName("img_1_1").value='';
+            
+        
+    }
+
+    $(function () {
+        $(':input').bind('change', function () { setConfirmUnload(true); }); // Prevent accidental navigation away
+        $('.next_step').click(function () { setConfirmUnload(false); });
+
+        function setConfirmUnload(on) {
+            window.onbeforeunload = (on) ? unloadMessage : null;
+        }
+
+        function unloadMessage() {
+            return 'You have entered new data on this page.  If you navigate away from this page without first saving your data, the changes will be lost.';
+        }
+
+        window.onerror = UnspecifiedErrorHandler;
+        function UnspecifiedErrorHandler() {
+            return true;
+        }
+    });
+
+   
+	</script>
 </head>
+<{if $lang==1}>
 <body>
-	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=edit_step2">
-		<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
-		<table>
-			
-			<{foreach from=$aSignData.works item="works" name="works"}>
-			<tr>
-				<td>歌曲名稱<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<input type="text" name="song_name_<{$smarty.foreach.works.iteration}>" value = "<{$works.song_name}>" >
-				</td>
-			</tr>
-			<tr>
-				<td>詞作者<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<input type="text" name="lyricist_<{$smarty.foreach.works.iteration}>" value = "<{$works.lyricist}>" >
-				</td>
-			</tr>
-			<tr>
-				<td>曲作者<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<input type="text" name="composer_<{$smarty.foreach.works.iteration}>" value = "<{$works.composer}>" >
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌詞<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<input type="file" name="lyric_file_<{$smarty.foreach.works.iteration}>" accept=".txt, .doc, .docx">
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>
-				</td>
-			</tr>
-			<tr>
-				<td>參賽作品歌曲<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<input type="file" name="song_file_<{$smarty.foreach.works.iteration}>" accept=".mp3 , .mp4 , .wav ">
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
-				</td>
-			</tr>
-			<tr>
-				<td>創作理念<{$smarty.foreach.works.iteration}></td>
-				<td>
-					<textarea name="creative_concept_<{$smarty.foreach.works.iteration}>" cols=50 rows=10><{$works.creative_concept}></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>個人圖片</td>
-				<td>
-					<input name="img_<{$smarty.foreach.works.iteration}>_1" type="file" accept=".gif , .jpg , .png">
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" target=_blank><{$works.img_file_name_1}></a>
+<{else}>
+<body class="cn">
+<{/if}>
+    <{$header}>
+    <div class="signup-wrp">
+        <div id="applyedit2" class="signup-sign applyedit active">
+            <div class="login-wrp">
+                <h3 class="login-title">投稿內容修改</h3>
+				<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=edit_step2">
+					<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
+				    <div class="login-form">
+				        <div class="login-others">
+					        <input class="btn-trans btn-sign next_step" name="btn-applyedit2" type="submit" value="儲存" id="btn-applyedit2">
+							<a href="./<{$web_index}>func=member">返回</a>
+		                </div>
+						<table>
+						    <tbody>
+						        <tr class="table-head">
+                                    <td colspan=2>項目</td>
+                                    <td>內容</td>
+                                </tr>
+								<{foreach from=$aSignData.works item="works" name="works"}>
+								<tr>
+                                    <td rowspan="7" class="tl-title">作<br>品<br><{$smarty.foreach.works.iteration}></td>
+									<td class="tl-unit">歌曲名稱</td>
+									<td class="tl-input">
+										<input type="text" name="song_name_<{$smarty.foreach.works.iteration}>" value = "<{$works.song_name}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">詞作者</td>
+									<td class="tl-input">
+										<input type="text" name="lyricist_<{$smarty.foreach.works.iteration}>" value = "<{$works.lyricist}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">曲作者</td>
+									<td class="tl-input">
+										<input type="text" name="composer_<{$smarty.foreach.works.iteration}>" value = "<{$works.composer}>" >
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">參賽作品歌詞</td>
+									<td class="tl-input upload">
+										<!--<input type="file" name="lyric_file_<{$smarty.foreach.works.iteration}>" accept=".txt, .doc, .docx">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>-->
+										<div class="upload-wrp">
+    	                                    <label for="lyric_file_<{$smarty.foreach.works.iteration}>" class="song_file_label">
+    	                                        <img src="./image/signup/upload-lyrics.png" alt="">
+    	                                    </label>
+    	                                    <p>請上傳 word檔或txt檔，檔案大小勿超過3M<br><span class="cl-pink">當前檔名:</span><span id="span_lyric_<{$smarty.foreach.works.iteration}>" name="span_lyric_<{$smarty.foreach.works.iteration}>" class="cl-pink"><a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a></span></p>
+    	                                    <input  id="lyric_file_<{$smarty.foreach.works.iteration}>" type="file" name="lyric_file_<{$smarty.foreach.works.iteration}>"  class="lyrics_file" accept=".doc, .txt, .docx" onchange="changeLyric('lyric_file_<{$smarty.foreach.works.iteration}>','span_lyric_<{$smarty.foreach.works.iteration}>')">
+                                        </div>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">參賽作品歌曲</td>
+									<td class="tl-input upload">
+									    <div class="upload-wrp">
+    	                                    <label for="song_file_<{$smarty.foreach.works.iteration}>" class="song_file_label">
+    	                                        <img src="./image/signup/upload-songs.png" alt="">
+    	                                    </label>
+    	                                    <p>必須包含伴奏與演唱，時間長度60秒以上、請上傳mp3檔或wav檔，檔案大小勿超過10MB<br><span class="cl-pink">當前檔名:</span><span id="span_song_<{$smarty.foreach.works.iteration}>" name="span_song_<{$smarty.foreach.works.iteration}>" class="cl-pink"><a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a></span></p>
+    	                                    <input id="song_file_<{$smarty.foreach.works.iteration}>" type="file" name="song_file_<{$smarty.foreach.works.iteration}>" class="song_file" accept="audio/mp3, audio/mp4, audio/wav" onchange="changeLyric('song_file_<{$smarty.foreach.works.iteration}>','span_song_<{$smarty.foreach.works.iteration}>')">
+                                        </div>
+										<!--<input type="file" name="song_file_<{$smarty.foreach.works.iteration}>" accept=".mp3 , .mp4 , .wav ">-->
+										<!--<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>-->
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">創作理念</td>
+									<td class="tl-input">
+										<textarea name="creative_concept_<{$smarty.foreach.works.iteration}>" cols=50 rows=10><{$works.creative_concept}></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td class="tl-unit">個人圖片</td>
+									<td class="tl-input upload">
+										<!-- <input name="img_<{$smarty.foreach.works.iteration}>_1" type="file" accept=".gif , .jpg , .png">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" target=_blank><{$works.img_file_name_1}></a>
 
-					<input name="img_<{$smarty.foreach.works.iteration}>_2" type="file" accept=".gif , .jpg , .png">
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_2}>" target=_blank><{$works.img_file_name_2}></a>
+										<input name="img_<{$smarty.foreach.works.iteration}>_2" type="file" accept=".gif , .jpg , .png">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_2}>" target=_blank><{$works.img_file_name_2}></a>
 
-					<input name="img_<{$smarty.foreach.works.iteration}>_3" type="file" accept=".gif , .jpg , .png">
-					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_3}>" target=_blank><{$works.img_file_name_3}></a>
-				</td>
-			</tr>
-			<{/foreach}>
-		</table>
-		<button class="btn-trans btn-sign" type="submit">儲存</button>
-		<a href="./<{$web_index}>func=member">返回</a>
-	</form>
+										<input name="img_<{$smarty.foreach.works.iteration}>_3" type="file" accept=".gif , .jpg , .png">
+										<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_3}>" target=_blank><{$works.img_file_name_3}></a>
+										 -->
+										<div class="panel photo-panel clearfix">
+	                                        <div class="photo-wrp">
+	                                            <div class="upload">
+	                                            	<{if $works.img_file_file_1 ==''}>
+														<img src="../../image/signup/upload-input.jpg" width="100" id="<{$works.works_no}>_img1" />
+	                                            	<{else}>
+														<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" width="100" id="<{$works.works_no}>_img1" />
+	                                            	<{/if}>
+	                               					<a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('<{$works.works_no}>_img1','img_<{$smarty.foreach.works.iteration}>_1');"><i class="fa icon-trash"></i></a>
+	                                				<input type="file" name="img_<{$smarty.foreach.works.iteration}>_1" id="img_<{$smarty.foreach.works.iteration}>_1" onchange="readURL(this,'<{$works.works_no}>_img1');" />
+	                                            </div>
+
+	                                             <div class="upload">
+	                                             	<{if $works.img_file_file_2 ==''}>
+														<img src="../../image/signup/upload-input.jpg" width="100" id="<{$works.works_no}>_img2" />
+	                                            	<{else}>
+	                                            		 <img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_2}>" width="100" id="<{$works.works_no}>_img2" />
+	                                            	<{/if}>
+	                                                <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('<{$works.works_no}>_img2','img_<{$smarty.foreach.works.iteration}>_2');"><i class="fa icon-trash"></i></a>
+	                                                <input id="img_<{$smarty.foreach.works.iteration}>_2" name="img_<{$smarty.foreach.works.iteration}>_2" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'<{$works.works_no}>_img2');" />
+	                                            </div>
+
+	                                            <div class="upload">
+	                                            	<{if $works.img_file_file_3 ==''}>
+														<img src="../../image/signup/upload-input.jpg" width="100" id="<{$works.works_no}>_img3" />
+	                                            	<{else}>
+	                                            		<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_3}>" width="100" id="<{$works.works_no}>_img3" />
+	                                            	<{/if}>
+	                                                <a class="upload-remove" href="javascript:void(0);" onClick="javascript:del_image('<{$works.works_no}>_img3','img_<{$smarty.foreach.works.iteration}>_3');"><i class="fa icon-trash"></i></a>
+	                                                <input id="img_<{$smarty.foreach.works.iteration}>_3" name="img_<{$smarty.foreach.works.iteration}>_3" type="file" accept="image/gif, image/jpg, image/png" onchange="readURL(this,'<{$works.works_no}>_img3');" />
+	                                            </div>
+	                                        </div>
+	                                        <div class="upload-wrp">
+                                                <p>圖檔格式gif或jpg，上傳照片每張尺寸需400*300以上，最少1張、至多3張，總檔案大小勿超過3MB</p>
+                                            </div>
+                                        </div>
+									</td>
+								</tr>
+								<{/foreach}>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="signup-bg" class="signup-bg active"></div>
+    <!--javascript-->   
+    <{if $lang==1}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <{else}>
+    <script src="./js/jquery-2.1.1.js"></script>
+    <script src="./js/TweenMax.min.js"></script>
+    <{/if}>
+    <script src="./js/nav.js"></script>
+    <script src="./js/signup.js"></script>
 </body>
 </html>
 

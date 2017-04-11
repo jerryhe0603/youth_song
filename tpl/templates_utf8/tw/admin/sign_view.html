@@ -70,14 +70,14 @@
 								<span><{$aSign.team_name}></span>
 							</div>
 						</div>
-						<div class="span6 profile-info-row">
+						<!-- <div class="span6 profile-info-row">
 							<div class="profile-info-name"> 報名組別 </div>
 							<div class="profile-info-value">
 								<span>
 									<{if $aSign.sign_type ==1}>學生組 <{else}> 青年組 <{/if}>
 								</span>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="row-fluid">
 						<div class="span6 profile-info-row">
@@ -107,9 +107,10 @@
 						<div class="span12 profile-info-row">
 							<div class="profile-info-name">演藝專長 </div>
 							<div class="profile-info-value">
-							<{foreach from=$aSign.specialty item=specialty }>
+							<!-- <{foreach from=$aSign.specialty item=specialty }>
 								<span><{$specialty}></span>
-							<{/foreach}>
+							<{/foreach}> -->
+							<span><{$aSign.specialty}></span>
 							</div>
 						</div>
 					</div>
@@ -117,9 +118,10 @@
 						<div class="span12 profile-info-row">
 							<div class="profile-info-name">擅長樂器 </div>
 							<div class="profile-info-value">
-							<{foreach from=$aSign.music_tool item=oTool }>
+							<!-- <{foreach from=$aSign.music_tool item=oTool }>
 								<div><{$oTool.tool_name}> - <{$oTool.level_name}></div>
-							<{/foreach}>
+							<{/foreach}> -->
+							<span><{$aSign.music_tool}></span>
 							</div>
 						</div>
 					</div>
@@ -131,30 +133,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row-fluid">
-						<div class="span12 profile-info-row">
-							<div class="profile-info-name"> 個人圖片 </div>
-							<div class="profile-info-value">
-								<{if $aSign.img_file_file_1}>
-								<span>
-									<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$aSign.img_file_file_1}>" target=_blank><{$aSign.img_file_name_1}></a>
-								</span>
-								<{/if}>
-
-								<{if $aSign.img_file_file_2}>
-								<span>
-									<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$aSign.img_file_file_2}>" target=_blank><{$aSign.img_file_name_2}></a>
-								</span>
-								<{/if}>
-
-								<{if $aSign.img_file_file_3}>
-								<span>
-									<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$aSign.img_file_file_3}>" target=_blank><{$aSign.img_file_name_3}></a>
-								</span>
-								<{/if}>
-							</div>
-						</div>
-					</div>
+					
 					<div class="row-fluid">
 						<div class="span6 profile-info-row">
 							<div class="profile-info-name"> 建立日期 </div>
@@ -220,6 +199,31 @@
 				<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
 			</div>
 		</div>
+
+		
+		<div class="span6 profile-info-row">
+			<div class="profile-info-name"> 個人圖片 </div>
+			<div class="profile-info-value">
+				<{if $works.img_file_file_1}>
+				<span>
+					<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$works.img_file_file_1}>" target=_blank><{$works.img_file_name_1}></a>
+				</span>
+				<{/if}>
+
+				<{if $works.img_file_file_2}>
+				<span>
+					<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$works.img_file_file_2}>" target=_blank><{$works.img_file_name_2}></a>
+				</span>
+				<{/if}>
+
+				<{if $works.img_file_file_3}>
+				<span>
+					<a href="../data/upload/<{$sAreaName}>/<{$aSign.sign_no}>/<{$works.img_file_file_3}>" target=_blank><{$works.img_file_name_3}></a>
+				</span>
+				<{/if}>
+			</div>
+		</div>
+					
 		<{/foreach}>
 	</div>
 </div>

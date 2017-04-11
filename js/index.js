@@ -3,6 +3,7 @@ jQuery(document).ready(function($) {
             /* 全域變數 */
         	
 	        var _winheight = $(window).height();
+	        var _winWidth = $(window).width();
 	        var _bodyheight = $('body').height();
 	        var small = 'up';
 	        var headerHeight = $('.head').height();
@@ -67,7 +68,8 @@ jQuery(document).ready(function($) {
 					return opset = 'active';
 				}
                 
-                
+
+
               
 	        	
 	        /* 依照滾輪滾動 */
@@ -78,6 +80,7 @@ jQuery(document).ready(function($) {
 	                var introOffBtm = introHeight + introOffTop;
 	                var introCenter = introOffTop + (introHeight / 2 );
 	                var _scroll = $(window).scrollTop();
+
 	                var offsetBtmCollect = {
 		                topic: $('#intro-topic').offset().top + $('#intro-topic').height(),
 		                ten: $('#intro-ten').offset().top + $('#intro-ten').height(),
@@ -119,24 +122,18 @@ jQuery(document).ready(function($) {
 
 		            if ( b >= 0.5 ) {
 		            	
-		            		$('#scrollUp').css('visibility','visible');
-		            		$('#intro-ten').css({'opacity':1});
-		            		var winWidth = $(window).width();
-		            		
+	            		$('#scrollUp').css('visibility','visible');
+	            		$('#intro-ten').css({'opacity':1});
+	            		var winWidth = $(window).width();
+
+	            		if ( winWidth > 1024 ) {
 		            		if (opset == 'active'){
-		            			if ( winWidth > 1024 ) {
-		            				while (opset == 'active') {
-							    		animation();
-							    		return opset = 'stop';
-							        };
-		            			} else {
-		            				while (opset == 'active') {
-							    		animationMB();
-							    		return opset = 'stop';
-							        };
-		            			}
-		            			
-						    };
+	            				while (opset == 'active') {
+						    		animation();
+						    		return opset = 'stop';
+						        };
+	            			}
+						};
 						
 		            } else if ( b < 0.5) {
 		            	$('#scrollUp').css('visibility','hidden');
@@ -187,28 +184,21 @@ jQuery(document).ready(function($) {
 
 		           
 
-	                var moveParam = (_scroll - introCenter /2)  / introCenter * -1;
+	                var moveParam = (_scroll - introCenter)  / introCenter * -1;
 	                var leftOpaParam = (_scroll + ($('.intro-animateLeft').offset().top))*0.2 / ( $('.intro-animateLeft').height());
 	                var rightOpaParam = (_scroll + ($('.intro-animateRight').offset().top))*0.2 / ( $('.intro-animateRight').height());
 	                var leftMove = introOffTop ;
 
 	               
-	                if ( _scroll < leftMove + 400 ) {
-	                	var leftMoveIn = ( moveParam * introOffTop * -0.8 - $('.intro-animateLeft').height()/2)
-	                	var rightMoveIn = ( moveParam * introOffTop * -0.6 - $('.intro-animateRight').height()/2)
+	                if ( _scroll < leftMove + introCenter/2 ) {
+	                	var leftMoveIn = ( moveParam * introOffTop * -0.8  - $('.intro-animateLeft').height()/3.5)
+	                	var rightMoveIn = ( moveParam * introOffTop * -0.6 - $('.intro-animateRight').height()/2.3)
 	                	
 	                    $('.intro-animateLeft').css({'left':leftMoveIn,'opacity': leftOpaParam });
 	                    $('.intro-animateRight').css({'right':rightMoveIn, 'opacity': rightOpaParam });
 
-	                } else if ( _scroll > introOffTop + 450  ) {
-	                    
-	                    /*var leftMoveOut =  moveParam * introOffTop * 2 + $('.intro-animateLeft').height()/2;
-	                    var rightMoveOut = ( moveParam * introOffTop * 2 + $('.intro-animateRight').height()/2)
-	                    $('.intro-animateLeft').css('left', -195 + leftMoveOut*0.1);
-	                    $('.intro-animateRight').css({'right': -158 + rightMoveOut*0.1});*/
-	                    
 	                } else {
-
+                        
 	                	$('.intro-animateLeft').css({'left':'-215px','opacity':'1'});
 	                	$('.intro-animateRight').css({'right':'-250px','opacity':'1'});
 
@@ -217,9 +207,13 @@ jQuery(document).ready(function($) {
 
 		        }
 	            
-	            scrollAni();
+	           if (_winWidth > 1024) {
+                    scrollAni();
+	            }
+	            
 		        $(window).scroll(function(){
 		        	scrollAni();
+
 		        });
 
 	     
@@ -262,6 +256,8 @@ jQuery(document).ready(function($) {
 				});
 
 
+
+
 	        /* 手機頁面點擊選單 */
               
 		        $('.mb-login').click(function () {
@@ -289,6 +285,21 @@ jQuery(document).ready(function($) {
 		            $('.nav').removeClass('active');
 		            $('.header-btn').removeClass('active');
 		        });
+		        
+
+		        if ( _winWidth < 1024 ) {
+                    $('.cond-unit h4, .cond-unit p, .cond-unit ul').css({'animation-name':'fallDown','opacity':'1','animation-duration':'1s'});
+		            $('#intro-condition').addClass('active');
+		            $('.step-1 .wt-cover').css({'width':'-=250','opacity':0});
+           			$('.step-2 .wt-cover').css({'width':'-=250','opacity':0});
+            		$('.step-3 .wt-cover').css({'width':'-=250','opacity':0});
+            		
+					while (opset == 'active') {
+			    		animationMB();
+			    		return opset = 'stop';
+			    	};
+			    				    	
+		        };
 
 
 	        /* 淡入 */
@@ -473,6 +484,7 @@ jQuery(document).ready(function($) {
                         shirnkJudge();
 		        		shrink();
 		        	}
+
 		        	
 		        	
 

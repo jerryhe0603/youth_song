@@ -107,8 +107,11 @@ define ("_WEB_ADDRESS_CN", "http://gb.youth-song.com/youth_index.php?");//CN的�
 define ("_WEB_INDEX_SCR_TW", "http://www.youth-song.com/");//發送確認信的mail裡使用者點擊的連結位置判斷國別 
 define ("_WEB_INDEX_SCR_CN", "http://gb.youth-song.com/");//發送確認信的mail裡使用者點擊的連結位置判斷國別 
 
+//臉書id
+define ("_FB_APPID", "1920821451495690");
+
 //mail
-define ("_Web_Master_Email", "jerry.he@iwant-in.net");//寄件人信箱
+define ("_Web_Master_Email", "icd@iwant-in.net");//寄件人信箱
 define ("_Web_Master_Email_Name", "青春頌官方信箱");//寄件人名稱
 
 ?>

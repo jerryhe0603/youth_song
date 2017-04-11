@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
 /**
@@ -9,6 +11,7 @@
 html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  overflow-x: hidden;
 }
 
 
@@ -31,7 +34,7 @@ body {
 }
 body.cn {
   margin: 0;
-  font-family: "San Francisco", "Helvetica Neue", Helvetica, Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "PingFang TC", "PingFang", "Microsoft JhengHei UI", "微軟正黑體", "Microsoft JhengHei", sans-serif !important; /* 1 */
+  font-family: "San Francisco", "Helvetica Neue", Helvetica, Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "PingFang TC", "PingFang", "微軟雅黑", "Microsoft YaHei", sans-serif !important; /* 1 */
 }
 
 h1,h2,h3,h4,h5,h6, .f-title {
