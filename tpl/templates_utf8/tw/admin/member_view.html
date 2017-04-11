@@ -1,0 +1,172 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<script src="../js/jquery.colorbox-min.js"></script>
+<link rel="stylesheet" href="../css/colorbox.css">
+
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home"></i>
+			<a href="./index.php">首頁</a>
+
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li>
+            <a href="./index.php?func=<{$smarty.get.func}>&action=list">會員資料管理</a>
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li class="active">會員資料檢視</li>
+	</ul><!--.breadcrumb-->
+
+</div>
+<div class="tabbable">
+	<div class="tab-content">
+		<div >
+			<!-- page infomation start -->
+			<div class="span7">
+
+				<h4 class="blue">
+						會員資料明細
+					<{if $aMember.flag == 1 }>
+					<span class="label label-large label-success arrowed arrowed-righ">開啟</span>
+					<{else}>
+					<span class="label label-large label-important arrowed arrowed-righ">關閉</span>
+					<{/if}>
+				</h4>
+				<div class="profile-user-info">
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 序號 </div>
+							<div class="profile-info-value">
+								<span class="red"><{$aMember.member_no}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 所屬地區 </div>
+							<div class="profile-info-value">
+								<span><{if $aMember.area==1}>台灣地區<{else}>中國地區<{/if}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 帳號 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.account}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 姓名 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.name}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 性別 </div>
+							<div class="profile-info-value">
+								<span><{if $aMember.sex==1}>男<{else}>女<{/if}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 身分證字號 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.uid}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 出生年月日 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.birthday}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 手機號碼 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.phone}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12 profile-info-row">
+							<div class="profile-info-name"> 地址 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.address}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12 profile-info-row">
+							<div class="profile-info-name">IP位置 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.user_ip}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12 profile-info-row">
+							<div class="profile-info-name">瀏覽器 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.user_agent}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12 profile-info-row">
+							<div class="profile-info-name">啟用日期 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.start_time}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 建立日期 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.created}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 修改日期 </div>
+							<div class="profile-info-value">
+								<span><{$aMember.modified}></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- page infomation ended -->
+			</div>
+		</div>
+	</div><!--/row-->
+	<div class="tab-content">
+		<{foreach from=$aMember.sign item=sign name=sign}>
+		<div class="span6 profile-info-row">
+			<div class="profile-info-name"> 報名表投稿紀錄</div>
+			<div class="profile-info-value">
+				<span>
+					<br>
+				</span>
+			</div>
+		</div>
+		<div class="span6 profile-info-row">
+			<div class="profile-info-name"> 第<{$sign.type}>期</div>
+			<div class="profile-info-value">
+				<span>
+					<a href="./index.php?func=sign&action=view&sign_no=<{$sign.sign_no}>" target="_blank">報名表序號：<{$sign.sign_no}></a>
+				</span>
+			</div>
+		</div>
+		<{/foreach}>
+	</div>
+</div>
+
+
+

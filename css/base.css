@@ -1,0 +1,55 @@
+html,header,footer,body, p, div, span, th, td, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, blockquote{ margin: 0px; padding: 0px;-webkit-text-size-adjust:none;}
+th, h1, h2, h3, h4, h5, h6, code, cite, dfn, var {font-size: 100%;font-style: normal;font-weight:inherit;}
+ol, ul {list-style: none;}
+table {border-collapse: collapse;border-spacing: 0px;}
+td, th { vertical-align: top;}
+fieldset, img {border: 0px; }
+caption, th {text-align: left; }
+.fltlft{float:left;}
+.fltrt{float:right;}
+.clear{clear:both;font-size:0;}
+.absolute{position:absolute;}
+.relative{position:relative;}
+a{text-decoration:none;}
+img {display:block;}
+.noFocus:focus{outline: none;}
+
+
+ 
+/* clearfix */ 
+.clearfix:after {
+ content: "."; 
+ display: block; 
+height: 0; 
+ clear: both; 
+ visibility: hidden;
+ }
+ 
+.clearfix{display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix{height: 1%;}
+.clearfix{display: block;}
+/* End hide from IE-mac */  
+
+
+.noFocus:focus {
+    outline: none;
+}
+
+
+/*select color*/
+
+::selection {
+	background:#acefc9;
+	color:#fff;
+}
+
+::-moz-selection {
+	background:#acefc9;
+	color:#fff;
+}
+
+::-webkit-selection {
+	background:#acefc9;
+	color:#fff;
+}

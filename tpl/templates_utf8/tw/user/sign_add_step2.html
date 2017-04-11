@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作品投稿</title>
+	<script
+	  src="https://code.jquery.com/jquery-3.1.1.js"
+	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="./js/function.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#add_more").click(function(){
+		    $("#moreWorks").toggle();
+	  	});
+	});
+	// function addMore(){
+	// 	$("#moreWorks").toggle();
+	// }
+
+	</script>
+</head>
+<body>
+	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=add_step2">
+		<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
+		<table>
+			
+			<tr>
+				<td>歌曲名稱1</td>
+				<td>
+					<input type="text" name="song_name_1">
+				</td>
+			</tr>
+			<tr>
+				<td>詞作者1</td>
+				<td>
+					<input type="text" name="lyricist_1">
+				</td>
+			</tr>
+			<tr>
+				<td>曲作者1</td>
+				<td>
+					<input type="text" name="composer_1">
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌詞1</td>
+				<td>
+					<input type="file" name="lyric_file_1" accept=".txt, .doc, .docx">
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌曲1</td>
+				<td>
+					<input type="file" name="song_file_1" accept=".mp3 , .mp4 , .wav ">
+				</td>
+			</tr>
+			<tr>
+				<td>創作理念1</td>
+				<td>
+					<textarea name="creative_concept_1" cols=50 rows=10></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>歌曲/報名者圖片1</td>
+				<td>
+					<input name="img_1_1" type="file" accept=".gif , .jpg , .png">
+					<input name="img_1_2" type="file" accept=".gif , .jpg , .png">
+					<input name="img_1_3" type="file" accept=".gif , .jpg , .png">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" id="add_more" name="add_more" value="+投稿更多作品"/>  
+				</td>
+			</tr>
+			
+			
+		</table>
+		<div id="moreWorks" style="display:none;">
+		<table>
+			<tr>
+				<td>歌曲名稱2</td>
+				<td>
+					<input type="text" name="song_name_2">
+				</td>
+			</tr>
+			<tr>
+				<td>詞作者2</td>
+				<td>
+					<input type="text" name="lyricist_2">
+				</td>
+			</tr>
+			<tr>
+				<td>曲作者2</td>
+				<td>
+					<input type="text" name="composer_2">
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌詞2</td>
+				<td>
+					<input type="file" name="lyric_file_2" accept=".txt, .doc, .docx">
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌曲2</td>
+				<td>
+					<input type="file" name="song_file_2" accept=".mp3 , .mp4 , .wav">
+				</td>
+			</tr>
+			<tr>
+				<td>創作理念2</td>
+				<td>
+					<textarea name="creative_concept_2" cols=50 rows=10></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>歌曲/報名者圖片2</td>
+				<td>
+					<input name="img_2_1" type="file" accept=".gif , .jpg , .png">
+					<input name="img_2_2" type="file" accept=".gif , .jpg , .png">
+					<input name="img_2_3" type="file" accept=".gif , .jpg , .png">
+				</td>
+			</tr>
+		</table>
+		</div>
+		<button class="btn-trans btn-sign" type="submit">報名投稿</button>
+	</form>
+</body>
+</html>
+

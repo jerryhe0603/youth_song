@@ -1,0 +1,68 @@
+<a class="menu-toggler" id="menu-toggler" href="#">
+	<span class="menu-text"></span>
+</a>
+<div class="sidebar" id="sidebar">
+
+	<ul class="nav nav-list">
+
+		<li <{if $smarty.server.QUERY_STRING=='' || (!$smarty.get.func && !$smarty.get.action)}>class="active"<{/if}>>
+			<a href="./index.php">
+				<i class="icon-dashboard"></i>
+				<span class="menu-text">首頁</span>
+			</a>
+		</li>
+
+		<{if $bSuperAdmin}>
+		<{/if}>
+
+		<li <{if $smarty.get.func=='user'}>class="active"<{/if}> >
+			<a href="./index.php?func=user&action=list" class="dropdown-toggle>">
+				<i class="icon-list"></i>
+				<span class="menu-text">使用者管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+
+		<li <{if $smarty.get.func=='news_type'}>class="active"<{/if}> >
+			<a href="./index.php?func=news_type&action=list" class="dropdown-toggle>">
+				<i class="icon-list"></i>
+				<span class="menu-text">最新消息類別管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+
+		<li <{if $smarty.get.func=='news'}>class="active"<{/if}> >
+			<a href="./index.php?func=news&action=list" class="dropdown-toggle>">
+				<i class="icon-list"></i>
+				<span class="menu-text">最新消息管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+
+		<li <{if $smarty.get.func=='member'}>class="active"<{/if}> >
+			<a href="./index.php?func=member&action=list" class="dropdown-toggle>">
+				<i class="icon-list"></i>
+				<span class="menu-text">會員資料管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+
+		<li <{if $smarty.get.func=='sign'}>class="active"<{/if}> >
+			<a href="./index.php?func=sign&action=list" class="dropdown-toggle>">
+				<i class="icon-list"></i>
+				<span class="menu-text">報名表資料管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+
+	</ul><!--/.nav-list-->
+
+	<div class="sidebar-collapse" id="sidebar-collapse">
+		<i class="icon-double-angle-right"></i>
+	</div>
+</div>

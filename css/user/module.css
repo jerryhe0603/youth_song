@@ -1,0 +1,1028 @@
+ @charset "utf-8";
+
+/*----------------------------------------------*\
+**
+**
+**    Universiade website - module
+**    
+**      baisc-module ------- 基本模組
+**  offcanvas-module ------- 側選單模組
+**       step-module ------- 步驟模組
+**     exlink-module ------- 友善連結模組
+**  slideshow-module ------- 輪播補充模組
+**       form-module ------- 表單模組
+**
+**
+\*----------------------------------------------*/
+
+
+
+/*-----------------------*\
+    $offcanvas-module
+\*-----------------------*/
+
+    .m-off-horiz, .m-off-full {
+        width: 100%;
+    }
+    .m-off-str, .m-off-full {
+        height: 100%;
+    }
+
+    .off-open_btn {
+        position: fixed;
+        width: 3.8em;
+        height: 3.8em;
+        background-color: #ffffff;
+        opacity: 1;
+        top: 0;
+        z-index: 100;
+        border-bottom-left-radius: 85%;
+        box-shadow: -1px -1px 3px 0 #282828;
+    }
+            .off-open_btn::after {
+                position: absolute;
+                text-align: center;
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: rgba(236,100,56,0.6);
+                letter-spacing: 1px;
+                top: 0;
+                background-color: #44373a;
+                left: 2.3rem;
+                width: 4rem;
+                padding: 0.825rem 0;
+            }
+            .off-open_btn:hover:after, .is-off-active .off-open_btn:after {
+                color: rgba(236,100,56,1);
+            }
+
+    /* horizontal */
+
+    @media only screen and (min-width: 769px) {
+        .off-open_btn {
+            display: none;
+        }
+
+    }
+
+
+/*-----------------------*\
+    $step-module
+\*-----------------------*/
+
+    .m-detail-unit {
+        padding: 0;
+    }
+
+        .detail-unit_title {
+            line-height: 3.09;
+            margin: 0;
+            font-weight: 600;
+            color: #fff;
+            word-spacing: 1em;
+        }
+            .detail-unit_beware {
+                font-size: 0.9em;
+                vertical-align: middle;
+                padding: 1em 0;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+        .detail-unit_content {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .m-detail-unit--date .detail-unit_content{}
+            .detail-unit_date.sub {
+                    font-size: 1.3em; 
+                }
+                    .detail-unit_date>sub {
+                        font-size: 20%;
+                        vertical-align: middle;
+                    }
+        .m-detail-unit--qualify .detail-unit_content {
+            text-align: justify;
+            margin: 0 auto;
+            word-spacing: 1em;
+        }
+            .detail-unit_signUp {
+                list-style-type: none;
+                margin-left: -1em;
+                vertical-align: middle;
+                position: relative;
+                margin-bottom: 1.5em;
+            }   
+                .detail-unit_signUp::before, .detail-unit_reward h4::before {
+                    content: "";
+                    position: absolute;
+                    background: url("../../image/user/logo-list.png") no-repeat center;
+                    background-size: auto;
+                    width: 19px;
+                    height: 19px;
+                    left: -29px;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                }
+                .m-detail-unit--qualify .tl-link, .un-join .tl-link {
+                    color: #ef8100;
+                    text-decoration: underline;
+                }
+            .detail-unit_remark {
+                line-height: 2;
+            }
+
+        .m-detail-unit--reward .detail-unit_content {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 80%;
+            word-spacing: 1em;
+        }
+            .detail-unit_reward {
+                list-style: none;
+                margin: 0 0 2em -1em;    
+            }
+                .detail-unit_reward h4 {
+                    font-weight: bold;
+                    font-size: 1.25em;
+                    font-weight: 600;
+                    margin: 0 0 1em;
+                    position: relative;
+                }
+                .detail-unit_reward ul {
+                    list-style: none;
+                    padding: 0;
+                }
+                .detail-unit_dark {
+                    font-weight: 600;
+                    display: block;
+                    height: 2em;
+                    float: left;
+                }
+        
+
+        .m-detail-unit--step .detail-unit_content {
+            width: 100%;
+        }
+        .detail-unit_step.tl-step-1, .detail-unit_step.tl-step-2, .detail-unit_step.tl-step-3 {
+            padding: 6.75em 0;
+        }
+
+        .detail-unit_step.tl-step-1::after, .detail-unit_step.tl-step-2::after {
+            content: "";
+            width: 99px;
+            height: 99px;
+            background-image: url(../../image/user/logo-arrow.jpg);
+            position: absolute;
+            margin: auto;
+        }
+            .unit-step_title {
+                font-size: 1.8rem;
+                line-height: 2;
+                font-weight: 600;
+                margin-bottom: .5em;
+            }
+            .unit-step_brief {
+                font-size: 1.5rem;
+                line-height: 1.714;
+                max-width: 24em;
+                margin: 0 auto;
+                padding: 0 2em;               
+            }
+                
+
+
+
+    @media only screen and (max-width: 768px) {
+        .m-detail-unit {
+            padding: 0;
+        }
+
+        .detail-unit_title {
+            font-size: 1.5em;
+        }
+        .detail-unit_beware {
+            line-height: 1.5;
+            position: relative;
+            width: 80%;
+            margin: 0 auto;
+            top: 0;
+            text-align: justify;
+        }
+         .unit-step_brief {
+           padding: 0 2em;
+        }
+        .m-detail-unit--date .detail-unit_content {
+            padding: 5em 0;
+        }
+            .detail-unit_date {
+                font-size: 2.34em;
+            }
+        .m-detail-unit--qualify .detail-unit_content {
+            padding: 2em 0;
+            max-width: 75%;
+        }
+            .detail-unit_signUp {
+                margin-bottom: 1em;
+            }
+                .m-detail-unit--qualify .tl-link {
+                    font-size: 1em;
+                    line-height: 1.2;
+                    padding: 1em;
+                    position: relative;
+                    font-weight: bold;
+                    display: block;
+                    margin: 2em auto 0;
+                    color: #000;
+                    background-color: #f7c406; 
+                    text-align: center;
+                    border-radius: .25em;
+                    text-decoration: none;
+                    max-width: 8em;
+                }
+                .m-detail-unit--qualify .tl-link:hover,
+                .m-detail-unit--qualify .tl-link:focus {
+                    background-color: #ef8100; 
+                    color: #fff;
+                }
+        .m-detail-unit--reward .detail-unit_content {
+            padding: 2em 0;
+            line-height: 2;
+        }
+        .detail-unit_step.tl-step-1, .detail-unit_step.tl-step-2, .detail-unit_step.tl-step-3 {
+            padding: 4em 0;
+        }
+        .detail-unit_step.tl-step-1, .detail-unit_step.tl-step-2 {
+            position: relative;
+        }
+        .detail-unit_step.tl-step-1::after, .detail-unit_step.tl-step-2::after {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            right: 0;
+            left: 0;
+            bottom: -50px;
+            margin: auto;
+        }
+        
+            
+
+
+    }
+    @media only screen and (min-width: 769px) {
+        .m-detail-unit {
+            padding: 0;
+        }
+
+        .m-detail-unit--date .detail-unit_content {
+            padding: 8.78em 0; 
+        }
+            .detail-unit_date {
+                font-size: 3rem;
+            }
+        .m-detail-unit--qualify .detail-unit_content {
+            font-size: 1.5rem;
+            padding: 5.85em 0;
+            max-width: 24em;
+        }
+        
+        .m-detail-unit--reward .detail-unit_content {
+            font-size: 1.5rem;
+            padding: 4em 0 2em;
+            line-height: 2;
+        }
+
+
+        .detail-unit_step.tl-step-1, .detail-unit_step.tl-step-2, .detail-unit_step.tl-step-3 {
+            padding: 6.75em 0;
+        }
+        .detail-unit_step.tl-step-1, .detail-unit_step.tl-step-2 {
+            position: relative;
+        }   
+    }
+    @media only screen and (min-width: 1024px) {
+
+        .detail-unit_step.tl-step-1::after, .detail-unit_step.tl-step-2::after {
+            content: "";
+            width: 99px;
+            height: 99px;
+            background-image: url(../../image/user/logo-arrow.jpg);
+            position: absolute;
+            right: -50px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+
+
+/*-----------------------*\
+    $exlink-module
+\*-----------------------*/
+
+    .m-exlink-unit {
+        color: #282828;
+        position: relative;
+        text-align: center;
+        padding: 0 1.2em;
+        background-color: #ffffff;
+        margin-bottom: 1.5rem;
+    }
+        
+    .exlink-unit_border {
+        position: relative;
+        max-width: 18em;
+        margin-bottom: 2em;
+        background-color: transparent;
+        -webkit-transition: background-color .2s linear, box-shadow .5s linear;
+            transition: background-color .2s linear, box-shadow .5s linear;
+            border: 3px solid #eeeeee;
+            box-shadow: 0 0 0 5 transparent;
+    }
+        .m-exlink-unit:hover .exlink-unit_border {
+            background-color: #ef8100;
+            box-shadow: 10px 10px 0 5px #dc8700;
+            border: 3px solid #ef8100;
+            color: #fff;
+        }
+
+    .exlink-unit_wrp {
+        position: relative;
+        padding: 1em 0.5em;
+        max-width: 18em;
+        display: inline-block;
+        -webkit-transition: all .5s ease-in-out;
+                transition: all .5s ease-in-out;
+    }
+ 
+    .exlink-unit_title {
+        font-size: 1.8rem;
+        margin: 0 auto 0.5em;
+    }
+    .exlink-unit_en {
+        font-size: 1.5rem;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    .exlink-unit_link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+    }
+    @media only screen and (max-width: 768px) {
+
+        .m-exlink-unit {
+            padding: 0 2em;
+        }
+        .m-exlink-unit.last {
+            margin: 0 auto;
+        }
+        .exlink-unit_wrp {
+            padding: 1em 0;
+        }
+        .exlink-unit_border {
+            background-color: #ffffff; 
+            padding: 0;
+            width: 18em;
+            margin: 0 auto;
+        }
+
+            .m-exlink-unit:hover .exlink-unit_border,
+            .m-exlink-unit:focus .exlink-unit_border {
+                box-shadow: 6px 6px 0 3px #dc8700;
+            }
+    }
+    @media only screen and  (min-width: 768px) and (max-width: 1200px) {
+        .m-exlink-unit:nth-child(1) .exlink-unit_border, .m-exlink-unit:nth-child(3) .exlink-unit_border {
+            margin: 0 0 2em auto;
+            width: 18em;
+        }
+        .m-exlink-unit:nth-child(2) .exlink-unit_border, .m-exlink-unit:nth-child(4) .exlink-unit_border {
+            margin: 0 auto 2em 0;
+            width: 18em;
+        }
+    }
+
+
+
+/*-----------------------*\
+    $slideshow-module
+\*-----------------------*/
+
+    #news {
+        position: relative;
+    }
+    .slidesjs-slide {
+        padding: 0 3em;
+    }
+
+    .slidesjs-previous {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        display: block;
+        margin: auto;
+        height: 56px;
+        z-index: 11;
+    }
+    .slidesjs-next {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        display: block;
+        margin: auto;
+        height: 56px;
+        z-index: 11;
+    }
+    @media only screen and (max-width: 768px) {
+        .slidesjs-container {
+            min-height: 640px;
+            max-height: 680px;
+        }
+        .slidesjs-slide {
+            padding: 0;
+        }
+        .slidesjs-previous, .slidesjs-next {
+            display: none;
+        }
+    }
+
+
+/*-----------------------*\
+    $form-module
+\*-----------------------*/
+
+.m-signup-title {
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.m-signup-step {
+    text-align: center;
+    vertical-align: middle;
+    color: #282828;
+    line-height: 1;
+}
+    .m-signup-step .active {
+        color: #fff;
+    }
+    
+    .sign-step_step1.active {
+        background-color: #0962ab;
+    }
+    .sign-step_step2.active {
+        background-color: #cd1921;
+    }
+    .sign-step_step3.active {
+        background-color: #f08b01;
+    }
+    .sign-step_step4.active {
+        background-color: #158d3f;
+    }
+
+.m-signup-next {
+    background-color: #f7c406;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    display: block;
+    margin: 0 auto;
+}
+.m-signup-next:hover, .m-signup-next:focus {
+    text-decoration: none;
+    color: #000;
+    opacity: 0.6;
+}
+
+
+/*---- Step3 ----*/
+
+.m-signup-content {
+    text-align: left;
+}
+    .form-group {
+        margin-bottom: 1em;
+        position: relative;
+    }
+    .group-upload label {
+        font-size: 0.85em;
+    }
+    
+
+    .signup-content_att {
+        letter-spacing: 1px;
+        list-style-type: none;
+    }
+        .signup-content_title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 2em;
+            margin-top: 0;
+        }
+            .group-login .m-signup-title {
+                margin-bottom: 3em;
+                text-align: center;
+				padding-left: 0;
+				background: none;
+            }
+            .group-login .form-group {
+                margin-bottom: 3em;
+                text-align: center;
+            }
+                .group-login .form-group input {
+                    width: 100%;
+                    max-width: 420px;
+                }
+            .signup-content_title .download {
+                vertical-align: middle;
+                font-size: 0.625em;
+                margin-left: 1em;
+                position: relative;
+                bottom: 0.15em;
+                color: #e40322;
+                border: 1px solid #e40322;
+                padding: 0.5em;
+            }
+            .signup-content_title .download:hover {
+                background-color: #e40322;
+                color: #fff;
+                text-decoration: none;
+                outline: none;
+            }
+        .signup-content_list {
+            font-size: 0.8em;
+            padding-left: 2em;
+            font-weight: normal; 
+			margin-bottom: 2em;
+        }
+            .signup-content_list li {
+                margin-bottom: 1em;
+				text-align: justify;
+            }
+    .panel-upload label {
+        min-height: 6em;
+        position: relative;
+    } 
+    .panel-upload input[type="file"] {
+        width: 100%;
+        margin: 0;
+        filter: alpha(opacity=0);
+        margin-top: 1em;
+        height: 3em;
+        z-index: 999;
+        position: absolute;
+        clip: rect(0,800px,100px,77px);
+        left: 0;
+        top: 0;
+        outline: 0;
+    } 
+	.group-edit .panel-upload input[type="file"] {
+        clip: rect(0,0,0,0);
+    }
+    .panel-upload input[type="file"]:focus {
+        outline: none;
+        border: none;
+    }
+    
+    .file-custom {
+        top: 3em;
+        right: 0;
+        left: 0;
+        z-index: 5;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #f5f5f5;
+        border: .075rem solid #f7c406;
+        border-radius: .25rem;
+        width: calc(100% - 30px);
+        margin: auto;
+        font-size: 0.823em;
+        height: 4em;
+        line-height: 1.5;
+        width: 100%;
+    }
+        .file-custom::before {
+            top: -.075rem;
+            right: -.075rem;
+            bottom: -.075rem;
+            z-index: 6;
+            display: block;
+            height: 4em;
+            content: "上傳";
+            background-color: #f7c406;
+            border: .075rem solid #ddd;
+            border-radius: 0 .25rem .25rem 0;
+            line-height: 2;
+            vertical-align: middle;
+        }
+        .file-custom, .file-custom::before {
+            position: absolute;
+            border: none;
+            outline: none;
+            color: #555;
+            padding: 1em 2em;
+        }
+        .file-custom::after {
+            content: " ";
+            font-size: 1.2em;
+        }
+
+
+@media only screen and (max-width: 768px) {
+    .m-signup-step {
+        display: none;
+    }
+    .m-signup-title {
+        font-size: 1.6em;
+        margin-bottom: 1em;
+    }
+        .signup-content_title {
+            font-size: 1.2em;
+            font-weight: normal;
+            line-height: 1.5; 
+            margin-bottom: 1em;
+        }
+            .group-success .signup-content_att {
+                text-align: left;
+                margin-bottom: 2em;
+                font-size: 1.2em;
+                font-weight: normal;
+                line-height: 1.5;
+            }
+            .signup-content_title .download {
+                display: block;
+                margin-left: 0;
+                margin-top: 1em;
+                text-align: center;
+            }
+            .form-group--checkbox {
+                margin-bottom: 2em;
+            }
+            .form-group--checkbox label {
+                overflow: hidden;
+            }
+            
+            .group-id .form-group--checkbox label {
+                vertical-align: middle;
+                line-height: 1.4;
+                margin-bottom: 1em;
+                text-align: justify;
+            }
+            .group-confirm .form-group--checkbox label {
+                line-height: 2.8; 
+				display: inline-block;
+            }
+            .form-group--checkbox input[type="checkbox"] {
+                width: 45px;
+                height: 45px;
+                float: left;
+                position: relative;
+                margin-right: 6px;
+            }
+
+
+    .m-signup-next {
+        width: 5em;
+        line-height: 3;
+        color: #282828;
+        margin: 2em auto;
+    }
+    .form-group {
+        margin-bottom: 0;
+    }
+    
+    /*--- 表單上傳 ---*/
+
+
+    .panel-upload input[type="file"] {
+        clip: rect(0,800px,100px,65px);
+        position: absolute;
+    } 
+    
+    .file-custom {
+        margin-top: 1em;
+        position: relative;
+        display: block;
+        width: 100%;
+        top: 0;
+    }
+        
+}
+
+@media only screen and (min-width: 769px) {
+    
+    .m-signup-title {
+        padding-left: 1.5em;
+        font-size: 2em;
+        letter-spacing: 2px;
+        line-height: 1.5735;
+        margin-bottom: 2em;
+        background: url(../../image/user/form-list.png) no-repeat left center;
+        background-size: 31px 31px;
+        text-align: left;
+    }
+    .m-signup-step {
+        margin-bottom: 4em;
+    }
+        .m-signup-step ul {
+            list-style-type: none;
+            text-align: center;
+            padding: 0 15px;
+        }
+            .sign-step_unit {
+                position: relative;
+            }
+                .sign-step_unit::after, .sign-step_unit::before {
+                    content:"";                 
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    background-color: #efefef;
+                    position: absolute;
+                    right: 0;
+                }
+                .sign-step_unit::after {
+                    border-width: 0 31px 60px 0;
+                    border-color: transparent #fff transparent transparent;
+                    top: 0;
+                }
+                .sign-step_unit::before {
+                    border-width:  0 0 60px 31px;
+                    border-color: transparent transparent #fff transparent;
+                    bottom: 0;
+                }
+            .sign-step_step1 {
+                font-size: 20px;
+                padding: 50px 0;
+                background-color: #efefef;
+            }
+                .sign-step_step1.active::after, .sign-step_step1.active::before {
+                    background-color: #0962ab;
+                }
+            .sign-step_step2 {
+                font-size: 20px;
+                line-height: 1.2;
+                padding: 36px 0;
+                background-color: #efefef;
+            }
+                .sign-step_step2.active::after, .sign-step_step2.active::before {
+                    background-color: #cd1921;
+                }
+                .step-text {
+                    width: 8em;
+                    margin: 0 auto;
+                    text-align: left;
+                }
+            .sign-step_step3 {
+                font-size: 20px;
+                line-height: 1.2;
+                padding: 36px 0;
+                background-color: #efefef;
+            }
+                .sign-step_step3.active::after, .sign-step_step3.active::before {
+                    background-color: #f08b01;
+                }
+            .sign-step_step4 {
+                font-size: 25px;
+                padding: 47.5px 0;
+                background-color: #efefef;
+            }
+                .sign-step_step1 .step-text, .sign-step_step4 .step-text {
+                    width: 8em;
+                    margin: 0 auto;
+                    text-align: center;
+                }
+
+    .m-signup-content {
+        font-size: 1.5em;
+        line-height: 1.8;
+        display: inline-block;   
+    }
+	
+    .group-upload .m-signup-content {
+        display: block;
+    }
+        .signup-content_att {
+            margin-bottom: 1.5em;
+        }
+        .form-group--checkbox {
+            margin-bottom: 3em;
+            line-height: 2.5;
+        }
+            .form-group--checkbox input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                position: relative;
+                top: 3px;
+                margin-right: 1em;
+            }
+
+    .m-signup-next {
+        font-size: 1em;
+        line-height: 3.333;
+        width: 12.333em;
+        height: 3.333em;
+        position: relative;
+        vertical-align: middle;
+        color: #000;
+        text-decoration: none;
+        opacity: 1;
+    }
+        
+}
+
+
+
+
+
+/*-----------------------*\
+    $musiclist-unit module
+\*-----------------------*/
+
+/* special about aplayer*/
+
+.list-title .player-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3em;
+    height: 3em;
+    margin: 0;
+}
+.list-title .button-play {
+    width: 3em;
+    height: 3em;
+    display: block;
+    background: url(../../image/button-play.png) no-repeat center 0; 
+}
+
+.list-title .button-play::after{
+    content: "聽音樂";
+    position: absolute;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    color: #cfcfcf;
+    bottom: 0;
+}
+.list-title .button-play:hover::after {
+    color: #f29a33;
+}
+
+
+/* basic */
+
+.vote-musiclist {
+    position: relative;
+    font-size: 1em;
+    padding: 2em 0;
+    font-size: 16px;
+}
+    .vote-musiclist ul {
+        position: relative;
+        list-style: none;
+        padding: 0 1em;
+    }   
+        .vote-musiclist .list-unit {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+            .vote-musiclist .list-img {
+                position: relative;
+            }
+                .vote-musiclist .list-img img {
+                    width: 100%;
+                    height: auto;
+                }
+                .vote-musiclist .list-img a {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: transparent;
+                    background: url(../../image/vote/bg-list-img.png) no-repeat center center;
+                    width: 100%;
+                    height: 100%;
+                    color: #fff;
+                    opacity: 0;
+                    -webkit-transition: all .5s ease-in-out;
+                    transition: all .5s ease-in-out;
+                }
+                .vote-musiclist .list-img a:hover,
+                .vote-musiclist .list-img a:target,
+                .vote-musiclist .list-img a:focus {
+                    opacity: 1;
+                    background-color: rgba(0,0,0,0.3);
+                }
+            .vote-musiclist .list-title {
+                position: relative;
+                text-align: left; 
+                padding-right: 3em;
+            }
+                .vote-musiclist .list-title h4 {
+                    font-size: 1.5em;
+                    color: #0c5da7;
+                    font-weight: 600;
+                    max-width: 11em;
+                    max-height: 1.08em;
+                    overflow: hidden;
+                }
+                .list-title .aplayer .aplayer-pic .aplayer-play,
+                .list-title .aplayer .aplayer-pic .aplayer-pause {
+                    border: none;
+                    margin: 0px -13px -5px 0;
+                } 
+            .list-detail {
+                border-top: 1px solid #dedede;
+                text-align: left;
+                font-size: 1em;
+                overflow: hidden;
+                padding: 1em 0;
+            }
+                .list-number,.list-count {
+                    float: left;
+                    padding-top: 0;
+                }
+
+                .list-number {
+                    margin-right: 0.8em;
+                }
+                .list-share {
+                    margin-right: 0.4em;
+                }
+                .list-count {
+                    padding-left: 0.8em;
+                    border-left: 1px solid #dedede;
+                }
+                    .list-number .num {
+                        margin-bottom: 0;
+                        padding-top: 0.5em;
+                        text-align: center;
+                    }
+
+                    .list-count .num {
+                        font-size: 1.5em;
+                        color: #196d2c;
+                        font-weight: 600;
+                        margin-bottom: 0;
+                        text-align: center;
+                    }
+                .list-detail .list-btn {
+                    float: right;
+                    font-size: 1.125em;
+                    padding: 0.8em 5%;
+                    color: #fff;            
+                    border-radius: 5px;  
+                    display: block;
+                    cursor: pointer;
+                }
+                .list-detail .list-btn:hover,
+                .list-detail .list-btn:focus,
+                .list-detail .list-btn:target {
+                    box-shadow: inset 0 0 10px #333333;
+                    text-decoration: none;
+                    background-color: #f7c406;
+                    color: #000;
+                }
+                .list-share:hover,.list-voting:hover {
+                    color: #fff;
+                }
+                .list-share {
+                    background-color: #0c5da7;
+                }
+                .list-voting, .list-login {
+                    background-color: #196d2c;
+                }
+                .list-voted {
+                    pointer-events: none;
+                    background-color: #656565;
+                    opacity: 0.6;
+                }
+                .list-detail .list-btn.list-voted:hover {
+                    box-shadow: none;
+                    text-decoration: none;
+                }
+@media only screen and (max-width: 767px) {
+    .vote-musiclist {
+        font-size: 14px;
+    }
+}
+       
+@media (min-width: 1024px) {
+   .col-md-4 {
+	  width: 33%;
+   }
+}

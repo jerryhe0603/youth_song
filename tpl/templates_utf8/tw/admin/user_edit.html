@@ -1,0 +1,88 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home home-icon"></i>
+			<a href="./index.php">首頁</a>
+
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+
+		<li>
+            <a href="./index.php?func=<{$smarty.get.func}>&action=admin">使用者管理</a>
+            <span class="divider">
+                    <i class="icon-angle-right"></i>
+            </span>
+		</li>
+		<li class="active">修改使用者</li>
+		
+	</ul><!--.breadcrumb-->
+
+	
+</div>
+
+<div class="page-content">
+	
+	<div class="msg-warn" id="msg_warn" style="display:none;">
+						
+	</div><!-- .msg-warn -->
+	
+	<br>
+	<div class="row-fluid">
+		<!--PAGE CONTENT BEGINS HERE-->
+		<form class="form-horizontal" name='myForm' id='myForm' method="post" ENCTYPE=multipart/form-data action="index.php?func=<{$smarty.get.func}>&action=<{$smarty.get.action}>&user_no=<{$aUser.user_no}>">
+			<div class="control-group">
+				<label class="control-label" for="user_name">使用者名稱</label>
+				<div class="controls">
+					<input type="text" name="user_name" id="user_name" value="<{$aUser.user_name}>" />
+				</div>
+			</div>
+
+            <div class="control-group">
+				<label class="control-label" for="user_account">使用者帳號</label>
+				<div class="controls">
+					<div class="input-append date">
+					  <input type="text" name="user_account" id="user_account" value="<{$aUser.user_account}>" />
+					</div>
+				</div>
+			</div>	
+            <div class="control-group">
+				<label class="control-label" for="user_password">使用者密碼</label>
+				<div class="controls">
+					<div class="input-append date">
+					   <input type="password" name="user_password" id="user_password" value="" />
+					</div>
+				</div>
+			</div>			
+			<div class="control-group">
+				<label class="control-label" for="flag">狀態</label>
+				<div class="controls">	
+					<input type="checkbox" name="flag" value="1" class="ace-switch ace-switch-7" <{if $aUser.flag ==' 1'}> checked <{/if}> />
+					<span class="lbl"></span>			
+				</div>
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-small btn-info" type="submit">
+					<i class="icon-ok bigger-110"></i>
+					送出
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn btn-small" type="reset">
+					<i class="icon-undo bigger-110"></i>
+					重置
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn btn-small btn-danger" type="button" onclick="window.history.go(-1)">
+					<i class="icon-reply bigger-110"></i>
+					取消
+				</button>
+			</div>
+		</form>	
+	</div>
+</div>	
+
+
+</script>
+
+

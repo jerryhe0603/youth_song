@@ -1,0 +1,94 @@
+<script src="../js/jquery.colorbox-min.js"></script>
+<link rel="stylesheet" href="../css/colorbox.css">
+
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home"></i>
+			<a href="./index.php">首頁</a>
+
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li>
+            <a href="./index.php?func=<{$smarty.get.func}>&action=list">最新消息管理</a>
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li class="active">最新消息檢視</li>
+	</ul><!--.breadcrumb-->
+
+</div>
+<div class="tabbable">
+	<div class="tab-content">
+		<div>
+			<!-- page infomation start -->
+			<div class="span7">
+
+				<h4 class="blue">
+						最新消息
+					<{if $aNews.flag == 1 }>
+					<span class="label label-large label-success arrowed arrowed-righ">開啟</span>
+					<{else}>
+					<span class="label label-large label-important arrowed arrowed-righ">關閉</span>
+					<{/if}>
+				</h4>
+				<div class="profile-user-info">
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 序號 </div>
+							<div class="profile-info-value">
+								<span class="red"><{$aNews.news_no}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 標題 </div>
+							<div class="profile-info-value">
+								<span><{$aNews.title}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 顯示地區 </div>
+							<div class="profile-info-value">
+								<span><{if $aNews.area==0}> 都顯示 <{elseif $aNews.area==1}> 台灣 <{elseif $aNews.area==2}> 中國 <{/if}></span>
+							</div>
+						</div>
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 類別 </div>
+							<div class="profile-info-value">
+								<span><{$aNews.type_name}></span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 profile-info-row">
+							<div class="profile-info-name"> 發佈日期 </div>
+							<div class="profile-info-value">
+								<span><{$aNews.publish_date}></span>
+							</div>
+						</div>
+						<!-- <div class="span6 profile-info-row">
+							<div class="profile-info-name"> 封面圖片 </div>
+							<div class="profile-info-value">
+								<a href="../data/news/<{$aNews.news_no}>/<{$aNews.file_file}>" target='_blank'><{$aNews.file_name}></a>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			<!-- page infomation ended -->
+			</div>
+		</div>
+	</div><!--/row-->
+	<div class="tab-content">
+		<h5>內文:</h5>
+		<br>
+		<{$aNews.description|nl2br}>
+	</div>
+</div>
+
+
+

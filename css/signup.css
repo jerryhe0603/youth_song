@@ -1,0 +1,1100 @@
+@charset "UTF-8";
+
+/**	
+ *
+ *  青春頌 website - signup
+ *  
+ *  title ---------- 首頁標題區(滾動掩蓋)
+ *  main  ---------- 首頁內容大區 
+ *  intro ---------- 首頁內容-介紹
+ *  	signup ----- 報名資訊
+ * 
+ */
+
+.cl-red {
+	color: #c10d23;
+}
+
+ .list-number li {
+	position: relative;
+}
+    .list-number li::before {
+        content: "";
+        position: absolute;
+        background-color: #595757;
+        width: 20px;
+        height: 20px;
+        left: -30px;
+        top: 0;
+        bottom: 0;
+        margin: auto; 
+        border-radius: 15px;
+        text-align: center;
+        line-height: 21px;
+        vertical-align: middle;
+        text-indent: 1px;
+        color: #fff;
+        font-family: 'Carrois Gothic', sans-serif;
+    }
+    .list-number li:nth-child(1)::before {
+    	content: "1";
+    }
+    .list-number li:nth-child(2)::before {
+    	content: "2";
+    }
+    .list-number li:nth-child(3)::before {
+    	content: "3";
+    }
+    .list-number li:nth-child(4)::before {
+    	content: "4";
+    }
+    .list-number li:nth-child(5)::before {
+    	content: "5";
+    }
+    .list-number li:nth-child(6)::before {
+    	content: "6";
+    }
+
+
+
+
+/**
+ *  
+ *  title
+ *
+ */
+
+
+.title {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	-webkit-display: flex;
+	-webkit-align-items: center;
+	-webkit-flex-direction: column;
+	-webkit-justify-content: center;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	height: 380px;
+
+}
+    .news-headline {
+		font-size: 2.5rem; 
+		letter-spacing: 0;
+		color: #fff;
+		position: relative;
+		text-align: center;
+		top: 45px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 4em;
+	}
+	    .news-headline span {
+			-webkit-transform: skewX(-10deg);
+			-moz-transform: skewX(-10deg);
+			transform: skewX(-10deg);
+	        display: flex;
+	        margin: 0 0.25em 1.714rem;
+	        text-shadow: 0 0 10px #fff;
+	        font-weight: 600;
+	    }
+	    .news-headline span:nth-child(3), .news-headline span:nth-child(4) {
+	        font-weight: normal;
+	    }
+
+
+@media only screen and (min-width: 460px) and (max-width: 767px) {
+
+   
+}
+
+@media only screen and (min-width: 1024px) {
+
+	.title {
+		-webkit-align-items: center;
+		-webkit-justify-content: flex-end;
+		align-items: center;
+		justify-content: flex-end;
+		padding-bottom: 3rem;
+		height: 495px;	
+	}
+
+	.news-headline {
+        width: 100%;
+        position: absolute;
+        font-size: 6.8rem;
+        top: auto;
+        bottom: -0.35em;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+	}
+        .news-headline span {
+            margin: 0 0.35714em;
+        }
+        
+
+}
+
+
+@media only screen and (min-width: 1921px) {
+	.title {
+		height: 26.525vw;
+		padding-bottom: 2.5vw;	
+	}
+}
+/**
+ *  
+ *  main
+ *
+ */
+
+.main {
+	/*padding-top: 380px;*/
+}
+
+
+/**
+ *  
+ *  intro
+ *
+ */
+
+.intro {
+	position: relative;
+	z-index: 100;
+
+}
+
+
+	/**
+	 *  content
+	 */
+	
+    .intro-content {
+		height: auto;
+		width: 100%;
+		position: relative;
+		background-color: #fff;
+		text-align: center;
+		
+	} 
+    
+	    /*
+	        intro-topic
+	     */
+	    
+	    .intro-content .intro-topic {
+	    	position: relative;
+	    	display: inline-block;
+	    	font-size: 1.125rem;
+	    	line-height: 1.714;
+	    	text-align: justify;
+	    	width: 100%;
+	        max-width: 15em;
+	    	margin:  0 auto 2.6875rem;
+	    	padding: 0.875rem 1.3125rem;
+	    	letter-spacing: 2px;
+	    	z-index: 1;
+	    	font-weight: 500;
+	    	transition: all .5s ease-in-out;
+	    	background: url('../image/index/intro-top.png') left top no-repeat, url('../image/index/intro-btm.png') right bottom no-repeat;
+	    }
+
+	    @media only screen and (min-width: 1024px) {
+
+	    	.main {
+				/*padding-top: 510px;*/
+			}
+		    	.intro-content .intro-topic {
+		    		width: auto;
+		    		text-align: center;
+		    		max-width: none;
+	    		
+		    	}
+			    	.intro-topic span {
+			    		display: block;
+			    	}
+	    }
+	    @media only screen and (min-width: 1921px) {
+	    	.main {
+				padding-top: 26.525vw;	
+	    	}
+	    	.intro-video {
+				height: 18.229vw;
+			}
+
+	    }
+
+	    /**
+		    signup
+		 */
+        
+        .signup-list {
+        	-webkit-display: flex;
+			-webkit-align-items: center;
+			-webkit-flex-direction: column;
+			-webkit-justify-content: center;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			position: relative;
+			font-weight: 600;
+			letter-spacing: 1px;
+        }
+            .signup-list>li {
+            	-webkit-display: flex;
+				-webkit-align-items: center;
+				-webkit-flex-direction: column;
+				-webkit-justify-content: flex-start;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				justify-content: flex-start;
+				box-shadow: 0 0 5px #979795;
+				overflow: hidden;
+				width: 100%;
+				position: relative;
+            }
+                
+
+                /*
+                  title-gredient                
+                 */
+                
+                .signup-list>li {
+                	margin-bottom: 1rem;
+                }
+                .list-number li {
+                	margin-bottom: .5rem;
+                }
+                
+                .signup-list>li h4 {
+                	font-size: 24px;
+                	color: #fff;
+                	position: relative;
+                	z-index: 3;
+                	transform-origin: top;
+                	-webkit-display: flex;
+					-webkit-align-items: center;
+					-webkit-flex-direction: row;
+					-webkit-justify-content: center;
+					display: flex;
+					align-items: center;
+					flex-direction: row;
+					justify-content: center;
+					-webkit-flex: 1;
+	                flex: 1;
+	                width: 100%;
+	                line-height: 2;
+                }
+                .signup-list>li .list-content {
+                	font-size: 12px;
+                	text-align: center;
+                	width: 100%;
+                	line-height: 1.414;
+                	-webkit-display: flex;
+					-webkit-align-items: center;
+					-webkit-flex-direction: row;
+					-webkit-justify-content: center;
+					display: flex;
+					-webkit-flex: 1;
+	                flex: 1;
+					align-items: center;
+					flex-direction: row;
+					justify-content: center;
+					z-index: 2;
+					position: relative;
+					padding: 1rem;
+                }
+                    .signup-list>li .list-content ul {
+                    	text-align: left;
+                    }
+                    
+                                           
+                .signup-list>li.signup-time h4 {
+					background: rgb(19,171,103); /* Old browsers */
+					background: -moz-linear-gradient(top, rgba(19,171,103,1) 0%, rgba(19,159,103,1) 50%, rgba(19,149,103,1) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(19,171,103,1) 0%,rgba(19,159,103,1) 50%,rgba(19,149,103,1) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(19,171,103,1) 0%,rgba(19,159,103,1) 50%,rgba(19,149,103,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#13ab67', endColorstr='#139567',GradientType=0 ); /* IE6-9 */
+                }
+                .signup-list>li.signup-id h4 {
+					background: rgb(0,158,152); /* Old browsers */
+					background: -moz-linear-gradient(top, rgba(0,158,152,1) 0%, rgba(0,140,152,1) 50%, rgba(0,123,152,1) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(0,158,152,1) 0%,rgba(0,140,152,1) 50%,rgba(0,123,152,1) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(0,158,152,1) 0%,rgba(0,140,152,1) 50%,rgba(0,123,152,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009e98', endColorstr='#007b98',GradientType=0 ); /* IE6-9 */
+                }
+                .signup-list>li.signup-group h4 {
+					background: rgb(46,164,222); /* Old browsers */
+					background: -moz-linear-gradient(top, rgba(46,164,222,1) 0%, rgba(46,153,222,1) 50%, rgba(46,143,222,1) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(46,164,222,1) 0%,rgba(46,153,222,1) 50%,rgba(46,143,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(46,164,222,1) 0%,rgba(46,153,222,1) 50%,rgba(46,143,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ea4de', endColorstr='#2e8fde',GradientType=0 ); /* IE6-9 */
+                }
+                .signup-list>li.signup-specific h4 {
+					background: rgb(45,145,220); /* Old browsers */
+					background: -moz-linear-gradient(top, rgba(45,145,220,1) 0%, rgba(24,114,185,1) 50%, rgba(4,84,149,1) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(45,145,220,1) 0%,rgba(24,114,185,1) 50%,rgba(4,84,149,1) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(45,145,220,1) 0%,rgba(24,114,185,1) 50%,rgba(4,84,149,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d91dc', endColorstr='#045495',GradientType=0 ); /* IE6-9 */
+                }
+                .signup-list>li.signup-contact h4 {
+					background: rgb(143,7,129); /* Old browsers */
+					background: -moz-linear-gradient(top, rgba(143,7,129,1) 0%, rgba(119,16,131,1) 50%, rgba(97,25,132,1) 100%); /* FF3.6-15 */
+					background: -webkit-linear-gradient(top, rgba(143,7,129,1) 0%,rgba(119,16,131,1) 50%,rgba(97,25,132,1) 100%); /* Chrome10-25,Safari5.1-6 */
+					background: linear-gradient(to bottom, rgba(143,7,129,1) 0%,rgba(119,16,131,1) 50%,rgba(97,25,132,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f0781', endColorstr='#611984',GradientType=0 ); /* IE6-9 */
+                }
+
+                @media only screen and (min-width: 1024px) {
+
+                	.signup-list>li:not(.signup-process)::after, .process-main::after, .signup-process .list-title::after {
+	            		content: "";
+	            		display: block;
+	                    position: absolute;
+	                    height: 100%;
+	                    background-color: #f9e132;
+	                    top: 0;
+	                    z-index: 1;
+	                    transform-origin: top;
+	                }
+	                .signup-list>li:not(.signup-process)::after {
+	                	transform: skewX(-17deg);
+	                    width: 33%;
+	                    left: 7px;
+	                }
+	                .signup-list>li.signup-specific::after {
+	                	left: 7px;
+	                	transform: skewX(-15.5deg);
+	                }
+
+
+                	.signup-list>li {
+		            	-webkit-display: flex;
+						-webkit-align-items: center;
+						-webkit-flex-direction: row;
+						-webkit-justify-content: flex-start;
+						display: flex;
+						align-items: center;
+						flex-direction: row;
+						justify-content: flex-start;
+						margin-bottom: 2rem;
+						box-shadow: 0 0 5px #979795;
+						overflow: hidden;
+						width: 100%;
+						position: relative;
+						margin-bottom: 1.75rem;
+		            }
+	                	.signup-list>li h4 {
+		                	font-size: 53px;
+		                	padding: 0;
+		                	height: 100%;
+		                	transform: skewX(-14.5deg);
+		                	-webkit-display: flex;
+							-webkit-align-items: center;
+							-webkit-flex-direction: column;
+							-webkit-justify-content: center;
+							display: flex;
+							align-items: center;
+							flex-direction: column;
+							justify-content: center;
+							-webkit-flex: 1 1 320px;
+			                flex: 1 1 320px;
+			                width: auto;
+		                }
+		                .signup-list>li.list-item .list-content {
+		                	font-size: 16px;
+		                	padding: 0 1rem 0 3rem;
+		                	text-align: center;
+		                	width: 68%;
+		                	-webkit-display: flex;
+							-webkit-align-items: center;
+							-webkit-flex-direction: column;
+							-webkit-justify-content: center;
+							display: flex;
+							-webkit-flex: 2 2 646px;
+			                flex: 2 2 646px;
+							align-items: center;
+							flex-direction: column;
+							justify-content: center;
+							z-index: 2;
+							position: relative;
+		                }
+		                .signup-list>li.signup-specific h4 {
+							padding: 72px 0 72px 32px;
+						}
+		                .signup-list>li.signup-contact h4 {
+							min-height: 140px;
+		                }
+
+			    }
+
+                @media only screen and (min-width: 1280px) {
+
+			    	/*.signup-list>li:not(.signup-process)::after, .process-main::after, .signup-process .list-title::after {
+	                    left: -2px;
+	                }*/
+	                /*.signup-list>li.signup-specific::after {
+	                	left: -10px;
+	                }*/
+			    }
+                
+
+
+
+
+                /* specific only */
+
+
+                /* process only */
+
+                .signup-list>li.signup-process {
+	            	-webkit-display: flex;
+					-webkit-align-items: center;
+					-webkit-flex-direction: column;
+					-webkit-justify-content: flex-start;
+					display: flex;
+					align-items: center;
+					flex-direction: column;
+					justify-content: flex-start;
+					position: relative;
+	            }
+	                 
+	                .signup-list>li.signup-process .list-title {
+	                	-webkit-display: flex;
+						-webkit-align-items: center;
+						-webkit-flex-direction: row;
+						-webkit-justify-content: flex-start;
+						display: flex;
+						align-items: center;
+						flex-direction: row;
+						justify-content: flex-start;
+						width: 100%;
+						position: relative;
+						z-index: 3;
+	                }
+	                    .signup-process .list-title::after {
+	                    	transform: skewX(-14.6deg);
+	                    	width: 33%;
+	                    	left: 7px;
+	                    }
+		                .signup-list>li.signup-process .list-title h4 {
+		                	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a00b5d+0,8e0b5d+50,7f0b5d+100 */
+							background: rgb(160,11,93); /* Old browsers */
+							background: -moz-linear-gradient(top, rgba(160,11,93,1) 0%, rgba(142,11,93,1) 50%, rgba(127,11,93,1) 100%); /* FF3.6-15 */
+							background: -webkit-linear-gradient(top, rgba(160,11,93,1) 0%,rgba(142,11,93,1) 50%,rgba(127,11,93,1) 100%); /* Chrome10-25,Safari5.1-6 */
+							background: linear-gradient(to bottom, rgba(160,11,93,1) 0%,rgba(142,11,93,1) 50%,rgba(127,11,93,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a00b5d', endColorstr='#7f0b5d',GradientType=0 ); /* IE6-9 */
+							line-height: 2;
+							z-index: 3;
+							width: 100%;
+							-webkit-flex: none;
+							flex: none;
+		                }
+		                    
+
+	                .signup-list>li.signup-process .list-content {
+	                	-webkit-display: flex;
+						-webkit-align-items: center;
+						-webkit-flex-direction: column;
+						-webkit-justify-content: flex-start;
+						display: flex;
+						align-items: center;
+						flex-direction: column;
+						justify-content: flex-start;
+						padding: 0;
+						width: 100%;
+						height: 100%;
+	                }
+	                    .list-content .process-main {
+	                    	-webkit-display: inline-flex;
+                            -webkit-align-items: center;
+							-webkit-flex-direction: row;
+							-webkit-justify-content: flex-start;
+							display: inline-flex;
+							align-items: center;
+							flex-direction: row;
+							justify-content: flex-start;
+							width: 100%;
+							position: relative;
+
+	                    }
+
+		                .list-content .process1 {
+	                    	background-color: #ededed;
+	                    }
+	                        
+	                    .list-content .process2 {
+	                    	background-color: #dadbdb;
+	                    }
+	                    .list-content .process3  {
+	                    	background-color: #c7c8c8;
+	                    }
+	                        
+	                        .list-content .process1::after {
+	                        	width: 30.33%;
+	                    		transform: skewX(-14deg);
+	                        	left: 6px;
+	                        }
+	                        .list-content .process2::after {
+	                        	transform: skewX(-14.5deg);
+	                        	width: 27.63%;
+	                        	left: 5px;
+	                        }
+	                        .list-content .process3::after {
+	                        	transform: skewX(-15deg);
+	                        	width: 24.84%;
+	                        	left: 4px;
+	                        }
+
+
+		                    .signup-list>li.signup-process .list-content h5 {
+		                    	-webkit-display: flex;
+								-webkit-align-items: center;
+								-webkit-flex-direction: column;
+								-webkit-justify-content: center;
+								display: flex;
+								align-items: center;
+								flex-direction: column;
+								justify-content: center;
+								font-size: 28px;
+			                	color: #fff;
+			                	position: relative;
+			                	z-index: 3;
+			                	height: 100%;
+			                }
+			                	.signup-list>li.signup-process .list-content h5::after {
+			                		content: "";
+			                		position: absolute;
+			                		left: 3.5em;
+			                		top: 0;
+			                		bottom: 0;
+			                		right: 0;
+			                		margin: auto;
+			                		transform: skewX(15deg);
+			                	}
+
+			                .signup-list>li.signup-process .list-content .process1-title {
+								background: rgb(193,13,35); 
+								background-size: auto;
+			                }
+			                .signup-list>li.signup-process .list-content .process1-title::after {
+			                	background:  url('../image/signup/update.png') left center no-repeat;
+			                	background-size: auto;
+			                }
+			                    
+			                .signup-list>li.signup-process .list-content .process2-title {
+								background: rgb(213,0,81); 
+								background-size: auto;
+			                }
+			                .signup-list>li.signup-process .list-content .process2-title::after {
+			                	background:  url('../image/signup/vote.png') left center no-repeat;
+			                	background-size: auto;
+			                }
+			                .signup-list>li.signup-process .list-content .process3-title {
+								background: rgb(228,22,115); 
+			                }
+
+
+
+	                
+		                    .signup-list>li.signup-process .list-content ul {
+		                    	text-align: left;
+		                    	-webkit-display: flex;
+								-webkit-align-items: center;
+								-webkit-flex-direction: column;
+								-webkit-justify-content: flex-start;
+								display: flex;
+								align-items: center;
+								flex-direction: column;
+								justify-content: flex-start;
+								position: relative;
+								z-index: 1;
+		                    }
+		                    /*.signup-list>li.signup-process .list-content ul.process1-step {
+		                    	transform-origin: top;
+		                    	
+		                    }
+		                    .signup-list>li.signup-process .list-content ul.process2-step {
+		                    	transform-origin: top;
+		                    	transform: skewX(-14.15deg);
+		                    }
+		                    .signup-list>li.signup-process .list-content ul.process3-step {
+		                    	transform-origin: top;
+		                    	transform: skewX(-14.3deg);
+		                    }*/
+		                        
+	                        
+
+			                    .signup-process .list-content li {
+			                    	-webkit-display: flex;
+									-webkit-align-items: center;
+									-webkit-flex-direction: row;
+									-webkit-justify-content: center;
+									display: flex;
+									align-items: center;
+									flex-direction: row;
+									justify-content: center;
+									position: relative;
+									line-height: 1.714;
+									width: 100%;
+									font-size: 13px;
+									text-align: left;
+			                    }
+                                    .list-content li p {
+			                        	width: 100%;
+			                        }
+			                        .process1-step li p {
+			                        	color: #595757;
+			                        }
+			                        
+			                        .process2-step li p {
+			                        	color: #3e3a39;
+			                        }
+			                        .process3-step li p {
+			                        	color: #231815;
+			                        }
+                        @media only screen and (max-width: 1023px) {
+                        	.signup-list>li.signup-process .list-content ul {
+                        		width: 100%;
+                        	}
+                        	.list-number {
+                        		padding-left: 2em;
+                        	}
+                        	 .signup-list>li.signup-process .list-content h5 {
+                        	 	width: 2em;
+                        	 }
+
+                        	.signup-process .list-content li {
+                        		padding: 0.5em 1em 0.5em 3em;
+                        		border-bottom: 1px solid #fff;
+			                }
+			                    .signup-list>li.signup-process .list-content .process1-title {
+									height: 290px;
+									padding: 0 0.5rem;
+				                }
+				                    
+				                .signup-list>li.signup-process .list-content .process2-title {
+									height: 230px;
+									padding: 0 0.5rem;
+				                }
+				                .signup-list>li.signup-process .list-content .process3-title {
+									height: 230px;
+									padding: 0 0.5rem;
+				                }
+
+
+                        }
+			            @media only screen and (min-width: 1024px) {
+
+			            	.signup-list>li.signup-process .list-title h4 {
+			                	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a00b5d+0,8e0b5d+50,7f0b5d+100 */
+								background: rgb(160,11,93); /* Old browsers */
+								background: -moz-linear-gradient(top, rgba(160,11,93,1) 0%, rgba(142,11,93,1) 50%, rgba(127,11,93,1) 100%); /* FF3.6-15 */
+								background: -webkit-linear-gradient(top, rgba(160,11,93,1) 0%,rgba(142,11,93,1) 50%,rgba(127,11,93,1) 100%); /* Chrome10-25,Safari5.1-6 */
+								background: linear-gradient(to bottom, rgba(160,11,93,1) 0%,rgba(142,11,93,1) 50%,rgba(127,11,93,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+								filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a00b5d', endColorstr='#7f0b5d',GradientType=0 ); /* IE6-9 */
+								height: 105px;
+								padding: 1rem;
+								line-height: 1;
+								z-index: 3;
+								width: 33.12%;
+								-webkit-flex: none;
+								flex: none;
+			                }
+
+			            	.signup-list>li.signup-process .list-content .process1-title {
+	                    		width: 30.33%;
+	                    		transform: skewX(-14deg);
+			                }
+			                    
+			                .signup-list>li.signup-process .list-content .process2-title {
+	                    		width: 27.63%;
+	                    		transform: skewX(-14.15deg);
+			                }
+			                .signup-list>li.signup-process .list-content .process3-title {
+	                    		width: 24.84%;
+	                    		transform: skewX(-14.2deg);
+			                }
+								.signup-list>li .list-content .process1 ul {
+		                    		width: 69.67%;
+		                        }
+			                    .signup-list>li .list-content .process2 ul {
+		                    		width: 72.37%;
+		                    		border-top: 2px solid #fff;
+			                    }
+			                    .signup-list>li .list-content .process3 ul {
+		                    		width: 75.16%;
+		                    		border-top: 2px solid #fff;
+			                    }
+
+                            .signup-list>li.signup-process .list-content h5 {
+		                    	-webkit-display: flex;
+								-webkit-align-items: center;
+								-webkit-flex-direction: column;
+								-webkit-justify-content: flex-start;
+								display: flex;
+								align-items: center;
+								flex-direction: row;
+								justify-content: flex-start;
+								font-size: 38px;
+			                	color: #fff;
+			                	position: relative;
+			                	height: 105px;
+			                	z-index: 3;
+			                	transform-origin: top;
+			                	transform: skewX(-15deg);
+			                	padding-left: 2.8rem;
+			                	line-height: 1;
+			                }
+			                
+			                .signup-list>li.signup-process .list-content ul {
+		                    	text-align: left;
+		                    	-webkit-display: inline-flex;
+								-webkit-align-items: center;
+								-webkit-flex-direction: row;
+								-webkit-justify-content: flex-start;
+								display: inline-flex;
+								align-items: center;
+								flex-direction: row;
+								justify-content: flex-start;
+								position: relative;
+								z-index: 1;
+								height: 105px;
+								
+								
+		                    }
+		                        
+
+		                        .signup-process .list-content li {
+			                    	-webkit-display: flex;
+									-webkit-align-items: center;
+									-webkit-flex-direction: column;
+									-webkit-justify-content: center;
+									display: flex;
+									align-items: center;
+									flex-direction: column;
+									justify-content: center;
+									position: relative;
+									line-height: 1.714;
+									height: 100%;
+									border-right: 2px solid #fff;
+									font-size: 13px;
+			                    }
+			                    .process1-step li {
+			                    	transform-origin: top;
+			                    	transform: skewX(-14deg);
+			                    }
+			                    .process2-step li {
+			                    	transform-origin: top;
+			                    	transform: skewX(-14.15deg);
+			                    }
+			                    .process3-step li {
+			                    	transform-origin: top;
+			                    	transform: skewX(-14.3deg);
+			                    }
+
+		                        .process1-step li:nth-child(1), .process2-step li:nth-child(1), .process3-step li:nth-child(1) {
+			                    	width: 160px;
+			                    }
+			                     
+			                    .process1-step li:nth-child(2), .process2-step li:nth-child(2) {
+                                    width: 115px;
+			                    }
+			                    .process3-step li:nth-child(2) {
+                                    width: 150px;
+			                    }
+			                    .process1-step li:nth-child(3), .process2-step li:nth-child(3) {
+			                    	width: 200px;
+			                    }
+			                    .process3-step li:nth-child(3) {
+                                    width: 260px;
+			                    }
+			                    .process1-step li:nth-child(4) {
+			                    	width: 100px;
+			                    }
+			                    .process2-step li:nth-child(4) {
+			                    	width: 216px;
+			                    	border-right: none;
+			                    }
+			                    .process3-step li:nth-child(4) {
+                                    width: 147px;
+			                    	border-right: none;
+			                    }
+			                     
+			                    .process1-step li:nth-child(5) {
+                                    width: 90px;
+			                    	border-right: none;
+			                    }
+
+			                        .list-content li p {
+			                        	transform: skewX(15deg);
+			                        	text-align: center;
+			                        	font-weight: 600;
+			                        }
+			                        .process2-step li:nth-child(4), .process3-step li:nth-child(4), .process1-step li:nth-child(5) {
+				                    	position: relative;
+				                    	left: 1em;
+				                    }
+				                    
+
+			            }
+			                  
+				        /*@media only screen and (min-width: 1280px) {
+
+				        	.list-content .process1::after {
+	                        	width: calc(33.3% - 9px);
+	                        	left: -10px;
+	                        }
+	                        .list-content .process2::after {
+	                        	width: calc(28% - 9px);
+	                        	left: 14px;
+	                        }
+	                        .list-content .process3::after {
+	                        	width: calc(25% - 9px);
+	                        	left: 14px;
+	                        }
+
+			                	.signup-list>li.signup-process .list-content .process1-title {
+				                	-webkit-flex: 1.05 1.05 263px;
+		                    		flex: 1.05 1.05 293px;
+								}
+				                    
+				                .signup-list>li.signup-process .list-content .process2-title {
+				                	-webkit-flex: 7.79 7.79 267px;
+		                    		flex: 7.79 7.79 267px;
+								}
+				                .signup-list>li.signup-process .list-content .process3-title {
+				                	-webkit-flex: 1.2 1.2 240px;
+		                    		flex: 1.2 1.2 240px;
+								}
+								.signup-list>li .list-content .process1 ul {
+		                        	-webkit-flex: 1.95 1.95 673px;
+		                    		flex: 1.95 1.95 673px;
+		                        }
+			                    .signup-list>li .list-content .process2 ul {
+			                    	-webkit-flex: 17.21 17.21 699px;
+		                    		flex: 17.21 17.21 699px;
+			                    }
+			                    .signup-list>li .list-content .process3 ul {
+			                    	-webkit-flex: 2.8 2.8 726px;
+		                    		flex: 2.8 2.8 726px;
+			                    }
+			                        .signup-list>li.signup-process .list-content h5 {
+			                        	padding-left: 3rem;
+			                        }
+
+			                        .signup-process .list-content li {
+			                        	font-size: 15px;
+			                        }
+		                }*/
+
+
+
+			    /* contact only */   
+
+
+			    .signup-list>li.signup-contact .list-content {
+					-webkit-align-items: flex-start;
+					-webkit-flex-direction: column;
+					-webkit-justify-content: flex-start;
+					align-items: flex-start;
+					flex-direction: column;
+					justify-content: flex-start;
+					text-align: left;
+					color: #3e3a39;
+					
+			    }      
+			    .signup-list>li.signup-contact::after {
+			   	    transform: skewX(-16deg);
+				    width: 33%;
+				    left: 7px;
+				}
+		        
+		        .contact-objects {
+		        	margin-right: 2rem;
+		        	line-height: 1.414;
+		        	-webkit-display: flex;
+					-webkit-align-items: flex-start;
+					-webkit-flex-direction: row;
+					-webkit-justify-content: flex-start;
+					display: flex;
+					align-items: flex-start;
+					flex-direction: row;
+					justify-content: flex-start;
+		        }
+		            .contact-objects p:first-of-type {
+		            	margin-bottom: 1rem;
+		            	margin-right: .5rem;
+		            }
+		        .contact-account {
+		        	
+		        }
+			        .account-phone, .account-email {
+			        	-webkit-display: flex;
+						-webkit-align-items: flex-start;
+						-webkit-flex-direction: row;
+						-webkit-justify-content: flex-start;
+						display: flex;
+						align-items: flex-start;
+						flex-direction: row;
+						justify-content: flex-start;
+						line-height: 1.414;
+						width: 100%;
+			        }
+			            .contact-account .account-title {
+			            	background-color: #595757;
+			            	color: #fff;
+			            	margin-right: 1rem;
+			            	line-height: 1.414;
+			            	-webkit-display: flex;
+							ebkit-align-items: flex-start;
+							-webkit-flex-direction: row;
+							-webkit-align-items: flex-start;
+							display: flex;
+							align-items: center;
+							flex-direction: row;
+							justify-content: center;
+							letter-spacing: 1px;
+							width: 20%;
+			            }   
+		                .contact-account .account-area, .account-email p:nth-child(2) {
+                            -webkit-display: flex;
+							-webkit-align-items: flex-start;
+							-webkit-flex-direction: column;
+							-webkit-justify-content: flex-start;
+							display: flex;
+							align-items: flex-start;
+							flex-direction: column;
+							justify-content: flex-start;
+							letter-spacing: 1px;
+							width: 80%;
+		                }
+			            	.account-area p {
+			            		margin-bottom: .5rem;
+			            		word-wrap: break-word;
+								word-break: break-all;
+			            	}
+			    @media only screen and (min-width: 1024px) {
+
+			    	.signup-list>li.signup-contact .list-content {
+						-webkit-flex-direction: row;
+						flex-direction: row;
+						padding: 0 1rem 0 2rem;
+				    }
+                    
+				    .contact-objects {
+			        	margin-right: 0;
+			        	padding-right: 2rem;
+			        	line-height: 1.414;
+						-webkit-flex-direction: column;
+						flex-direction: column;
+						width: 18%;
+			        }
+				        .contact-objects p:first-of-type {
+			            	margin-bottom: .5rem;
+			            	margin-right: 0;
+			            }
+			        .contact-account {
+		        	    width: 82%;
+		        	}
+			        	.contact-account .account-title {
+							width: 11.7%;
+							margin-right: 0.75rem;
+							line-height: 1.414;
+			            }   
+		                .contact-account .account-area, .account-email p:nth-child(2) {
+							width: 88.3%;
+		                }
+			    }
+
+                @media only screen and (min-width: 1280px) {
+                	
+                }
+                
+
+                /* beware only */   
+
+                .signup-beware {
+                	box-shadow: 0 0 5px #979795;
+                	padding: 2rem 1.5rem 2rem 2.5rem;
+                	margin-bottom: 1.75rem;
+                }
+                .signup-beware h4 {
+				    margin-bottom: 0.875rem;
+				    font-size: 1.1875rem;
+				    color: #c70527;
+				}
+
+			    .signup-beware .list-content {
+					text-align: left;
+					color: #3e3a39;
+
+			    }      
+			        .signup-beware .list-content li {
+			        	list-style-type: decimal;
+			        	font-size: 0.875rem;
+			        	line-height: 2.429;
+			        	letter-spacing: 1px;
+			        }
+		        
+			    @media only screen and (min-width: 1024px) {
+                    .signup-beware {
+	                	padding: 2rem 3.125rem 1rem;
+	                }
+                    
+				    
+			    }
+
+                @media only screen and (min-width: 1280px) {
+                	
+                }
+
+
+        
+        .signup-banner {
+        	width: 100%;
+        	background: url('../image/signup/btn-signup.jpg') center center no-repeat;
+        	background-size: cover;
+        	line-height: 2.5;
+        	font-size: 28px;
+        	text-align: center;
+        	color: #fff;
+        	box-shadow: 0 0 10px 0 rgba(77,77,77,0.8);
+        	word-spacing: 0.1rem;
+        	text-shadow: 1px 1px 5px rgba(77,77,77,0.8);
+        	font-style: italic;
+        	filter: contrast(70%);
+        	-webkit-filter: contrast(70%);
+        	display: block;
+        	transition: all .25s linear; 
+        }
+            .signup-banner:hover {
+                filter: contrast(100%);
+        		-webkit-filter: contrast(100%);
+            }
+
+            
+        @media only screen and (min-width: 1024px) {
+            .signup-banner {
+	        	font-size: 56px;
+	        }
+
+        }
+
+
+
+
+
+
+

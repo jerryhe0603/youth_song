@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>會員管理</title>
+	<LINK href="./js/calendar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./js/calendar.js"></script>
+</head>
+<body>
+
+	<form  ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=edit">
+		<table>
+			<tr>
+				<td>註冊帳號</td>
+				<td>
+					<span><{$aData.account}></span>
+				</td>
+			</tr>
+			<tr>
+				<td>設定新密碼</td>
+				<td>
+					<input id="password" name="password" type="password"  placeholder="如不須修改，不用填">
+				</td>
+			</tr>
+			<tr>
+				<td>確認新密碼</td>
+				<td>
+					<input id="confirm_password" name="confirm_password" type="password" >
+				</td>
+			</tr>
+			<tr>
+				<td>姓名</td>
+				<td>
+					<input id="name" name="name" type="text" value="<{$aData.name}>" placeholder="請填寫本名">
+				</td>
+			</tr>
+			<tr>
+				<td>所屬地區</td>
+				<td>
+					<span><{if $aData.area == 1}> 台灣地區 <{else}> 大陸地區 <{/if}> </span>
+				</td>
+			</tr>
+			<tr>
+				<td>性別</td>
+				<td>
+					<input type="radio" name="sex" value="1" <{if $aData.sex ==1}> checked <{/if}> > 男 &nbsp;&nbsp;
+					<input type="radio" name="sex" value="0" <{if $aData.sex ==0}> checked <{/if}>> 女
+				</td>
+			</tr>
+			<tr>
+				<td>身份證字號</td>
+				<td>
+					<span><{$aData.uid}></span>
+				</td>
+			</tr>
+			<tr>
+				<td>出生日期：年月日</td>
+				<td>
+					<input type="text" name="birthday" id="birthday" value="<{if $aData.birthday!='0000-00-00'}><{$aData.birthday|date_format:'%Y-%m-%d'}><{/if}>" onClick="return showCalendar('birthday', 'y-mm-dd');">
+				</td>
+			</tr>
+			<tr>
+				<td>行動電話</td>
+				<td>
+					<input type="text" name="phone" value ='<{$aData.phone}>' >
+				</td>
+			</tr>
+			<tr>
+				<td>通訊地址</td>
+				<td>
+					<input id="address" name="address" size=50 value="<{$aData.address}>" type="text">
+				</td>
+			</tr>
+		</table>
+		<button class="btn-trans btn-sign" type="submit">儲存</button>
+	</form>
+</body>
+</html>
+

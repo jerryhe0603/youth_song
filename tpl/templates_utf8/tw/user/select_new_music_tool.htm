@@ -1,0 +1,34 @@
+
+<{foreach from=$musicToolData item="entry" name="foo"}>
+<div class="clearfix" style="width:600px;padding-bottom:12px;">
+
+<!--一個select-->
+	<div>
+		<select name="music_tool_<{$smarty.foreach.foo.index}>" id="music_tool_<{$smarty.foreach.foo.index}>" onChange="editNewMusicTool(<{$smarty.foreach.foo.index}>,this.value,$('input[name=music_tool_ability_<{$smarty.foreach.foo.index}>]:checked').val());" class="form_input noFocus select select_ss" style="width:98px;border-left:2px solid #ddd;" title="">
+			<{foreach from=$musicToolOption item="entry2"}>
+				<option value="<{$entry2.to_id}>" <{if $entry2.to_id==$entry.music_tool}>selected<{/if}>><{$entry2.to_name}></option>
+			<{/foreach}>
+		</select>
+	</div>
+<!--一個select-->
+
+<{foreach from=$abilityOption item="entry2" name="foo2"}>
+<!--一個CHECKBOX-->
+	<span>
+		<input type="radio" class="form_checked" name="music_tool_ability_<{$smarty.foreach.foo.index}>" id="music_tool_ability_<{$smarty.foreach.foo.index}>" onClick="editNewMusicTool(<{$smarty.foreach.foo.index}>,$('select[name=music_tool_<{$smarty.foreach.foo.index}>]').val(),this.value);" value="<{$smarty.foreach.foo2.index}>" <{if $smarty.foreach.foo2.index==$entry.ability}>checked<{/if}>  />
+	</span>
+	<span><{$entry2}></span>
+<!--一個CHECKBOX-->
+<{/foreach}>
+	<a href="javascript:delNewMusicTool(<{$smarty.foreach.foo.index}>);">刪除</a>
+</div>
+<{/foreach}>
+
+<!--新增項目-->
+<a href="javascript:addNewMusicTool();" class="add_new">新增擅長樂器</a>
+<!--新增項目-->
+
+
+<script>
+//Custom2.init();
+</script>

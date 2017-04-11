@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作品投稿</title>
+</head>
+<body>
+	<form ENCTYPE="multipart/form-data" method="post" action="">
+		<table>
+			<tr>
+				<td>團隊名稱(個人報名免填)</td>
+				<td>
+					<span>
+						<{$aSignData.team_name}>
+					</span>
+				</td>
+			</tr>
+			<!-- <tr>
+				<td>報名組別</td>
+				<td>
+					<span>
+						<{if $aSignData.sign_type == 1}> 學生組 <{elseif $aSignData.sign_type == 2}> 青年組 <{/if}>
+					</span>	
+				</td>
+			</tr> -->
+			
+			<tr>
+				<td>學校</td>
+				<td>
+					<span>
+						<{$aSignData.school}>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>系所</td>
+				<td>
+					<span>
+						<{$aSignData.department}>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>有無經紀約</td>
+				<td>
+					<span>
+						<{if $aSignData.management == 1}> 有 <{else}> 無 <{/if}>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>演藝專長</td>
+				<td>
+					<span>
+						<{$aSignData.specialty}>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>擅長樂器</td>
+				<td>
+					<{foreach from=$aSignData.music_tool item="tool" name="tool"}>
+						<div>
+							<{$tool.tool_name}> - <{$tool.level_name}>
+						</div>
+					<{/foreach}>
+				</td>
+			</tr>
+			<tr>
+				<td>演藝/參賽經歷</td>
+				<td>
+					<span>
+						<{$aSignData.experience|nl2br}>
+					</span>
+				</td>
+			</tr>
+			<{foreach from=$aSignData.works item="works" name="works"}>
+			<tr>
+				<td>歌曲名稱<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<{$works.song_name}> 
+				</td>
+			</tr>
+			<tr>
+				<td>詞作者<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<{$works.lyricist}> 
+				</td>
+			</tr>
+			<tr>
+				<td>曲作者<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<{$works.composer}> 
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌詞<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌曲<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
+				</td>
+			</tr>
+			<tr>
+				<td>創作理念<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<{$works.creative_concept|nl2br}>
+				</td>
+			</tr>
+
+			<tr>
+				<td>個人圖片</td>
+				<td>
+					<{if $works.img_file_file_1 !=''}>
+						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" height="100" width="150">
+					<{/if}>
+					<{if $aSignData.img_file_file_2 !=''}>
+						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$aSignData.img_file_file_2}>" height="100" width="150">
+					<{/if}>
+					<{if $aSignData.img_file_file_3 !=''}>
+						<img src="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$aSignData.img_file_file_3}>" height="100" width="150">
+					<{/if}>
+				</td>
+			</tr>
+
+			<{/foreach}>
+		</table>
+		<a href="./<{$web_index}>func=sign&action=edit">修改投稿資料</a>
+		<a href="./<{$web_index}>func=member">返回</a>
+	</form>
+</body>
+</html>
+

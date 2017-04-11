@@ -1,0 +1,180 @@
+<style>
+#nav-search-input {
+	border-color: #6fb3e0;
+	border-width: 1px;
+	width: 120px;
+	height: 18px!important;
+	border-radius: 4px!important;
+	font-size: 13px;
+	color: #666!important;
+	z-index: 11;
+	-webkit-transition: all ease .15s;
+	-moz-transition: all ease .15s;
+	-o-transition: all ease .15s;
+	transition: all ease .15s;
+}
+#nav-search-icon {
+	color: #6fb3e0;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+#s_terms {
+width: 140px;
+height: 28px;
+padding: 2px 3px;
+}
+
+</style>
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home home-icon"></i>
+			<a href="./index.php">首頁</a>
+
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li>
+			<a href="./index.php?func=<{$smarty.get.func}>&action=list">
+				報名表管理
+			</a>
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+		<li class="active">報名表列表</li>
+	</ul><!--.breadcrumb-->
+
+</div>
+
+<div class="page-content">
+
+	<div class="table-header">
+		<{if $smarty.get.search=='1'}>
+                <span>
+		Results for "<{$searchKey}>"
+                </span>
+                <span class="span2 pull-right align-center">
+                    <a href="./index.php?func=<{$smarty.get.func}>&action=<{$smarty.get.action}>">
+                        <label class="badge badge-light">
+                            取消搜尋
+                        </label>
+                    </a>
+                </span>
+		<{/if}>
+	</div>
+
+	<div class="dataTables_wrapper" role="grid">
+		<div class="row-fluid">
+			<div class="span6">
+				<div id="table_report_length" class="dataTables_length">
+					<label>每頁
+						<select id="select_page_items" onChange="relocate(this);" size="1"  aria-controls="table_report">
+							<option value="10" selected="selected">10</option>
+							<option value="25"<{if $PageItem=='25'}>selected<{/if}>>25</option>
+							<option value="50"<{if $PageItem=='50'}>selected<{/if}>>50</option>
+							<option value="100"<{if $PageItem=='100'}>selected<{/if}>>100</option>
+						</select> 筆
+					</label>
+				</div>
+			</div>
+			<div class="span6 ">
+
+				<div class="dataTables_filter " id="table_report_filter" style="height:35px;">
+					<form name="search-form" ENCTYPE="multipart/form-data" method="post" action="index.php?func=<{$smarty.get.func}>&action=<{$smarty.get.action}>&search=1" >
+						<{html_options name=s_terms id=s_terms options=$searchOption selected=$searchTerm}>
+						<span class="input-icon">
+							<input type="text"  style="margin:0;" name="s_key" id="nav-search-input" aria-controls="table_report" placeholder="Search ..." <{if $smarty.get.search}>value="<{$searchKey}>"<{/if}> autocomplete="off">
+							<i class="icon-search" id="nav-search-icon"></i>
+						</span>
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="">
+			<table id="table_report" class="table table-striped table-bordered table-hover dataTable">
+
+
+
+				<thead>
+					<tr role="row">
+						<!-- <th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="sign_no" class="sortable" onclick="sort_table('<{$OrderUrl}>','sign_no','<{$OrderSort}>');" >序號</th> -->
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="name" class="sortable" onclick="sort_table('<{$OrderUrl}>','name','<{$OrderSort}>');" >會員名稱</th>
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="type" class="sortable" onclick="sort_table('<{$OrderUrl}>','type','<{$OrderSort}>');">報名期別</th>
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="sign_type" class="sortable" onclick="sort_table('<{$OrderUrl}>','sign_type','<{$OrderSort}>');">報名組別</th>
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="created" class="sortable" onclick="sort_table('<{$OrderUrl}>','created','<{$OrderSort}>');">建立日期</th>
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="modified" class="sortable" onclick="sort_table('<{$OrderUrl}>','modified','<{$OrderSort}>');">修改日期</th>
+						<th class="sorting" role="columnheader" tabindex="0"  rowspan="1" colspan="1" aria-label="activate to sort column ascending" id="flag" class="sortable" onclick="sort_table('<{$OrderUrl}>','flag','<{$OrderSort}>');">狀態</th>
+						<th style="width: 140px;">檢視/啟用</th>
+					</tr>
+
+				</thead>
+
+				<tbody>
+					<{foreach from=$aSign item=oSign }>
+					<tr class="row_focus">
+						<!-- <td><{$oSign.sign_no}></td> -->
+						<td><{$oSign.member_name}></td>
+						<td><{$oSign.type}></td>
+						<td>
+							<{if $oSign.sign_type ==1}>學生組 <{else}> 青年組 <{/if}>
+						</td>
+						<td><{$oSign.created}></td>
+						<td><{$oSign.modified}></td>
+						<td>
+							<{if $oSign.flag == 1 }>
+								<span class="label label-large label-success arrowed arrowed-righ">開啟</span>
+							<{else}>
+								<span class="label label-large label-important arrowed arrowed-righ">關閉</span>
+							<{/if}>
+						</td>
+						<td class="td-actions">
+							<div class="hidden-phone visible-desktop action-buttons">
+								<a class="blue" href="./index.php?func=<{$smarty.get.func}>&action=view&sign_no=<{$oSign.sign_no}>" title="檢視">
+									<i class="icon-zoom-in bigger-130"></i>
+								</a>
+								<a class="orange" href="./index.php?func=<{$smarty.get.func}>&action=active&sign_no=<{$oSign.sign_no}>&flag=<{$oSign.flag}>" title="<{if $oSign.flag == 1 }>停用<{else}>啟用<{/if}>">
+									<i class="icon-flag bigger-130"></i>
+								</a>
+							</div>
+						</td>
+
+					</tr>
+					<{/foreach}>
+				</tbody>
+			</table>
+		</form>
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="dataTables_info" id="table_report_info" style="font-size:13px;">顯示 <{$StartRow}> 至 <{$EndRow}> 筆，共 <{$Total}> 筆</div>
+			</div>
+			<div class="span6">
+				<div class="dataTables_paginate paging_bootstrap pagination">
+					<{$PageBar}>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--/row-->
+
+
+<script language="JavaScript">
+
+	var _PageItems = "<{$PageItem}>";
+	var _PageUrl = "<{$OrderUrl}>";
+function relocate(obj){
+
+	var val=obj.options[obj.selectedIndex].value;
+
+	var url_string=_PageUrl;
+
+	var loc=url_string+'&items='+val;
+
+	document.location=loc;
+
+}
+
+</script>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>會員管理</title>
+	<LINK href="./js/calendar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./js/calendar.js"></script>
+	<script type="text/javascript" src="./js/function.js"></script>
+	<!--js-->
+    <script type="text/javascript" src="./js/user/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		function doSendVerifyCode(){
+
+			var	phone = document.getElementById("phone").value;
+			var url = "sendVerifyCode.php?phone="+phone;
+
+			$.ajax({
+				url: url,
+				cache: false,
+				success: function(response){
+					if(response==1){
+						alert("手機驗證碼於1分鐘內寄送至您的手機，如超過\n時間能未收到簡訊，請選擇重新發送認證簡訊");
+						document.getElementsByName('send_button')[0].disabled=true;
+						setTimeout(function(){
+							document.getElementsByName('resend_button')[0].disabled=false;
+						},10000);
+					}else{
+						alert(response);
+					}
+				}
+			});
+		}
+
+		function doVerify(){
+
+			var	phone = document.getElementById("phone").value;
+			var verify_code = document.getElementById("verify_code").value;
+			var url = "doVerify.php?phone="+phone+"&verify_code="+verify_code;
+
+			$.ajax({
+				url: url,
+				cache: false,
+				success: function(response){
+					alert(response);
+				}
+			});
+		}
+
+		//會員註冊要判斷是否閱讀相關規定
+		function doMemberAdd(){
+			if($("#agree").is(":checked")){
+
+			   $("#form1").submit();
+
+			}else{
+
+			   alert('未同意閱讀以上辦法及相關規定');
+
+			}
+
+		}
+	</script>
+</head>
+<body>
+
+	<form  ENCTYPE="multipart/form-data" id=form1 name=form1 method="post" action="./<{$web_index}>func=member&action=add">
+		<input type="hidden" name="token" id="token" value="<{$token}>" />
+		<input type="hidden" id="member_account" name="member_account"  value="<{$member_account}>">
+		<input type="hidden" id="member_password" name="member_password" value="<{$member_password}>">
+		<input type="hidden" id="from_fb" name="from_fb"  value="<{$from_fb}>">
+		<table>
+
+			<tr>
+				<td>姓名</td>
+				<td>
+					<input id="name" name="name" type="text" placeholder="請填寫本名">
+				</td>
+			</tr>
+			<tr>
+				<td>所屬地區</td>
+				<td>
+					<input type="radio" name="area" value="1" checked > 台灣地區 &nbsp;&nbsp;
+					<input type="radio" name="area" value="2"> 大陸地區
+				</td>
+			</tr>
+			<tr>
+				<td>性別</td>
+				<td>
+					<input type="radio" name="sex" value="1" checked > 男 &nbsp;&nbsp;
+					<input type="radio" name="sex" value="0"> 女
+				</td>
+			</tr>
+			<tr>
+				<td>身份證字號</td>
+				<td>
+					<input id="uid" name="uid" maxlength="18" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>出生日期：年月日</td>
+				<td>
+					<input class="inp-text" type="text" name="birthday" id="birthday" placeholder="1911-01-01" onClick="return showCalendar('birthday', 'y-mm-dd');">
+				</td>
+			</tr>
+			<tr>
+				<td>行動電話</td>
+				<td>
+					<input id="phone" name="phone" type="text" placeholder="09xxxxxxxx">
+				</td>
+			</tr>
+			<tr>
+				<td >驗證碼
+					<input type=button name=send_button style="border:2px solid #ccc;" onclick="javascript:doSendVerifyCode();" value="發送手機驗證碼">
+						
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type=text name="verify_code" id="verify_code" value="" size=10 maxlength=6 placeholder=輸入驗證碼 />
+					<input type=button onclick="javascript:doVerify();" style="border:2px solid #ccc;" value="確認驗證碼">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type=button name=resend_button disabled=true onclick="javascript:doSendVerifyCode();" style="border:2px solid #ccc;" value="重新發送手機驗證碼">
+				</td>
+			</tr>
+
+			<tr>
+				<td>通訊地址</td>
+				<td>
+					<input id="address" name="address" size=50 type="text">
+				</td>
+			</tr>
+
+			<tr>
+				<td>Facebook 名稱</td>
+				<td>
+					<input id="fb_name" name="fb_name" size=50 type="text">
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<a href="javascript:reloadAntiSpam();" class="loginvertify">
+						<image id=antispam name=antispam src="antispam.php" border="0">
+							<span>重新取得圖片</span>
+					</a>
+				</td>
+				<td>
+					<input type="text" name="auth_code">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="agree"><input type="checkbox" id="agree" name="agree">同意以上活動辦法及相關規定</label>
+				</td>
+			</tr>
+			
+		</table>
+		<!-- <button class="btn-trans btn-sign" type="submit">註冊</button> -->
+		<input type="button" class="btn-trans btn-sign" value="註冊" onclick="doMemberAdd()">
+	</form>	
+</body>
+</html>
+

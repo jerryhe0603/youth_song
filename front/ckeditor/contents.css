@@ -1,0 +1,103 @@
+/*
+Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+body
+{
+	/* Font */
+	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	font-size: 12px;
+
+	/* Text color */
+	color: #333;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+
+	margin: 20px;
+}
+
+.cke_editable
+{
+	font-size: 13px;
+	line-height: 1.6em;
+}
+
+blockquote,.innertext_default blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.cke_contents_ltr blockquote
+{
+	padding-left: 20px;
+	padding-right: 8px;
+	border-left-width: 5px;
+}
+
+.cke_contents_rtl blockquote
+{
+	padding-left: 8px;
+	padding-right: 20px;
+	border-right-width: 5px;
+}
+
+a,.innertext_default a
+{
+	color: #0782C1;
+}
+
+ol,ul,dl,.innertext_default ol,.innertext_default ul,.innertext_default dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+h1,h2,h3,h4,h5,h6,.innertext_default h1,.innertext_default h2,.innertext_default h3,.innertext_default h4,.innertext_default h5,.innertext_default h6
+{
+	font-weight: normal;
+	line-height: 1.2em;
+}
+
+hr,.innertext_default hr
+{
+	border: 0px;
+	border-top: 1px solid #ccc;
+}
+
+img.right,.innertext_default img.right{
+    border: 1px solid #ccc;
+    float: right;
+    margin-left: 15px;
+    padding: 5px;
+}
+
+img.left,.innertext_default img.left{
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 15px;
+    padding: 5px;
+}
+
+img:hover,.innertext_default img:hover{
+	opacity: .9;
+	filter: alpha(opacity = 90);
+}
+
+pre,.innertext_default pre
+{
+	white-space: pre-wrap; /* CSS 2.1 */
+	word-wrap: break-word; /* IE7 */
+}
+
+.marker,.innertext_default .marker{
+    background-color: Yellow;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作品投稿</title>
+	<script
+	  src="https://code.jquery.com/jquery-3.1.1.js"
+	  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="./js/function.js"></script>
+</head>
+<body>
+	<form ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=sign&action=edit_step2">
+		<input type="hidden" name="sign_no" id="sign_no" value="<{$iSignNo}>" />
+		<table>
+			
+			<{foreach from=$aSignData.works item="works" name="works"}>
+			<tr>
+				<td>歌曲名稱<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<input type="text" name="song_name_<{$smarty.foreach.works.iteration}>" value = "<{$works.song_name}>" >
+				</td>
+			</tr>
+			<tr>
+				<td>詞作者<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<input type="text" name="lyricist_<{$smarty.foreach.works.iteration}>" value = "<{$works.lyricist}>" >
+				</td>
+			</tr>
+			<tr>
+				<td>曲作者<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<input type="text" name="composer_<{$smarty.foreach.works.iteration}>" value = "<{$works.composer}>" >
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌詞<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<input type="file" name="lyric_file_<{$smarty.foreach.works.iteration}>" accept=".txt, .doc, .docx">
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.lyricist_file.file_file}>" target=_blank><{$works.lyricist_file.file_name}></a>
+				</td>
+			</tr>
+			<tr>
+				<td>參賽作品歌曲<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<input type="file" name="song_file_<{$smarty.foreach.works.iteration}>" accept=".mp3 , .mp4 , .wav ">
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.song_file.file_file}>" target=_blank><{$works.song_file.file_name}></a>
+				</td>
+			</tr>
+			<tr>
+				<td>創作理念<{$smarty.foreach.works.iteration}></td>
+				<td>
+					<textarea name="creative_concept_<{$smarty.foreach.works.iteration}>" cols=50 rows=10><{$works.creative_concept}></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>個人圖片</td>
+				<td>
+					<input name="img_<{$smarty.foreach.works.iteration}>_1" type="file" accept=".gif , .jpg , .png">
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_1}>" target=_blank><{$works.img_file_name_1}></a>
+
+					<input name="img_<{$smarty.foreach.works.iteration}>_2" type="file" accept=".gif , .jpg , .png">
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_2}>" target=_blank><{$works.img_file_name_2}></a>
+
+					<input name="img_<{$smarty.foreach.works.iteration}>_3" type="file" accept=".gif , .jpg , .png">
+					<a href="./data/upload/<{$sAreaName}>/<{$aSignData.sign_no}>/<{$works.img_file_file_3}>" target=_blank><{$works.img_file_name_3}></a>
+				</td>
+			</tr>
+			<{/foreach}>
+		</table>
+		<button class="btn-trans btn-sign" type="submit">儲存</button>
+		<a href="./<{$web_index}>func=member">返回</a>
+	</form>
+</body>
+</html>
+

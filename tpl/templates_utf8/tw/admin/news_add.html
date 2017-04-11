@@ -1,0 +1,125 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home home-icon"></i>
+			<a href="./index.php">首頁</a>
+
+			<span class="divider">
+				<i class="icon-angle-right"></i>
+			</span>
+		</li>
+
+		<li>
+            <a href="./index.php?func=<{$smarty.get.func}>&action=admin">最新消息管理</a>
+            <span class="divider">
+                    <i class="icon-angle-right"></i>
+            </span>
+		</li>
+		<li class="active">新增最新消息</li>
+
+	</ul><!--.breadcrumb-->
+
+
+</div>
+
+<div class="page-content">
+
+	<div class="msg-warn" id="msg_warn" style="display:none;">
+
+	</div><!-- .msg-warn -->
+
+	<br>
+	<div class="row-fluid">
+		<!--PAGE CONTENT BEGINS HERE-->
+		<form class="form-horizontal" name='myForm' id='myForm' method="post" ENCTYPE=multipart/form-data action="index.php?func=<{$smarty.get.func}>&action=<{$smarty.get.action}>">
+			<div class="control-group">
+				<label class="control-label" for="title">標題</label>
+				<div class="controls">
+					<input type="text" name="title" id="title" value="" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="area">顯示地區</label>
+				<div class="controls">
+					<select name=area>
+						<option value=0>都顯示</option>
+						<option value=1>台灣</option>
+						<option value=2>中國</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="type">類型</label>
+				<div class="controls">
+					<select name=type>
+					<{foreach from=$aNewsType item=type}>
+						<option value="<{$type.type_no}>"><{$type.type_name}></option>
+					<{/foreach}>	
+					</select>
+				</div>
+			</div>
+            <div class="control-group">
+				<label class="control-label" for="publish_date">發佈日期</label>
+                <div class="controls">
+                    <div class="input-append date">
+                        <input class="datepicker" name="publish_date" id="publish_date" type="text" value=""/>
+                        <span class="add-on">
+                            <i class="icon-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+			</div>
+<!--             <div class="control-group">
+				<label class="control-label" for="file_file">封面圖片</label>
+                <div class="controls">
+                    <input name="file_file" type="file" size="80" accept=".gif , .jpg , .png">
+                </div>
+			</div> -->
+			<div class="control-group">
+				<label class="control-label" for="description">內容</label>
+				<div class="controls">
+					<a href="#" onClick="toggleEditor('description');">編輯器開關</a>
+					<br><br>
+					<textarea id="description" name='description' rows="15" cols="80" style="width: 80%"></textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="flag">狀態</label>
+				<div class="controls">
+					<input type="checkbox" name="flag" value="1" class="ace-switch ace-switch-7" checked />
+					<span class="lbl"></span>
+				</div>
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-small btn-info" type="submit">
+					<i class="icon-ok bigger-110"></i>
+					送出
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn btn-small" type="reset">
+					<i class="icon-undo bigger-110"></i>
+					重置
+				</button>
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn btn-small btn-danger" type="button" onclick="window.history.go(-1)">
+					<i class="icon-reply bigger-110"></i>
+					取消
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<link rel="stylesheet" href="../css/datepicker.css" />
+<link rel="stylesheet" href="../css/bootstrap-timepicker.css" />
+<script src="../js/date-time/bootstrap-datepicker.min.js"></script>
+<script>
+
+$(function() {
+    $('.datepicker').datepicker({format: "yyyy-mm-dd",changeMonth: true, changeYear: true});
+
+})
+
+</script>
+
+

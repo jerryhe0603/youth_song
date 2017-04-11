@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>會員管理</title>
+
+	<script type="text/javascript" src="./js/user/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		function checkLoginState() {
+    
+		    FB.login(function(response) {
+		      if (response.status === 'connected') {
+		         getInformation();
+		      }
+		    }, {scope: 'email'});
+
+		}
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : '329358327462376',
+			cookie     : true,  // enable cookies to allow the server to access 
+			                    // the session
+			xfbml      : true,  // parse social plugins on this page
+			version    : 'v2.8' // use graph api version 2.8
+			});
+		};
+
+		// Load the SDK asynchronously
+		
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		function getInformation() {
+
+   		 	FB.api('/me?fields=id,name,email', function(response) {
+    	
+	     		$("#fb_account").val(response.email);
+	     		$("#from_fb").val('1');
+	     		$("#myForm").submit();
+			});
+		}
+	</script>
+</head>
+<body>
+	<form name="myForm" id="myForm" ENCTYPE="multipart/form-data" method="post" action="./<{$web_index}>func=member&action=login">
+		<input type="hidden" name="fb_account" id="fb_account" value="" />
+		<input type="hidden" name="from_fb" id="from_fb" value="0" />
+		<table>
+		<tr>
+			<td>帳號：</td>
+			<td>
+				<input id="account" name="account" type="text" placeholder="example@gmail.com">
+			</td>
+		</tr>
+		<tr>
+			<td>密碼：</td>
+			<td>
+				<input id="password" name="password" type="password" maxlength="12">
+			</td>
+		</tr>
+		<tr>
+			<td>使用臉書帳號</td>
+			<td>
+				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+			</td>
+		</tr>
+
+		</table>
+		<button class="btn-trans btn-login" type="submit">登入</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="./<{$web_index}>func=member&action=member_signup">註冊</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="./<{$web_index}>func=member&action=forget_password">忘記帳號/密碼</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="./<{$web_index}>func=member&action=resent">重發啟用信</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</form>
+</body>
+</html>
+
+

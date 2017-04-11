@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+	<table>
+		<tr>
+			<td>註冊帳號</td>
+			<td>
+				<span><{$aData.account}></span>
+			</td>
+		</tr>
+		<tr>
+			<td>姓名</td>
+			<td>
+				<span><{$aData.name}></span>
+			</td>
+		</tr>
+		<tr>
+			<td>所屬地區</td>
+			<td>
+				<span><{if $aData.area == 1}> 台灣地區 <{else}> 大陸地區 <{/if}> </span>
+			</td>
+		</tr>
+		<tr>
+			<td>性別</td>
+			<td>
+				<span><{if $aData.sex == 1}> 男 <{else}> 女 <{/if}> </span>
+			</td>
+		</tr>
+		<tr>
+			<td>身份證字號</td>
+			<td>
+				<span><{$aData.uid}></span>
+			</td>
+		</tr>
+		<tr>
+			<td>出生日期(年月日)</td>
+			<td>
+				<span><{$aData.birthday}></span>
+			</td>
+		</tr>
+		<tr>
+			<td>行動電話</td>
+			<td>
+				<span><{$aData.phone}></span>
+			</td>
+		</tr>
+		<tr>
+			<td>通訊地址</td>
+			<td>
+				<span><{$aData.address}></span>
+			</td>
+		</tr>
+	</table>
+	<!-- <a href="./<{$web_index}>func=member&action=edit">修改會員基本資料</a> -->
+	<a href="./<{$web_index}>func=sign">音樂作品投稿</a>
+	<a href="./<{$web_index}>func=sign&action=edit">修改報名資料</a>
+	<a href="./<{$web_index}>func=member&action=logout">登出</a>
+</body>
+</html>

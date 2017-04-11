@@ -1,0 +1,84 @@
+<header class="header">
+    <div class="basic-wrp">
+        <{if $lang==1}>
+        <h1 class="brand"><a href="./<{$web_index}>"></a></h1>
+        <{else}>   
+        <h1 class="brand brand-cn"><a href="./<{$web_index}>"></a></h1>
+        <{/if}>
+	    <nav class="nav nav_top"> 
+	        <ul class="nav-wrp">
+	        	<li class="nav-unit nav-unit_1">
+	        	    <a class="basic-text"  href="./<{$web_index}>#controls"></a>
+        	        <span class="top">活動</span><span class="bottom">介紹</span>
+        	        <i class="fa fa-angle-down" aria-hidden="true"></i>
+	        	    <div class="nav-color-bg"></div>
+	        	</li>
+	        	<li class="nav-unit nav-unit_2">
+	        	    <a class="basic-text" href="./<{$web_index}>func=news"></a>
+	        	    <span class="top">最新</span><span class="bottom">消息</span>
+	        	    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <div class="nav-color-bg"></div>
+	        	</li>
+	        	<li class="nav-unit nav-unit_3">
+	        	    <a class="basic-text" href="./<{$web_index}>func=signup"></a>
+	        	    <span class="top">線上</span><span class="bottom">報名</span>
+	        	    <i class="fa fa-angle-down" aria-hidden="true"></i>
+	        	    <div class="nav-color-bg" ></div>
+	        	</li>
+	        	<li class="nav-unit nav-unit_4">
+	        	    <a class="basic-text" href="javascript:void(0);"></a>
+        	        <span class="top">作品</span><span class="bottom">票選</span>
+        	        <i class="fa fa-angle-down" aria-hidden="true"></i>
+	        	    <div class="nav-color-bg" ></div>
+	        	</li>
+	        	<li class="nav-unit nav-unit_5">
+	        	    <a class="basic-text" href="javascript:void(0);"></a>
+        	        <span class="top">年度</span><span class="bottom">決選</span>
+        	        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <div class="nav-color-bg" ></div>
+	        	</li>
+	        </ul>
+	    </nav>
+	    <div class="header-btn">
+	    	<div class="btn-group btn-login"><a href="">登入</a></div>
+	    	<div class="btn-group btn-trad"><a href="./<{$web_index}>lang=1">繁</a></div>
+	    	<div class="btn-group btn-simp"><a href="./<{$web_index}>lang=2">簡</a></div>
+	    </div>
+	    <div class="mb-btn">
+			<!--<div class="mb-login">
+		        登入/切換
+		    </div>-->
+		    <div class="mb-nav nav-burguer">
+			    <div class="nav-line"></div>
+			    <div class="nav-line"></div>
+			    <div class="nav-line"></div>
+			</div>
+	    </div>
+    </div>
+    <div class="mb-headerbg"></div>
+    <!-- 分析追蹤 須判斷語言頁面1＝TW 2=CN  -->
+    <{if $lang==1}>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-17661439-38', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+    <{else}>   
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-17661439-39', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+    <{/if}>
+    <!-- 分析追蹤 須判斷語言頁面1＝TW 2=CN  -->
+</header>

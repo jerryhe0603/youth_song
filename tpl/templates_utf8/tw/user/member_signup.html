@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>會員註冊</title>
+	<LINK href="./js/calendar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./js/calendar.js"></script>
+	<script type="text/javascript" src="./js/function.js"></script>
+	<!--js-->
+    <script type="text/javascript" src="./js/user/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		function checkLoginState() {
+    
+		    FB.login(function(response) {
+		      if (response.status === 'connected') {
+		         getInformation();
+		      }
+		    }, {scope: 'email'});
+
+		}
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : '329358327462376',
+			cookie     : true,  // enable cookies to allow the server to access 
+			                    // the session
+			xfbml      : true,  // parse social plugins on this page
+			version    : 'v2.8' // use graph api version 2.8
+			});
+		};
+
+		// Load the SDK asynchronously
+		
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		function getInformation() {
+   		 	FB.api('/me?fields=id,name,email', function(response) {
+    	
+	     		// $("#account").val(response.email);
+	     		$("#fb_account").val(response.email);
+	     		$("#account").val('');
+	     		$("#from_fb").val('1');
+	     		$("#form1").submit();
+	     	
+			});
+		}
+	</script>
+</head>
+<body>
+
+	<form  ENCTYPE="multipart/form-data" name=form1 id=form1 method="post" action="./<{$web_index}>func=member&action=member_signup">
+		<input type="hidden" name="token" id="token" value="<{$token}>" />
+		<input type="hidden" name="fb_account" id="fb_account" value="" />
+		<input type="hidden" name="from_fb" id="from_fb" value="0" />
+		<table>
+			<tr>
+				<td>註冊帳號</td>
+				<td>
+					<input id="account" name="account" type="text" placeholder="example@gmail.com">
+				</td>
+			</tr>
+			<tr>
+				<td>使用臉書帳號</td>
+				<td>
+					<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+				</td>
+			</tr>
+			<tr>
+				<td>設定密碼</td>
+				<td>
+					<input id="password" name="password" type="password"  placeholder="6-12位英數字">
+				</td>
+			</tr>
+			<tr>
+				<td>確認密碼</td>
+				<td>
+					<input id="confirm_password" name="confirm_password" type="password"  placeholder="6-12位英數字">
+				</td>
+			</tr>
+			
+		</table>
+		<button class="btn-trans btn-sign" type="submit">下一步</button>
+	</form>
+</body>
+</html>
+

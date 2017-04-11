@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!--basic-->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content="black" name="apple-mobile-web-app-capable">
+    <!--title-->
+	<title>青春頌-兩岸青年原創金曲大選</title>
+	<!--Copyright-->
+	<meta name="author" content="iwant-in Design Team">
+    <meta name="copyright" content="銀河互動網路 2016. 版權所有">
+    <!--SEO-->
+    <meta name="title" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <!--FB SEO-->
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <!--twitter SEO-->
+    <meta name="twitter:card" content="">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+    <!--css-->
+    <link rel="stylesheet" type="text/css"  href="http://mplus-fonts.sourceforge.jp/webfonts/basic_latin/mplus_webfonts.css">
+    <link rel="stylesheet" type="text/css"  href="http://mplus-fonts.sourceforge.jp/webfonts/general-j/mplus_webfonts.css">
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/news.css">
+    <link rel="stylesheet" href="./css/slick.css">
+    <link rel="stylesheet" href="./css/nanoScroller.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+<{if $lang==1}>
+<body>
+<{else}>
+<body class="cn">
+<{/if}> 
+	<{$header}>
+	<main class="main th-news">
+	    <h2 class="news-headline"><span>最</span><span>新</span><span>消</span><span>息</span></h2>
+        <div class="basic-wrp">
+        <{foreach from=$aNews item=news name = foo}>
+        	<{if $smarty.foreach.foo.iteration == 5 OR $smarty.foreach.foo.first ==true }>
+            <div class="news-row cf">
+            <{/if}>
+            	<div class="news-unit" no="<{$news.news_no}>">
+            	    <!-- 此處載入公告分類-->
+            	    <div class="news-topic">
+            	    	 <h3 class="news-title">
+                            <{if $news.type_name !=''}>
+            	    	 	    <{$news.type_name}><small>公告</small>
+                            <{/if}>
+            	    	 </h3>
+            	    	 <p class="news-date"><{$news.publish_date}></p>
+            	    </div>
+                    <!-- 此處載入單則新聞的預設圖片-->
+	        	    <div class="news-img"></div>
+	        	    <!-- 此處載入單則新聞的標題 (限制顯示20字+刪節號)-->
+	        	    <p class="news-text news-text--top"><{$news.title}></p>
+		        </div>
+                <div class="news-unit unit-dark" no="0">
+                    <div class="news-topic"><h3 class="news-title">Coming<br>Soon</h3></div>
+                    <div class="news-img"></div>
+                    <p class="news-text news-text--top"></p>
+                </div>
+                <div class="news-unit unit-dark" no="0">
+                    <div class="news-topic"><h3 class="news-title">Coming<br>Soon</h3></div>
+                    <div class="news-img"></div>
+                    <p class="news-text news-text--top"></p>
+                </div>
+                <div class="news-unit unit-dark" no="0">
+                    <div class="news-topic"><h3 class="news-title">Coming<br>Soon</h3></div>
+                    <div class="news-img"></div>
+                    <p class="news-text news-text--top"></p>
+                </div>
+          	<{if $smarty.foreach.foo.iteration ==4 OR $smarty.foreach.foo.last ==true }>
+          	</div>
+          	<{/if}> 
+        <{/foreach}>
+            <div class="news-control">
+                <div class="ctrl-left"></div>
+                <div class="ctrl-right"></div>
+            </div>
+       	</div>
+        
+	</main>
+	<{$footer}>
+    <div class="popout">
+        <div id="carousel" class="noselect">
+        <{foreach from=$aNews item=news name = foo}>
+        	<div class="popout-unit cloud9-item " id="<{$news.news_no}>" data-news="">
+        		<div class="pop-title">
+                    <{if $news.type_name !=''}>
+        			     <span><{$news.type_name}></span><small><span>公告</span></small>
+                    <{/if}>
+        		</div>
+        		<div class="pop-content">
+        			<h3><{$news.title}></h3>
+                    <p class="pop-date"><{$news.publish_date}></p>
+                    <div id="pop-detail" class="pop-detail nano has-scrollbar">
+                        <div class="nano-content overthrow description">
+                            <p><{$news.description|nl2br}></p>
+                        </div>
+                    </div>
+        		</div>
+        		<div class="pop-exit nav-burguer--small">
+        		    <div class="pop-line"></div>
+        		    <div class="pop-line"></div>
+        		</div>
+        	</div>
+        <{/foreach}>
+        <div id="buttons" class="changeDirect">
+          <div class="d-left">
+            <i class="fa fa-angle-left fa-3x"></i>
+          </div>
+          <div class="d-right">
+            <i class="fa fa-angle-right fa-3x"></i>
+          </div>
+        </div>
+        </div>
+    </div>
+    <div class="popbg"></div>
+    </div>
+	
+    <script sync src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://use.fontawesome.com/29492048ee.js"></script>
+    <script src="./js/jquery.cloud9carousel.js"></script>
+    <script src="./js/overthrow.min.js"></script>
+    <script src="./js/nanoScroller.min.js"></script>
+    <script src="./js/news.js"></script>
+    <script src="./js/scrollToSpe.js"></script>
+	<script>
+
+         $(function() {
+            var showcase = $("#carousel");
+            var popupL = $('.popout-unit').length;
+            var setO = popupL - 3;
+
+            showcase.Cloud9Carousel( {
+                yOrigin: 15 + (10*setO),
+                yRadius: -15 - (10*setO),
+                xRadius: 300 + (40*setO),
+                farScale: 0.9 - (0.08*setO),
+                itemClass: "popout-unit",
+                buttonLeft: $("#buttons .d-left"),
+                buttonRight: $("#buttons .d-right"),
+                onLoaded: function() {
+                    showcase.css( 'visibility', 'visible' )
+                    showcase.css( 'display', 'none' )
+                    showcase.fadeIn( 1500 )
+                }
+            });
+        });
+
+        var popupL = $('.popout-unit').length;
+
+        if (popupL = 1) {
+            $("#buttons .d-left").hide();
+            $("#buttons .d-right").hide();
+        } else {
+            $("#buttons .d-left").show();
+            $("#buttons .d-right").show();
+        }
+       
+
+        $('.popout-unit').each(function() {
+            $(this).attr('data-news',$(this).index()+1);
+
+        });
+
+        $('.news-unit').each(function() {
+            var x = $(this).attr('no');
+            if ( x == 0 ) {
+                $(this).removeClass('news-useful');
+            } else {
+                $(this).addClass('news-useful');
+            }
+
+        });
+            
+        $('.news-unit').click(function(event) {
+            var indexUnit = $('.news-unit').index(this);
+            var popupW = $('.popout-unit').width();
+            var popupL = $('.popout-unit').length;
+        
+            $('.popout-unit[data-news='+ (indexUnit+1) +']').addClass('showNow').siblings().removeClass('showNow');
+            $("#carousel").data("carousel").goTo(indexUnit);
+            $('.changeDirect').css({'width':popupW+75});
+            $(".nano").nanoScroller({preventPageScrolling: true});
+        });
+
+
+        $('.d-left').click(function(event) {
+            var indexShow = $('.showNow').attr('data-news');
+            var showNum = parseInt(indexShow);
+            $('.popout-unit[data-news='+ (showNum) +']').removeClass('showNow');
+            if (showNum == popupL) {
+                $('.popout-unit[data-news="1"]').addClass('showNow');
+            } else {
+                $('.popout-unit[data-news='+(showNum+1)+']').addClass('showNow');
+            }
+        });
+        $('.d-right').click(function(event) {
+            var indexShow = $('.showNow').attr('data-news');
+            var showNum = parseInt(indexShow);
+            $('.popout-unit[data-news='+ (showNum) +']').removeClass('showNow');
+            if (showNum == 1) {
+                $('.popout-unit[data-news="'+popupL+'"]').addClass('showNow');
+            } else {
+                $('.popout-unit[data-news='+(showNum-1)+']').addClass('showNow');
+            }
+        });
+        
+
+		$( document ).ready(function(){
+
+            var last = "<{$iLastPage}>";
+            var next = "<{$iNextPage}>";
+
+            if(last != "disabled"){
+                $(".ctrl-left").attr('onclick','').click( eval(function(){page(last)}))
+            }
+
+            if(next != "disabled"){
+                $(".ctrl-right").attr('onclick','').click( eval(function(){page(next)}))
+            }
+
+        })
+
+        function page(pg){
+            location.href = "./<{$web_index}>func=news&page="+pg;
+        }
+
+
+		
+
+	</script>
+
+</body>
+</html>
